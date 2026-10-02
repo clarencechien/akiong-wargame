@@ -28,6 +28,13 @@ export function sampleParams(rng: Rng): SampledParams {
   return out;
 }
 
+/** 全部取眾數（value），不抽樣；開局前評估與情報評估用，保證與 UI 顯示一致。 */
+export function modeParams(): SampledParams {
+  const out: SampledParams = {};
+  for (const p of PARAM_DEFS) out[p.id] = p.value;
+  return out;
+}
+
 /** 取參數；不存在就丟錯，避免靜默用 undefined。 */
 export function P(params: SampledParams, id: string): number {
   const v = params[id];
