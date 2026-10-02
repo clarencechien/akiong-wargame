@@ -1,5 +1,5 @@
 {
-  "note": "寫手批次 2026-10-02，900 句，全部 approved:false；審過後 npm run voices:promote -- --in data/_candidates/voice-templates.2026-10-02.candidates.json --all",
+  "note": "寫手批次 2026-10-02，900 句。審稿狀態：審過 90 句（10%，分層隨機抽檢，seed 20261002，逐句看兩岸用語、字數、槽位、是否點名真人、像不像人話），沒審 810 句（90%）。抽檢結果：89 句直接過、1 句修字（馬尼拉仲介「大使館」→「辦事處」）、0 句退回；另全檔機械檢查兩岸用語混用 0、簡體字 0、超過 60 字 0。只搬審過的：npm run voices:promote -- --in data/_candidates/voice-templates.2026-10-02.candidates.json；整檔視為核准：加 --all。",
   "candidates": [
     {
       "personaId": "pingtan-marine-corporal",
@@ -41,7 +41,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "pingtan-marine-corporal",
@@ -285,7 +285,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beachhead-combat-engineer",
@@ -434,7 +434,7 @@
       "tone": "靜默",
       "text": "全營進入靜默，手機收走了，鎖在連部的鐵櫃裡。鐵櫃一整天都在震動。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "fuqing-signals-corporal",
@@ -499,7 +499,7 @@
           50
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "shantou-drone-operator",
@@ -645,7 +645,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "roro-deckhand-shandong",
@@ -825,7 +825,7 @@
           999999
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beachhead-amphibious-ifv-commander",
@@ -838,7 +838,7 @@
           999999
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beachhead-amphibious-ifv-commander",
@@ -992,7 +992,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-wharf-military-police",
@@ -1472,7 +1472,7 @@
       "tone": "另行通知",
       "text": "航行警告發了一條又一條，海區越劃越大。民船問什麼時候解除，我照本宣科：另行通知。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-msa-duty-commander",
@@ -1511,7 +1511,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-msa-duty-commander",
@@ -1610,7 +1610,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beijing-soe-procurement-director",
@@ -1811,7 +1811,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "ningde-battery-worker",
@@ -1908,7 +1908,7 @@
       "tone": "送單",
       "text": "送到營區門口，不讓進，東西放門衛。小兵出來拿，問我外面怎麼樣，我說還行，堵車。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "fuzhou-delivery-rider",
@@ -1976,7 +1976,7 @@
       "tone": "嘴碎",
       "text": "環島路晚上不讓走了，卡口的兵是北方口音。他叫我繞行，我說我開了二十年，他說繞行。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-taxi-driver",
@@ -2002,7 +2002,7 @@
           3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-taxi-driver",
@@ -2083,7 +2083,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "shantou-trawler-captain",
@@ -2096,7 +2096,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "ningbo-port-trucker",
@@ -2125,7 +2125,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "ningbo-port-trucker",
@@ -2172,7 +2172,7 @@
       "tone": "不許拍",
       "text": "廠區後面的空地停了幾十台軍車，蓋著網。老闆說不許拍，拍了手機沒收。沒人拍。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "quanzhou-stone-worker",
@@ -2376,7 +2376,7 @@
       "tone": "算飼料",
       "text": "飼料一噸漲八百，供應商說原料從外面進不來。塘裡的蝦還要四十天才能起，一天都不能少吃。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "zhanjiang-shrimp-farmer",
@@ -2588,7 +2588,7 @@
       "tone": "灰掉",
       "text": "發往廈門和福州的件停收，系統直接灰掉。客戶來問，我指屏幕給他看，他說那我的貨呢。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "jinjiang-courier-station",
@@ -2784,7 +2784,7 @@
       "tone": "問回來不",
       "text": "外孫女在廈門電子廠，視頻裡說廠還開著。我問那邊聽得見聲音不，她說姥姥你別看那些。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "harbin-grandmother",
@@ -2980,7 +2980,7 @@
           50
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "zhengzhou-primary-teacher",
@@ -2988,7 +2988,7 @@
       "tone": "畫畫",
       "text": "上面要求每週一節主題班會。我讓孩子們畫畫，畫出來全是船和飛機，有個孩子畫了個很小的人在海裡。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "zhengzhou-primary-teacher",
@@ -3048,7 +3048,7 @@
           55
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "chongqing-nurse",
@@ -3213,7 +3213,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "qingdao-navy-compound-neighbor",
@@ -3268,7 +3268,7 @@
       "tone": "一個字",
       "text": "兒子在福建開卡車，上個月還發視頻，說那邊的麵不好吃。這個月只發了一個字：忙。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "lanzhou-halal-restaurant",
@@ -3281,7 +3281,7 @@
           2
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "lanzhou-halal-restaurant",
@@ -3443,7 +3443,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-restaurant-chain-owner",
@@ -3472,7 +3472,7 @@
       "tone": "貨櫃",
       "text": "出貨的貨櫃卡在太倉港三天，船公司說航線重排。線上還在生產，倉庫快滿了。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "kunshan-plant-director",
@@ -3579,7 +3579,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "chengdu-tw-teacher",
@@ -3592,7 +3592,7 @@
           3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "shanghai-tw-lawyer",
@@ -3744,7 +3744,7 @@
       "tone": "買水",
       "text": "同事傳訊息問我還好嗎，附一張他家樓下超市搶購的照片。我回還好，然後也下樓去買水。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "shenzhen-startup-tw",
@@ -4165,7 +4165,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "matsu-grocer",
@@ -4259,7 +4259,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "penghu-bnb-owner",
@@ -4292,7 +4292,7 @@
       "tone": "空的班表",
       "text": "引水站的班表上，名字一個一個劃掉，不是請假，是沒船可引。三十年沒看過空的表。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "keelung-harbor-pilot",
@@ -4318,7 +4318,7 @@
           0.7
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "keelung-harbor-pilot",
@@ -4471,7 +4471,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "taipei-delivery-rider",
@@ -4620,7 +4620,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "hsinchu-village-chief",
@@ -4649,7 +4649,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "hsinchu-village-chief",
@@ -4764,7 +4764,7 @@
       "tone": "看海巡",
       "text": "海巡貼公告說漁船不准出港，攤子上賣的是前天的魚。熟客問明天還有沒有，我說看海巡。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "donggang-fish-stall-owner",
@@ -4853,7 +4853,7 @@
           3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "tainan-gas-station-worker",
@@ -4934,7 +4934,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "taitung-tribal-youth",
@@ -5044,7 +5044,7 @@
       "tone": "算船票",
       "text": "町長問船票夠不夠，我說夠，是我算的。算的時候把牛和馬也算進去，沒人笑。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "yonaguni-town-clerk",
@@ -5096,7 +5096,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "naha-taxi-driver",
@@ -5240,7 +5240,7 @@
       "tone": "例行",
       "text": "他週二出海，說是例行的。例行的不會半夜兩點打包，也不會把保險單放在餐桌上。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "yokosuka-navy-spouse",
@@ -5402,7 +5402,7 @@
           3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "jeju-hairtail-fisherman",
@@ -5531,14 +5531,14 @@
       "personaId": "manila-ofw-agency",
       "stage": 2,
       "tone": "電話",
-      "text": "在台灣的人開始問怎麼回來。我說大使館會安排，說完才發現我不知道電話幾號。",
+      "text": "在台灣的人開始問怎麼回來。我說辦事處會安排，說完才發現我不知道電話幾號。",
       "requires": {
         "phaseIndex": [
           2,
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "manila-ofw-agency",
@@ -5624,7 +5624,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "batanes-store-wife",
@@ -5833,7 +5833,7 @@
           -0.2
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "macau-baccarat-dealer",
@@ -5987,7 +5987,7 @@
           3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "dubai-tanker-owner",
@@ -6016,7 +6016,7 @@
       "tone": "在路上",
       "text": "線上的女工問為什麼今天沒有料，我說在路上。她們信了，我自己沒信。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "mumbai-phone-assembly-supervisor",
@@ -6076,7 +6076,7 @@
       "tone": "零件",
       "text": "班長說下週只上三天，原因是「零件」。我爺爺那年代的零件是鋼，現在是指甲大的東西。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "detroit-line-worker",
@@ -6293,7 +6293,7 @@
       "tone": "極限",
       "text": "總部要我們把產能拉到極限。極限是去年說「不可能」的那條線。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "phoenix-fab-us-engineer",
@@ -6345,7 +6345,7 @@
           0.4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "sv-hardware-founder",
@@ -6447,7 +6447,7 @@
           0.5
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "tijuana-maquila-manager",
@@ -6460,7 +6460,7 @@
           0.6
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "tijuana-maquila-manager",
@@ -6554,7 +6554,7 @@
           0.3
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "sydney-iron-ore-exporter",
@@ -6596,7 +6596,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "sydney-iron-ore-exporter",
@@ -6719,7 +6719,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "hsinchu-airbase-wife",
@@ -6923,7 +6923,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "keelung-coastguard-volunteer",
@@ -6970,7 +6970,7 @@
       "tone": "氣象圖",
       "text": "我每天看浪高和氣壓圖看了十五年，第一次覺得這張圖不只是我在看。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "yilan-surf-shop-owner",
@@ -7038,7 +7038,7 @@
       "tone": "摺衣服",
       "text": "孫子的召集令寄來，我幫他把衣服摺好。他說阿婆不用，我說摺了才像出門。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "miaoli-hakka-grandma",
@@ -7114,7 +7114,7 @@
       "tone": "站遠一點",
       "text": "停機坪上停了一排沒油的飛機。主管說先別靠近，我不懂為什麼，就站遠一點看。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "taoyuan-airport-ground-crew",
@@ -7242,7 +7242,7 @@
       "tone": "像下雨",
       "text": "出港第九天沒見過太陽。耳機裡全是咱們自己船的螺旋槳聲，密得像下雨。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "submarine-sonar-operator",
@@ -7289,7 +7289,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "submarine-sonar-operator",
@@ -7396,7 +7396,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "huangqi-militia-fishing-boat",
@@ -7537,7 +7537,7 @@
       "tone": "不管那個",
       "text": "飛一趟六個小時，落地腿是麻的。機長說今天幹得好，我問打中沒，他說咱們不管那個。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "wuhu-ew-aircraft-crew",
@@ -7623,7 +7623,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beachhead-engineer-platoon-leader",
@@ -7708,7 +7708,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "zhoushan-shipyard-welder",
@@ -7828,7 +7828,7 @@
       "tone": "等等看",
       "text": "中東客戶的訂單一夜之間全暫停，發來的信息就一句：等等看。我的貨已經在倉庫了。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "yiwu-small-goods-shopkeeper",
@@ -7964,7 +7964,7 @@
       "tone": "數畢業照",
       "text": "教了三十年書，班上總有幾個去當兵的。這幾天我把畢業照翻出來，一個一個數。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "beijing-retired-teacher",
@@ -8134,7 +8134,7 @@
           2
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "qiandongnan-leftbehind-grandma",
@@ -8168,7 +8168,7 @@
       "tone": "多一欄",
       "text": "上面要全省台資企業名單，三天內報。名單我有，這次要的欄位多了一欄：人員去向。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "hainan-taiwan-affairs-cadre",
@@ -8215,7 +8215,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "hainan-taiwan-affairs-cadre",
@@ -8244,7 +8244,7 @@
       "tone": "先加滿油",
       "text": "居民問我會不會停水停電。我說不會。回辦公室我讓人把備用發電機的油先加滿。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-subdistrict-director",
@@ -8257,7 +8257,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-subdistrict-director",
@@ -8385,7 +8385,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "pla-private-73ga",
@@ -8517,7 +8517,7 @@
       "tone": "專業",
       "text": "起飛前機務塞給我一包瓜子，說回來吃。我把瓜子放在腿袋裡，整趟沒想起來。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "pla-pilot-eastern",
@@ -8931,7 +8931,7 @@
           4
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "kunshan-second-gen",
@@ -8989,7 +8989,7 @@
           0.5
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "dongguan-boss",
@@ -9013,7 +9013,7 @@
       "tone": "看過風浪",
       "text": "鎮上打電話叫我去開會，說是「穩定座談」。到了發現台商只剩我一個，其他都是幹部。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "dongguan-boss",
@@ -9139,7 +9139,7 @@
       "tone": "匯款",
       "text": "我把應收帳款印出來，一筆一筆打電話催。接電話的都說他們也在等別人的錢。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "suzhou-tw-accountant",
@@ -9220,7 +9220,7 @@
           2
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "fuzhou-party-secretary",
@@ -9262,7 +9262,7 @@
       "tone": "口徑",
       "text": "今晚的頭條配圖要「有氣勢」。庫裡的圖都是演習的，我挑了一張雲比較多的。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "state-media-editor",
@@ -9369,7 +9369,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "xiamen-auxiliary-police",
@@ -9560,7 +9560,7 @@
           1
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "henan-old-father",
@@ -9747,7 +9747,7 @@
       "tone": "旺季",
       "text": "町公所發了避難手冊，每戶一本。我翻到最後一頁，寫著「請冷靜」，字很大。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "ishigaki-guesthouse",
@@ -9879,7 +9879,7 @@
       "tone": "海上多了大船",
       "text": "島上的雜貨店老闆說汽油要漲，先漲了一倍。我們合夥的三個人湊了錢，加了半桶。",
       "requires": {},
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "manila-fisherman",
@@ -10265,7 +10265,7 @@
           999999
         ]
       },
-      "approved": false
+      "approved": true
     },
     {
       "personaId": "linkou-reservist",

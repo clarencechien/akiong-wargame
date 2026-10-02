@@ -74,7 +74,7 @@ HANDOFF 把窗口寫成「剩餘可用海況天數」倒數。實作改成兩態
 
 與 HANDOFF §6 偽碼的差別：偽碼把 `maybeVoice` 放在每個 tick 裡；事後抽樣的可觀察結果相同（同 seed 同句、同一條事件流），但能保證數量與階段覆蓋。
 
-正式模板檔 `data/voice-templates.json` 只收人工審過的句子；LLM 候選在 `data/_candidates/*.candidates.json`，流程見 `scripts/gen-templates/README.md`。寫手批次用 `scripts/merge-voice-batches.ts` 合併（人物直接進 `personas.json`，句子進候選檔）。
+正式模板檔 `data/voice-templates.json` 只收人工審過的句子；LLM 候選在 `data/_candidates/*.candidates.json`，流程見 `scripts/gen-templates/README.md`。寫手批次用 `scripts/merge-voice-batches.ts` 合併（人物直接進 `personas.json`，句子進候選檔）。 2026-10-02 批次 900 句：分層隨機抽 10%（90 句）逐句審，89 句過、1 句修字、0 句退回，審過的標 `approved: true`；其餘 810 句（90%）未審。全檔機械檢查：兩岸用語混用 0、簡體字 0、超長 0。比例寫在候選檔的 `note`。
 
 重複度用 `npm run voices:stats`（1,000 個隨機 seed、8 組假設）量：「連玩第 k 局時，看過的句子比例」。1.0（30 人 90 句）：第 2 局 60%、第 10 局 94%；1.1（150 人 990 句 + 名額與權重調整）：第 2 局 7%、第 10 局 46%。寫手當時把 `seaClosed` 當「海區封鎖」用（引擎裡它是「本月好天用罄」），合併時改成 `phaseIndex ≥ 1`；`priceIndex` 全程最高只到 1.2 左右，門檻 1.15／1.2 改成 1.05／1.08；`supplyDays ≤ n` 在登陸前恆成立，補上 `troopsAshore ≥ 1`。
 
