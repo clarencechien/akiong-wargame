@@ -116,6 +116,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .vc.amber { border-left-color: #D9A441; }
 .vc.ok { border-left-color: #9DB4D0; }
 .vc.latest { outline: 1px solid #2E4A6B; }
+.vc.voice { background: #121F33; }
+.vc.voice .say { font-family: var(--serif); }
 .who { font-size: 11px; letter-spacing: .08em; color: #9DB4D0; }
 .say { font-size: 13px; line-height: 19px; color: #E8EEF5; }
 .timeline { display: flex; align-items: center; gap: 16px; padding: 14px 40px 18px; flex-wrap: wrap; }

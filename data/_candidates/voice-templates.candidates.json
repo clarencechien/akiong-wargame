@@ -1,0 +1,1016 @@
+{
+  "note": "LLM 生成的候選（2026-10-02，開發期由 Claude 直接撰寫，未經人工審稿）。審稿方式：逐句把 approved 改為 true，或刪掉；然後 npm run voices:promote。規則：不寫具名真實人物、不寫血腥細節、台灣正體中文、每句 ≤ 60 字；聲音的力量來自平常。",
+  "generatedBy": "claude（session 2026-10-02）",
+  "candidates": [
+    {
+      "personaId": "pla-private-73ga",
+      "stage": 1,
+      "tone": "短、具體",
+      "text": "船上第三天。班長說到了再說，沒人問到了哪裡。我把手機關了，省電。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "pla-private-73ga",
+      "stage": 2,
+      "tone": "家書",
+      "text": "家書：「廠裡沒發薪，你爸的藥先停了。你那邊不用寄錢回來，顧好自己。」",
+      "requires": {
+        "coastalShutdown": [
+          0.05,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "pla-private-73ga",
+      "stage": 3,
+      "tone": "不談大局",
+      "text": "{day}，灘上還是我們這一批。後面的船沒來，排長說天氣。我信他。",
+      "requires": {
+        "troopsAshore": [
+          1,
+          999999
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "roro-chief-engineer",
+      "stage": 1,
+      "tone": "務實",
+      "text": "交通局來人說船徵用兩個月。這船跑了十二年渤海，從沒進過台灣海峽。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "roro-chief-engineer",
+      "stage": 2,
+      "tone": "算船",
+      "text": "車庫甲板裝了兩百台車，吃水比平常深半公尺。浪一大，門就會進水。這我說了沒人聽。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "roro-chief-engineer",
+      "stage": 3,
+      "tone": "認命",
+      "text": "{day}，同隊的船少了 {ships} 艘。沒人發通知，就是頻道裡少了幾個聲音。",
+      "requires": {
+        "fleetLoss": [
+          0.05,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "pla-pilot-eastern",
+      "stage": 1,
+      "tone": "專業",
+      "text": "第一天出了四趟。對面的雷達關了又開，像在躲。我們也在躲。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "pla-pilot-eastern",
+      "stage": 2,
+      "tone": "疲憊",
+      "text": "{day}。中隊少了三架，兩架是降落時出的事。沒人提，大家都在睡覺。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "pla-pilot-eastern",
+      "stage": 3,
+      "tone": "不說輸",
+      "text": "美軍來了以後，塔台要我們不要超過中線以東。沒人說為什麼，也沒人問。",
+      "requires": {
+        "usEngaged": [
+          1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "landing-craft-coxswain",
+      "stage": 1,
+      "tone": "浪",
+      "text": "第一趟。浪一公尺半，艇上三十個人吐了二十個。到灘頭時他們還得跑。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "landing-craft-coxswain",
+      "stage": 2,
+      "tone": "數人頭",
+      "text": "{day}。來回第五趟，載過去的比載回來的多很多。回程載的是傷的。",
+      "requires": {
+        "troopsAshore": [
+          1,
+          999999
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "landing-craft-coxswain",
+      "stage": 3,
+      "tone": "沒時間想",
+      "text": "海況轉差，大船起錨走了。我們這幾條艇留在灘頭外面，等天亮再說。",
+      "requires": {
+        "seaGood": [
+          0,
+          0
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-lineleader-henan",
+      "stage": 1,
+      "tone": "算帳",
+      "text": "老闆跑了沒我不知道，但這個月薪水是真的沒了。老家問我要不要回去，回去幹嘛？",
+      "requires": {
+        "coastalShutdown": [
+          0.05,
+          0.5
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-lineleader-henan",
+      "stage": 2,
+      "tone": "問那我怎麼辦",
+      "text": "線上還剩十幾個人，做的是上個月的單。台幹說款匯不過來，那我們的錢在哪裡？",
+      "requires": {
+        "twBusinessPayroll": [
+          0,
+          0.8
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-lineleader-henan",
+      "stage": 3,
+      "tone": "麻木",
+      "text": "{day}，廠區停工 {amount}。我把宿舍鑰匙交了，火車票比平常貴三倍。",
+      "requires": {
+        "coastalShutdown": [
+          0.3,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "quanzhou-fisherman",
+      "stage": 1,
+      "tone": "看海",
+      "text": "港口貼了禁漁通知，說是演習。灰色的船一排一排停在外面，比演習多太多了。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "quanzhou-fisherman",
+      "stage": 2,
+      "tone": "算油錢",
+      "text": "船停了四十天，油錢和貸款不會停。村裡有人去幫軍方開小艇，一天五百，沒人說去了哪裡。",
+      "requires": {
+        "day": [
+          -2,
+          99
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "quanzhou-fisherman",
+      "stage": 3,
+      "tone": "不敢問",
+      "text": "{day}，去幫忙開艇的那幾個還沒回來。他們家裡的人到碼頭看了幾次，沒人敢問。",
+      "requires": {
+        "fleetLoss": [
+          0.1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "roro-owner-bohai",
+      "stage": 1,
+      "tone": "算船",
+      "text": "三條船被徵用，一條都沒剩。通知上寫補償依規定，規定在哪裡沒寫。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "roro-owner-bohai",
+      "stage": 2,
+      "tone": "保險",
+      "text": "保險公司說戰爭險不理賠。我打電話問船在哪裡，對方說這是軍事機密。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "roro-owner-bohai",
+      "stage": 3,
+      "tone": "沉默",
+      "text": "{day}，有人傳來照片，是我的船，側著。我把照片刪了，沒跟家裡說。",
+      "requires": {
+        "fleetLoss": [
+          0.2,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-port-crane",
+      "stage": 1,
+      "tone": "看港口",
+      "text": "本來一班接一班的船，現在一天來兩艘，都是空的。吊車停著，我們坐在底下抽菸。",
+      "requires": {
+        "shippingReroute": [
+          0.3,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-port-crane",
+      "stage": 2,
+      "tone": "算班次",
+      "text": "調度說外國船都改走呂宋那邊了。我問改多久，他說問上面。上面沒人在。",
+      "requires": {
+        "shippingReroute": [
+          0.5,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-port-crane",
+      "stage": 3,
+      "tone": "等通知",
+      "text": "{day}，港區貼了輪休通知，一個月做十天。老婆問我是不是要回老家，我沒回答。",
+      "requires": {
+        "coastalShutdown": [
+          0.2,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "kunshan-second-gen",
+      "stage": 1,
+      "tone": "夾在中間",
+      "text": "三千個員工等我發薪，我的錢在台灣的銀行，匯不過來。兩邊的銀行都說要等通知。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "kunshan-second-gen",
+      "stage": 2,
+      "tone": "兩邊都不是自己人",
+      "text": "這邊的人問我是不是要跑。台灣的人問我為什麼還不跑。我爸三十年前來的，廠就是家。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "kunshan-second-gen",
+      "stage": 3,
+      "tone": "算現金",
+      "text": "{day}，現金撐不到月底。我請員工先回家，說復工會通知。大家都知道這句話的意思。",
+      "requires": {
+        "twBusinessPayroll": [
+          0,
+          0.5
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-boss",
+      "stage": 1,
+      "tone": "老江湖",
+      "text": "九六年我在這裡，零八年我也在。那幾次是客人不下單，這次是工人不能來。不一樣。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-boss",
+      "stage": 2,
+      "tone": "看過風浪",
+      "text": "鎮上的幹部來喝茶，說請台商朋友放心。他喝完茶沒走，問我能不能先發兩個月薪水。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "dongguan-boss",
+      "stage": 3,
+      "tone": "這次不一樣",
+      "text": "{day}。做鞋三十年，第一次把機器蓋上帆布。帆布是以前颱風用的。",
+      "requires": {
+        "coastalShutdown": [
+          0.3,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-tw-manager",
+      "stage": 1,
+      "tone": "機票",
+      "text": "公司群組問要不要先回台灣。回去的機票一張四萬，還不一定飛。我先訂了，沒跟老婆說。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-tw-manager",
+      "stage": 2,
+      "tone": "群組",
+      "text": "台幹群組一夜之間少了一半人，退群的。留下來的人開始只貼天氣。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-tw-manager",
+      "stage": 3,
+      "tone": "回不回去",
+      "text": "{day}，航班全停。總部問我需不需要協助撤離，我問撤去哪裡，他們沒回。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "suzhou-tw-accountant",
+      "stage": 1,
+      "tone": "報表",
+      "text": "帳上的錢是台灣母公司的，匯款單被退了三次。理由欄寫「暫停辦理」。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "suzhou-tw-accountant",
+      "stage": 2,
+      "tone": "匯款",
+      "text": "我把薪資表拆成三份，先發本地員工的。台幹的先欠著，他們懂。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "suzhou-tw-accountant",
+      "stage": 3,
+      "tone": "撐幾個月",
+      "text": "{day}。算了三遍，現金撐到下個月十五號。老闆問我有沒有辦法，我說有，叫停戰。",
+      "requires": {
+        "twBusinessPayroll": [
+          0,
+          0.4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "fuzhou-party-secretary",
+      "stage": 1,
+      "tone": "內部通報",
+      "text": "內部通報：「港口徵用民船後，沿海漁業停擺；請各區做好群眾情緒疏導。」",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "fuzhou-party-secretary",
+      "stage": 2,
+      "tone": "字裡行間",
+      "text": "通報：「部分台資企業出現欠薪，涉及人數較多；請妥善處置，避免形成聚集。」",
+      "requires": {
+        "twBusinessPayroll": [
+          0,
+          0.8
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "fuzhou-party-secretary",
+      "stage": 3,
+      "tone": "有事",
+      "text": "{day} 通報：「沿海停工 {amount}；請各區嚴格執行信息管理，不得傳播未經核實的傷亡數字。」",
+      "requires": {
+        "coastalShutdown": [
+          0.25,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "state-media-editor",
+      "stage": 1,
+      "tone": "口徑",
+      "text": "今天的口徑：進展順利、敵方頑抗、群眾支持。三個詞用了一整天，排列組合。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "state-media-editor",
+      "stage": 2,
+      "tone": "刪稿",
+      "text": "刪了一篇記者發回來的稿，寫碼頭上家屬在等船。上面說這不是重點。我也覺得不是，所以刪得很快。",
+      "requires": {
+        "fleetLoss": [
+          0.05,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "state-media-editor",
+      "stage": 3,
+      "tone": "自己也在猜",
+      "text": "{day}，新口徑：「階段性目標」。沒人解釋是哪個階段，我們自己猜，猜完寫成確定句。",
+      "requires": {
+        "morale": [
+          0,
+          55
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-auxiliary-police",
+      "stage": 1,
+      "tone": "執勤",
+      "text": "沿海路口設了檢查站，說是防間諜。查的都是騎電動車上班的人，跟我一樣的外地人。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-auxiliary-police",
+      "stage": 2,
+      "tone": "排查",
+      "text": "上面要我們排查「有台灣親屬的人員」。名單很長，我自己的表姊夫就在上面。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "xiamen-auxiliary-police",
+      "stage": 3,
+      "tone": "也是外地人",
+      "text": "{day}，工廠停工的人聚在勞動局外面。隊長叫我們別動，站著就好。我站著，看見同鄉。",
+      "requires": {
+        "coastalShutdown": [
+          0.2,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "county-propaganda-cadre",
+      "stage": 1,
+      "tone": "稿子",
+      "text": "寫了一篇「全縣人民堅定支持」。寫到一半停電，發電機是給醫院的。我用手機寫完。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "county-propaganda-cadre",
+      "stage": 2,
+      "tone": "群眾情緒",
+      "text": "村裡有人家裡掛起了白布。鄉里要我們去「做工作」。我去了，站在門口，沒進去。",
+      "requires": {
+        "fleetLoss": [
+          0.1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "county-propaganda-cadre",
+      "stage": 3,
+      "tone": "自己先信",
+      "text": "{day}。新稿子要寫「勝利在望」。我寫了，讀了一遍，再讀一遍，想讓自己先信。",
+      "requires": {
+        "morale": [
+          0,
+          50
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-mother",
+      "stage": 1,
+      "tone": "新聞說一切順利",
+      "text": "兒子在 73 軍。新聞說一切順利，可他三天沒回訊息了。他以前每天都會傳一張飯菜的照片。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-mother",
+      "stage": 2,
+      "tone": "沒回訊息",
+      "text": "我去了部隊的家屬接待處。接待的人很客氣，說都在前線，都很好。他沒看我。",
+      "requires": {
+        "troopsArrived": [
+          1,
+          999999
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "shanghai-mother",
+      "stage": 3,
+      "tone": "等",
+      "text": "{day}。我把他的房間打掃了一遍，床單換了。新聞還在說順利，我把電視關了。",
+      "requires": {
+        "fleetLoss": [
+          0.2,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "henan-old-father",
+      "stage": 1,
+      "tone": "不識字",
+      "text": "兒子在船上。電視說打贏了，鄰居說沒有。我不識字，只能聽，聽誰的？",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "henan-old-father",
+      "stage": 2,
+      "tone": "問鄰居",
+      "text": "村裡退伍的那個娃說，船沉了人就找不到了。我問他哪艘，他說他不知道，然後走了。",
+      "requires": {
+        "fleetLoss": [
+          0.25,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "henan-old-father",
+      "stage": 3,
+      "tone": "等電話",
+      "text": "{day}。我把手機充滿電放在炕頭，鈴聲開到最大。老伴說吃飯，我說等一下。",
+      "requires": {
+        "fleetLoss": [
+          0.35,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "chengdu-student",
+      "stage": 1,
+      "tone": "牆內牆外",
+      "text": "牆外說船沉了，牆內說大勝。宿舍裡兩派人吵，吵到後來誰也不說話，各自翻手機。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "chengdu-student",
+      "stage": 2,
+      "tone": "實習沒了",
+      "text": "秋招的台資公司全部取消。學長說去年他們還在搶人。我把履歷上那一行刪掉。",
+      "requires": {
+        "coastalShutdown": [
+          0.1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "chengdu-student",
+      "stage": 3,
+      "tone": "找資訊",
+      "text": "{day}，股市跌到停盤。室友的爸爸炒股，一夜白頭那種。他沒說，但他這幾天沒回家。",
+      "requires": {
+        "marketShock": [
+          -1,
+          -0.2
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "navy-wife-zhanjiang",
+      "stage": 1,
+      "tone": "家屬群",
+      "text": "家屬群裡有人問船的事，被管理員踢了。第二天那個人的頭像變成灰色的。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "navy-wife-zhanjiang",
+      "stage": 2,
+      "tone": "數船",
+      "text": "碼頭能看見回來的船，我每天去數。今天少了兩艘，我告訴自己是去別的港。",
+      "requires": {
+        "fleetLoss": [
+          0.15,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "navy-wife-zhanjiang",
+      "stage": 3,
+      "tone": "不准問",
+      "text": "{day}。有人來家裡，兩個人，穿制服。我沒開門，他們沒再敲。我知道他們還會來。",
+      "requires": {
+        "fleetLoss": [
+          0.3,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "ishigaki-guesthouse",
+      "stage": 1,
+      "tone": "旺季",
+      "text": "自衛隊叫我們往北撤。四月本來是旺季，我把下個月的訂房一間一間退了。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "ishigaki-guesthouse",
+      "stage": 2,
+      "tone": "戰爭不在我家",
+      "text": "島上的機場白天黑夜都有飛機。民宿的客人是記者，他們付現金，不住超過兩晚。",
+      "requires": {
+        "japanBases": [
+          1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "ishigaki-guesthouse",
+      "stage": 3,
+      "tone": "但已經在我家",
+      "text": "{day}。昨晚西邊天空亮了一下，不是閃電。今天早上漁港沒有一艘船出去。",
+      "requires": {
+        "usEngaged": [
+          1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "busan-container-dispatcher",
+      "stage": 1,
+      "tone": "班表",
+      "text": "台海的船都改走東邊，釜山一天多了三十艘等泊位。班表重排了四次，都是我排的。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "busan-container-dispatcher",
+      "stage": 2,
+      "tone": "改道",
+      "text": "每艘船多走三天，貨主在電話裡罵，罵完問下一班什麼時候。我說不知道，是真的不知道。",
+      "requires": {
+        "shippingReroute": [
+          0.6,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "busan-container-dispatcher",
+      "stage": 3,
+      "tone": "加班",
+      "text": "{day}。連續上班第十四天。老婆說家裡的冰箱空了，我說港口的也是，貨都在船上。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "manila-fisherman",
+      "stage": 1,
+      "tone": "海上多了大船",
+      "text": "海峽裡的大船多到數不完，全部往東走。我們的小船在旁邊，像路邊的狗。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "manila-fisherman",
+      "stage": 2,
+      "tone": "海巡趕人",
+      "text": "海巡來說北邊不能去了。北邊是我們的漁場。他說知道，但還是不能去。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "manila-fisherman",
+      "stage": 3,
+      "tone": "魚價",
+      "text": "{day}。市場的魚價翻了一倍，但我們沒有魚。有錢人買得起的時候，我們沒得賣。",
+      "requires": {
+        "shippingReroute": [
+          0.5,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "nyc-semiconductor-analyst",
+      "stage": 1,
+      "tone": "冷靜到不正常",
+      "text": "我們把台灣的產能寫成零，然後發現所有模型都算不出來了。不是跌多少，是沒有數字。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "nyc-semiconductor-analyst",
+      "stage": 2,
+      "tone": "供應鏈斷裂",
+      "text": "客戶問替代方案，我說亞利桑那的廠要三年。他說三年後他的公司還在嗎。我沒回答。",
+      "requires": {
+        "marketShock": [
+          -1,
+          -0.15
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "nyc-semiconductor-analyst",
+      "stage": 3,
+      "tone": "模型算不出來",
+      "text": "{day}。我把報告標題從「衝擊評估」改成「情境」。法務說這樣比較安全。什麼安全？",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "singapore-shipping-manager",
+      "stage": 1,
+      "tone": "保費",
+      "text": "戰爭險保費一夜之間漲了十倍，然後保險公司說暫停承保。船在海上，合約在桌上。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "singapore-shipping-manager",
+      "stage": 2,
+      "tone": "改道天數",
+      "text": "改走呂宋以東多四天，繞巴布亞多十一天。客戶要我選，我把兩個數字都寄過去，讓他們選。",
+      "requires": {
+        "shippingReroute": [
+          0.5,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "singapore-shipping-manager",
+      "stage": 3,
+      "tone": "合約",
+      "text": "{day}。第一份不可抗力通知寄出去了，接下來會有兩百份。法務部今晚不回家。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "munich-auto-buyer",
+      "stage": 1,
+      "tone": "庫存週數",
+      "text": "晶片庫存六週。我以為六週很多，直到採購會議上有人說「如果只有六週」。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "munich-auto-buyer",
+      "stage": 2,
+      "tone": "停線",
+      "text": "第二條線下週停。工會問停多久，廠長看我，我看供應商的郵件，郵件沒有回。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "munich-auto-buyer",
+      "stage": 3,
+      "tone": "找替代",
+      "text": "{day}。替代供應商的報價是原來的四倍，交期十八個月。我簽了，簽的時候手沒抖。",
+      "requires": {
+        "chipOutput": [
+          0,
+          0.3
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "taitung-fisherman",
+      "stage": 1,
+      "tone": "海巡不准出港",
+      "text": "海巡說東岸外海有潛艦，不准出港。我這一季的錢就在那條船上。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "taitung-fisherman",
+      "stage": 2,
+      "tone": "看天",
+      "text": "港裡的船一條挨一條。老人家說颱風天也沒這麼擠過。大家坐在船頭，看西邊。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "taitung-fisherman",
+      "stage": 3,
+      "tone": "這一季的錢",
+      "text": "{day}。隔壁村的後備旅開上山了。我兒子在裡面。我把船上的冰全部搬下來，用不到了。",
+      "requires": {
+        "reserveActivated": [
+          1,
+          1
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "linkou-reservist",
+      "stage": 1,
+      "tone": "召集令",
+      "text": "召集令是里長送來的。老婆把我的舊軍靴找出來，鞋底裂了。她沒說話，拿去修。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "linkou-reservist",
+      "stage": 2,
+      "tone": "沙灘就在家後面",
+      "text": "我們挖的壕溝就在我家後面那片沙灘。小時候在那裡放風箏。班長說這裡守備厚，我笑了一下。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "linkou-reservist",
+      "stage": 3,
+      "tone": "老婆小孩",
+      "text": "{day}。外海有船，看不清楚幾艘。排長說今晚不睡。我傳了訊息給老婆，只寫「很好」。",
+      "requires": {
+        "troopsArrived": [
+          1,
+          999999
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "hsinchu-engineer",
+      "stage": 1,
+      "tone": "機台",
+      "text": "廠裡通知機台降載，不是停。工程師留下值班，一人一台，像顧病人。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "hsinchu-engineer",
+      "stage": 2,
+      "tone": "值班",
+      "text": "全世界在等我們復工，我在等家裡的電話。老婆帶小孩去南部了，南部也在打。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "hsinchu-engineer",
+      "stage": 3,
+      "tone": "全世界在等我們",
+      "text": "{day}。客戶的郵件從「何時復工」變成「設備是否完好」。他們在算廠還在不在，不是算我們。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "kaohsiung-nurse",
+      "stage": 1,
+      "tone": "排班",
+      "text": "急診改成戰時排班，十二小時一班。護理長說跟演練一樣。演練的時候沒有人真的在哭。",
+      "requires": {},
+      "approved": false
+    },
+    {
+      "personaId": "kaohsiung-nurse",
+      "stage": 2,
+      "tone": "演練變真的",
+      "text": "第一批送來的是港區的工人，不是軍人。他們問我外面怎麼了，我說我也在裡面。",
+      "requires": {
+        "phaseIndex": [
+          1,
+          4
+        ]
+      },
+      "approved": false
+    },
+    {
+      "personaId": "kaohsiung-nurse",
+      "stage": 3,
+      "tone": "不談恐懼",
+      "text": "{day}。下班走路回家，街上沒車。我數了路燈，數到忘記數到幾，又從頭數。",
+      "requires": {
+        "phaseIndex": [
+          2,
+          4
+        ]
+      },
+      "approved": false
+    }
+  ]
+}

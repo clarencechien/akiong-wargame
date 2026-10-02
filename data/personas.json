@@ -1,0 +1,728 @@
+{
+  "note": "人物庫（第一版 30 人，1.1 擴到 120）。八個階層：frontline / homefrontLabor / twBusiness / party / rearFamily / regional / world / taiwan。triggers 以 metric 名稱比對引擎的扁平指標（見 src/engine/voices.ts flattenMetrics），triggerMode 預設 any。listens 是會觸發此人物的事件層。不寫具名真實人物。",
+  "personas": [
+    {
+      "id": "pla-private-73ga",
+      "stratum": "frontline",
+      "name": "第 73 集團軍 · 列兵 · 泉州外海",
+      "side": "prc",
+      "location": "泉州外海",
+      "unit": "73 軍",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "time",
+          "metric": "phaseIndex",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "短",
+        "具體",
+        "不談大局"
+      ]
+    },
+    {
+      "id": "roro-chief-engineer",
+      "stratum": "frontline",
+      "name": "徵用滾裝船 · 輪機長 · 平潭",
+      "side": "prc",
+      "location": "平潭",
+      "unit": "渤海渡輪",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "requisition",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "務實",
+        "算船",
+        "認命"
+      ]
+    },
+    {
+      "id": "pla-pilot-eastern",
+      "stratum": "frontline",
+      "name": "東部戰區 · 殲擊機飛行員",
+      "side": "prc",
+      "location": "漳州機場",
+      "unit": "航空兵旅",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "regional"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "airControl",
+          "gte": 0.01
+        }
+      ],
+      "tone": [
+        "專業",
+        "疲憊",
+        "不說輸"
+      ]
+    },
+    {
+      "id": "landing-craft-coxswain",
+      "stratum": "frontline",
+      "name": "登陸艇艇長 · 灘頭外海",
+      "side": "prc",
+      "location": "灘頭外海",
+      "unit": "登陸艇大隊",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "troopsArrived",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "浪",
+        "數人頭",
+        "沒時間想"
+      ]
+    },
+    {
+      "id": "dongguan-lineleader-henan",
+      "stratum": "homefrontLabor",
+      "name": "東莞 · 台資廠線長 · 河南籍",
+      "side": "prc",
+      "location": "東莞",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront",
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "coastalShutdown",
+          "gte": 0.1
+        },
+        {
+          "layer": "homefront",
+          "metric": "twBusinessPayroll",
+          "lte": 0.6
+        }
+      ],
+      "tone": [
+        "算帳",
+        "問那我怎麼辦",
+        "麻木"
+      ]
+    },
+    {
+      "id": "quanzhou-fisherman",
+      "stratum": "homefrontLabor",
+      "name": "泉州 · 近海漁民",
+      "side": "prc",
+      "location": "泉州",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "detected",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "看海",
+        "算油錢",
+        "不敢問"
+      ]
+    },
+    {
+      "id": "roro-owner-bohai",
+      "stratum": "homefrontLabor",
+      "name": "渤海渡輪 · 船東",
+      "side": "prc",
+      "location": "煙台",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront",
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "requisition",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "算船",
+        "保險",
+        "沉默"
+      ]
+    },
+    {
+      "id": "xiamen-port-crane",
+      "stratum": "homefrontLabor",
+      "name": "廈門港 · 橋式起重機操作員",
+      "side": "prc",
+      "location": "廈門港",
+      "maxAppearances": 3,
+      "listens": [
+        "world",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "shippingReroute",
+          "gte": 0.3
+        }
+      ],
+      "tone": [
+        "看港口",
+        "算班次",
+        "等通知"
+      ]
+    },
+    {
+      "id": "kunshan-second-gen",
+      "stratum": "twBusiness",
+      "name": "昆山 · 台商第二代",
+      "side": "tw",
+      "location": "昆山",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront",
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "twBusinessPayroll",
+          "lte": 0.85
+        }
+      ],
+      "tone": [
+        "夾在中間",
+        "兩邊都不是自己人",
+        "算現金"
+      ]
+    },
+    {
+      "id": "dongguan-boss",
+      "stratum": "twBusiness",
+      "name": "東莞 · 台商老闆 · 做鞋三十年",
+      "side": "tw",
+      "location": "東莞",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "coastalShutdown",
+          "gte": 0.2
+        }
+      ],
+      "tone": [
+        "老江湖",
+        "看過風浪",
+        "這次不一樣"
+      ]
+    },
+    {
+      "id": "shanghai-tw-manager",
+      "stratum": "twBusiness",
+      "name": "上海 · 在陸台幹 · 外商主管",
+      "side": "tw",
+      "location": "上海",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront",
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "detected",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "機票",
+        "群組",
+        "回不回去"
+      ]
+    },
+    {
+      "id": "suzhou-tw-accountant",
+      "stratum": "twBusiness",
+      "name": "蘇州 · 台資廠財務主管",
+      "side": "tw",
+      "location": "蘇州",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront",
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "twBusinessPayroll",
+          "lte": 0.5
+        }
+      ],
+      "tone": [
+        "報表",
+        "匯款",
+        "撐幾個月"
+      ]
+    },
+    {
+      "id": "fuzhou-party-secretary",
+      "stratum": "party",
+      "name": "福州 · 市委書記",
+      "side": "prc",
+      "location": "福州",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront",
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "coastalShutdown",
+          "gte": 0.1
+        }
+      ],
+      "tone": [
+        "內部通報語氣",
+        "字裡行間有事"
+      ]
+    },
+    {
+      "id": "state-media-editor",
+      "stratum": "party",
+      "name": "北京 · 官媒值班編輯",
+      "side": "prc",
+      "location": "北京",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "time",
+          "metric": "phaseIndex",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "口徑",
+        "刪稿",
+        "自己也在猜"
+      ]
+    },
+    {
+      "id": "xiamen-auxiliary-police",
+      "stratum": "party",
+      "name": "廈門 · 輔警",
+      "side": "prc",
+      "location": "廈門",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "detected",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "執勤",
+        "排查",
+        "也是外地人"
+      ]
+    },
+    {
+      "id": "county-propaganda-cadre",
+      "stratum": "party",
+      "name": "漳州 · 縣宣傳部幹部",
+      "side": "prc",
+      "location": "漳州",
+      "maxAppearances": 3,
+      "listens": [
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "homefront",
+          "metric": "morale",
+          "lte": 60
+        }
+      ],
+      "tone": [
+        "稿子",
+        "群眾情緒",
+        "自己先信"
+      ]
+    },
+    {
+      "id": "shanghai-mother",
+      "stratum": "rearFamily",
+      "name": "上海 · 一位母親",
+      "side": "prc",
+      "location": "上海",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "time",
+          "metric": "phaseIndex",
+          "gte": 2
+        }
+      ],
+      "tone": [
+        "新聞說一切順利",
+        "兒子沒回訊息"
+      ]
+    },
+    {
+      "id": "henan-old-father",
+      "stratum": "rearFamily",
+      "name": "河南 · 老父 · 兒子在海軍",
+      "side": "prc",
+      "location": "周口",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "fleetLoss",
+          "gte": 0.15
+        }
+      ],
+      "tone": [
+        "不識字",
+        "問鄰居",
+        "等電話"
+      ]
+    },
+    {
+      "id": "chengdu-student",
+      "stratum": "rearFamily",
+      "name": "成都 · 大學生",
+      "side": "prc",
+      "location": "成都",
+      "maxAppearances": 3,
+      "listens": [
+        "world",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "marketShock",
+          "lte": -0.1
+        }
+      ],
+      "tone": [
+        "牆內牆外",
+        "找資訊",
+        "實習沒了"
+      ]
+    },
+    {
+      "id": "navy-wife-zhanjiang",
+      "stratum": "rearFamily",
+      "name": "湛江 · 海軍軍眷",
+      "side": "prc",
+      "location": "湛江",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "fleetLoss",
+          "gte": 0.08
+        }
+      ],
+      "tone": [
+        "家屬群",
+        "不准問",
+        "數船"
+      ]
+    },
+    {
+      "id": "ishigaki-guesthouse",
+      "stratum": "regional",
+      "name": "石垣島 · 民宿老闆",
+      "side": "jp",
+      "location": "石垣島",
+      "maxAppearances": 3,
+      "listens": [
+        "regional",
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "regional",
+          "metric": "japanBases",
+          "gte": 1
+        },
+        {
+          "layer": "military",
+          "metric": "detected",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "戰爭不在我家",
+        "但已經在我家",
+        "旺季"
+      ],
+      "triggerMode": "all"
+    },
+    {
+      "id": "busan-container-dispatcher",
+      "stratum": "regional",
+      "name": "釜山 · 貨櫃場調度",
+      "side": "kr",
+      "location": "釜山",
+      "maxAppearances": 3,
+      "listens": [
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "shippingReroute",
+          "gte": 0.4
+        }
+      ],
+      "tone": [
+        "班表",
+        "改道",
+        "加班"
+      ]
+    },
+    {
+      "id": "manila-fisherman",
+      "stratum": "regional",
+      "name": "呂宋北端 · 漁工",
+      "side": "ph",
+      "location": "巴丹群島",
+      "maxAppearances": 3,
+      "listens": [
+        "world",
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "shippingReroute",
+          "gte": 0.3
+        }
+      ],
+      "tone": [
+        "海上多了大船",
+        "海巡趕人",
+        "魚價"
+      ]
+    },
+    {
+      "id": "nyc-semiconductor-analyst",
+      "stratum": "world",
+      "name": "紐約 · 半導體分析師",
+      "side": "world",
+      "location": "紐約",
+      "maxAppearances": 3,
+      "listens": [
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "chipOutput",
+          "lte": 0.5
+        }
+      ],
+      "tone": [
+        "模型算不出來",
+        "供應鏈斷裂",
+        "冷靜到不正常"
+      ]
+    },
+    {
+      "id": "singapore-shipping-manager",
+      "stratum": "world",
+      "name": "新加坡 · 航運公司營運經理",
+      "side": "world",
+      "location": "新加坡",
+      "maxAppearances": 3,
+      "listens": [
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "shippingReroute",
+          "gte": 0.3
+        }
+      ],
+      "tone": [
+        "保費",
+        "改道天數",
+        "合約"
+      ]
+    },
+    {
+      "id": "munich-auto-buyer",
+      "stratum": "world",
+      "name": "慕尼黑 · 車廠採購主管",
+      "side": "world",
+      "location": "慕尼黑",
+      "maxAppearances": 3,
+      "listens": [
+        "world"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "chipOutput",
+          "lte": 0.5
+        }
+      ],
+      "tone": [
+        "庫存週數",
+        "停線",
+        "找替代"
+      ]
+    },
+    {
+      "id": "taitung-fisherman",
+      "stratum": "taiwan",
+      "name": "台東 · 延繩釣漁民",
+      "side": "tw",
+      "location": "台東",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "detected",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "海巡不准出港",
+        "這一季的錢",
+        "看天"
+      ]
+    },
+    {
+      "id": "linkou-reservist",
+      "stratum": "taiwan",
+      "name": "林口 · 後備軍人 · 物流公司司機",
+      "side": "tw",
+      "location": "林口",
+      "unit": "後備旅",
+      "maxAppearances": 3,
+      "listens": [
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "military",
+          "metric": "reserveActivated",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "召集令",
+        "老婆小孩",
+        "沙灘就在家後面"
+      ]
+    },
+    {
+      "id": "hsinchu-engineer",
+      "stratum": "taiwan",
+      "name": "竹科 · 製程工程師",
+      "side": "tw",
+      "location": "新竹",
+      "maxAppearances": 3,
+      "listens": [
+        "world",
+        "military"
+      ],
+      "triggers": [
+        {
+          "layer": "world",
+          "metric": "chipOutput",
+          "lte": 0.5
+        }
+      ],
+      "tone": [
+        "機台",
+        "值班",
+        "全世界在等我們"
+      ]
+    },
+    {
+      "id": "kaohsiung-nurse",
+      "stratum": "taiwan",
+      "name": "高雄 · 急診護理師",
+      "side": "tw",
+      "location": "高雄",
+      "maxAppearances": 3,
+      "listens": [
+        "military",
+        "homefront"
+      ],
+      "triggers": [
+        {
+          "layer": "time",
+          "metric": "phaseIndex",
+          "gte": 1
+        }
+      ],
+      "tone": [
+        "排班",
+        "演練變真的",
+        "不談恐懼"
+      ]
+    }
+  ]
+}

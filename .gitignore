@@ -1,4 +1,6 @@
 node_modules/
 dist/
 .DS_Store
-data/_candidates/
+# LLM 生成的原始候選不進版控；只有 *.candidates.json（供人工審稿）例外
+data/_candidates/*
+!data/_candidates/*.candidates.json

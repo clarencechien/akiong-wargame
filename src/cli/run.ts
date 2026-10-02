@@ -3,6 +3,8 @@
  *   npm run sim -- --n 1000 --seed 1 [--month 4 --scale medium --us delayed --japan bases --reserve 0.55 --econ high --axis north --aux penghu] [--json] [--events]
  */
 import { parseArgs } from 'node:util';
+import { readFileSync } from 'node:fs';
+import type { VoiceTemplate } from '../engine/voices.js';
 import { run } from '../engine/simulate.js';
 import { BASELINE } from '../engine/assumptions.js';
 import type { Assumptions, Run } from '../engine/types.js';
@@ -23,6 +25,7 @@ const { values } = parseArgs({
     json: { type: 'boolean', default: false },
     events: { type: 'boolean', default: false },
     quiet: { type: 'boolean', default: false },
+    candidates: { type: 'boolean', default: false },
   },
 });
 
@@ -40,10 +43,17 @@ const n = Number(values.n);
 const seed0 = Number(values.seed);
 
 if (values.events) {
-  const r = run(a, seed0);
+  // --candidates：用 data/_candidates/ 的候選模板預覽聲音（審稿用；正式檔核准前為空）
+  const opts: Parameters<typeof run>[2] = {};
+  if (values.candidates) {
+    const cand = JSON.parse(readFileSync('data/_candidates/voice-templates.candidates.json', 'utf8')) as { candidates: VoiceTemplate[] };
+    opts.voiceTemplates = cand.candidates;
+  }
+  const r = run(a, seed0, opts);
   for (const e of r.events) {
     const d = e.day < 0 ? `D${e.day}` : `D+${e.day}`;
-    console.log(`${d.padStart(5)} ${String(e.hour).padStart(2, '0')}:00 [${e.layer}] ${e.kind}: ${e.text}`);
+    const who = e.layer === 'voice' ? `${String(e.data?.['personaName'])}：「` : `${e.kind}: `;
+    console.log(`${d.padStart(5)} ${String(e.hour).padStart(2, '0')}:00 [${e.layer}] ${who}${e.text}${e.layer === 'voice' ? '」' : ''}`);
   }
   console.log('\noutcome:', JSON.stringify(r.outcome));
   process.exit(0);
@@ -96,7 +106,7 @@ export function summarize(runs: Pick<Run, 'outcome'>[], ms: number): Summary {
 const t0 = performance.now();
 const runs: Pick<Run, 'outcome'>[] = [];
 for (let i = 0; i < n; i++) {
-  const r = run(a, seed0 + i, { snapshots: false });
+  const r = run(a, seed0 + i, { snapshots: false, voices: false });
   runs.push({ outcome: r.outcome });
 }
 const ms = performance.now() - t0;

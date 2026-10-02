@@ -183,7 +183,7 @@ export function Situation() {
 
         <div class="pcol right">
           <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <div class="lbl" style="color:#9DB4D0">事件 · 這一天發生的事</div>
+            <div class="lbl" style="color:#9DB4D0">聲音與事件 · 這一天有人在說</div>
             <div class="mono" style="font-size:10px;color:#5F7C9E">{dl(s.day)}</div>
           </div>
           <div class="feed" ref={feedRef}>
@@ -192,7 +192,9 @@ export function Situation() {
             ))}
           </div>
           <div style="margin-top:auto;font-size:10px;color:#5F7C9E;line-height:15px" class="mono">
-            聲音流在 M5：各階層人物由家前線層／世界層事件觸發，以 seed 從人物庫抽取；同一 seed 永遠得到同一句。
+            {events.some((e) => e.layer === 'voice')
+              ? '聲音由四層事件觸發，角色與語氣從人物庫以 seed 抽取；同一 seed 永遠得到同一句。'
+              : '正式聲音模板尚未核准（data/voice-templates.json 為空）。審過 data/_candidates/ 的候選後執行 npm run voices:promote。'}
           </div>
         </div>
       </div>
@@ -243,6 +245,18 @@ export function Situation() {
 }
 
 function EventCard({ e, latest }: { e: Event; latest: boolean }) {
+  if (e.layer === 'voice') {
+    const stratum = String(e.data?.['stratum'] ?? '');
+    const kind = stratum === 'frontline' || stratum === 'rearFamily' ? 'red' : stratum === 'homefrontLabor' || stratum === 'twBusiness' || stratum === 'party' ? 'amber' : '';
+    return (
+      <div class={`vc voice ${kind}${latest ? ' latest' : ''}`}>
+        <span class="who">
+          {String(e.data?.['personaName'] ?? e.personaId)} · {dl(e.day)}
+        </span>
+        <span class="say serif">「{e.text}」</span>
+      </div>
+    );
+  }
   const kind =
     e.kind === 'gateFailed' || e.kind === 'timeout' || e.kind === 'stopped'
       ? 'red'

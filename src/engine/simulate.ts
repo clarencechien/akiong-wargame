@@ -14,12 +14,17 @@ import { enterLanding, gateLanding, landingStartHour, tickLanding } from './phas
 import { MAX_DAY, gateInland, tickInland } from './phases/inland.js';
 import { GATE_LABEL, type GateResult } from './phases/gates.js';
 import { dayLabel } from './context.js';
+import { applyVoices, flattenMetrics, type MetricRecord, type VoiceTemplate } from './voices.js';
 
 export const ENGINE_VERSION = 'v0.1.0';
 
 export interface RunOptions {
   /** 是否保留每 6 小時快照（CLI 跑分佈時關掉省記憶體） */
   snapshots?: boolean;
+  /** 覆寫聲音模板（測試候選檔用）；省略 = data/voice-templates.json */
+  voiceTemplates?: readonly VoiceTemplate[];
+  /** 關掉聲音（CLI 跑分佈時省時間） */
+  voices?: boolean;
 }
 
 /** run(assumptions, seed) → Run。決定性：同假設 + 同 seed → 同一局。 */
@@ -34,6 +39,7 @@ export function run(assumptions: Assumptions, seed: number, opts: RunOptions = {
   const ctx: Ctx = { ...base, ...makeEmitter(base) };
 
   const snapshots: State[] = [];
+  const metricLog: MetricRecord[] = [];
   let maxTroopsAshore = 0;
   let marketShockMax = 0;
   let fleetLossToday = 0;
@@ -122,8 +128,11 @@ export function run(assumptions: Assumptions, seed: number, opts: RunOptions = {
       break;
     }
 
-    // 快照（每 6 小時）
-    if (keepSnapshots && s.hour % 6 === 0) snapshots.push(cloneState(s));
+    // 快照（每 6 小時）；指標紀錄給聲音系統用，一律記
+    if (s.hour % 6 === 0) {
+      if (keepSnapshots) snapshots.push(cloneState(s));
+      metricLog.push({ t: s.day * 24 + s.hour, m: flattenMetrics(s) });
+    }
 
     // 推進 1 小時
     s.hour++;
@@ -133,6 +142,11 @@ export function run(assumptions: Assumptions, seed: number, opts: RunOptions = {
     }
   }
   if (keepSnapshots) snapshots.push(cloneState(s));
+  metricLog.push({ t: s.day * 24 + s.hour, m: flattenMetrics(s) });
+
+  const voiceOpts: Parameters<typeof applyVoices>[0] = { a: assumptions, p, events: ctx.events, metricLog, endTime: s.day * 24 + s.hour, rng };
+  if (opts.voiceTemplates) voiceOpts.templates = opts.voiceTemplates;
+  const events = opts.voices === false ? ctx.events : applyVoices(voiceOpts);
 
   return {
     engineVersion: ENGINE_VERSION,
@@ -140,7 +154,7 @@ export function run(assumptions: Assumptions, seed: number, opts: RunOptions = {
     seed: seed >>> 0,
     sampledParams: p,
     flagged,
-    events: ctx.events,
+    events,
     snapshots,
     outcome,
   };

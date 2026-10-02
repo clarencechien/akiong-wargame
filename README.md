@@ -19,6 +19,8 @@ npm run sim -- --n 1000 --month 12 # 改假設：--month --scale --us --japan --
 npm run sim -- --events --seed 7   # 印一局的事件流
 npm test                           # 決定性、分佈、效能、參數庫格式、分享編碼、情報評估
 npm run check:params               # 參數庫每筆 source／range 檢查
+npm run sim -- --events --seed 7 --candidates   # 用候選模板預覽聲音（審稿用）
+npm run voices:promote -- --all    # 審過候選檔後搬進正式檔（見 scripts/gen-templates/README.md）
 npm run dev                        # 作戰室（Vite 開發伺服器）
 npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假設、情報評估、東岸標紅、100 場 < 60 s
 ```
@@ -27,4 +29,4 @@ npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假�
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：M1 引擎、M2 參數庫、M3 作戰室 + worker pool、M4 戰情室完成（§5.2 依 ADR-0001 修訂後通過；100 場約 0.3 秒；可播完一局）。下一步 M5 聲音系統。
+狀態：M1 引擎、M2 參數庫、M3 作戰室 + worker pool、M4 戰情室、M5 聲音引擎完成。正式聲音模板待人工審稿（候選 90 句在 `data/_candidates/`），審過 promote 後戰情室會出現聲音流。下一步 M6 史書。

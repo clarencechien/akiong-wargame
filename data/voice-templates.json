@@ -1,0 +1,4 @@
+{
+  "note": "正式聲音模板。只收人工審過的句子；LLM 生成的候選一律先進 data/_candidates/，用 npm run voices:promote 搬進來。slots 可用：{day} {place} {unit} {amount} {ships} {troops}。每句 ≤ 60 字、台灣正體中文、不寫具名真實人物、不寫血腥細節。",
+  "templates": []
+}
