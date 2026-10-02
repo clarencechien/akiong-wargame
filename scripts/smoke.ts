@@ -77,6 +77,10 @@ try {
   if (rows !== eventsCount) throw new Error(`事件簿列數 ${rows} ≠ 事件數 ${eventsCount}`);
   await page.locator('canvas.sharecard').waitFor();
   await page.getByTestId('verdict').waitFor();
+  // 把分享卡 PNG 存下來供檢視
+  const dataUrl = await page.locator('canvas.sharecard').evaluate((c) => (c as HTMLCanvasElement).toDataURL('image/png'));
+  const { writeFileSync } = await import('node:fs');
+  writeFileSync('docs/screenshots/sharecard.png', Buffer.from(dataUrl.split(',')[1]!, 'base64'));
   await page.getByTestId('tab-chapter').click();
   const replays = await page.getByTestId('replay').count();
   if (replays !== 5) throw new Error(`如果重來應有 5 顆按鈕，實際 ${replays}`);

@@ -101,7 +101,7 @@ export function Chronicle() {
 
       {/* 一、分享圖 + 結局 TL;DR */}
       <section class="hero">
-        <canvas ref={canvasRef} class="sharecard" aria-label="頭版分享卡" />
+        <canvas ref={canvasRef} class="sharecard" aria-label="頭版分享卡 1080×1920" />
         <div class="hero-text" data-testid="verdict">
           <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
           <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>

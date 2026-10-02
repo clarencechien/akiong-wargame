@@ -4,7 +4,7 @@ import { BASELINE } from '../src/engine/assumptions.js';
 import type { Assumptions, Outcome } from '../src/engine/types.js';
 import type { VoiceTemplate } from '../src/engine/voices.js';
 import { buildChapter, batchStats, zhNumber } from '../src/narrative/chapter.js';
-import { shareTitle, assumptionSummary } from '../src/narrative/sharecard.js';
+import { shareTitle, assumptionSummary, milestones } from '../src/narrative/sharecard.js';
 import { dateLabel, zhDate, annotateDates } from '../src/narrative/dates.js';
 import { eventBookCSV, eventBookJSON, eventRows, CSV_COLUMNS } from '../src/narrative/eventbook.js';
 import candidates from '../data/_candidates/voice-templates.candidates.json';
@@ -134,5 +134,18 @@ describe('日期', () => {
     expect(zhDate(12, 25)).toBe('一月四日');
     expect(annotateDates('在 D-27 公開辨識，D+4 出港', 4)).toBe('在 3/14（D-27） 公開辨識，4/14（D+4） 出港');
     expect(annotateDates('4/14（D+4） 出港', 4)).toBe('4/14（D+4） 出港');
+  });
+});
+
+describe('分享卡里程碑', () => {
+  it('3–7 個，依時間排序，最後一個是結局', () => {
+    for (const seed of [1, 2, 3]) {
+      const r = run(BASELINE, seed, { voiceTemplates: CANDIDATES });
+      const ms = milestones(r);
+      expect(ms.length).toBeGreaterThanOrEqual(3);
+      expect(ms.length).toBeLessThanOrEqual(7);
+      for (let i = 1; i < ms.length; i++) expect(ms[i]!.day).toBeGreaterThanOrEqual(ms[i - 1]!.day);
+      expect(ms[ms.length - 1]!.end).toBe(true);
+    }
   });
 });

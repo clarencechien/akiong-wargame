@@ -126,7 +126,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .tbtn.solid { background: var(--ink); color: var(--paper); padding: 0 18px; }
 .tbtn.outline { border-color: var(--red); color: var(--red); }
 .tbtn:disabled { opacity: .45; cursor: not-allowed; }
-.tlabels { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-2); gap: 6px; flex-wrap: wrap; }
+.tlabels { position: relative; height: 34px; font-size: 11px; color: var(--ink-2); }
+.tmark { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; padding-top: 6px; }
+.tmark::before { content: ''; position: absolute; left: 50%; top: -4px; width: 1px; height: 8px; background: var(--rule-2); }
+.tmark.below { top: 16px; }
+.tmark.now { top: -46px; font-weight: 500; background: var(--paper); padding: 0 4px; }
+.tmark.now::before { display: none; }
+.tmark:first-child { transform: none; }
+.tmark:nth-child(3) { transform: translateX(-100%); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .hdr.compact { padding: 14px 40px 10px; }
 .hdr.compact h1 { font-size: 20px; }
@@ -169,7 +176,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .prose .tail { border-top: 1px dashed var(--rule); padding-top: 12px; font-family: var(--sans); }
 .chapter-aside { display: flex; flex-direction: column; gap: 10px; font-family: var(--sans); }
 .notes { margin: 0; padding: 0; list-style: none; font-size: 10px; line-height: 16px; color: var(--ink-2); }
-.sharecard { display: block; aspect-ratio: 1080 / 1350; border: 1px solid var(--ink); background: var(--panel); }
+.sharecard { display: block; aspect-ratio: 1080 / 1920; border: 1px solid var(--ink); background: var(--panel); }
 .reel { display: flex; gap: 10px; flex-wrap: wrap; }
 .ph { display: flex; flex-direction: column; gap: 6px; flex: 1 1 180px; border: 1px solid var(--rule); padding: 10px; background: var(--paper-2); }
 .ph .scr { height: 120px; background: var(--panel); border: 1px solid var(--ink); position: relative; }
@@ -271,7 +278,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .page.fit .vc.headline .say { font-size: 13px; }
 .page.fit .timeline { padding: 6px 40px 8px; gap: 10px; }
 .page.fit .tbtn { height: 34px; font-size: 13px; }
-.page.fit .tlabels { font-size: 10px; }
+.page.fit .tlabels { font-size: 10px; height: 30px; }
+.page.fit .tmark.now { top: -42px; }
 @media (max-height: 760px) {
   .page.fit .steps { display: none; }
   .page.fit .sit-meta { display: none; }
@@ -294,7 +302,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .page.fit .step.done { border-top-color: var(--ink); }
   .page.fit .step.now, .page.fit .step.fail { border-top-color: var(--red); }
   .page.fit .sit-meta { display: flex; }
-  .page.fit .tlabels span:nth-child(2), .page.fit .tlabels span:nth-child(5) { display: none; }
+  .page.fit .tmark.below { display: none; }
   .endcard { position: fixed; top: auto; bottom: 12px; left: 12px; right: 12px; width: auto; transform: none; }
 }
 

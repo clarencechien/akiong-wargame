@@ -255,14 +255,33 @@ export function Situation() {
             style="width:100%;accent-color:#1F1D1A"
           />
           <div class="tlabels mono">
-            <span>{shortDate(a.month, startDay)} 集結</span>
-            {detectedEv && <span>{shortDate(a.month, detectedEv.day)} 被發現</span>}
-            <span>{shortDate(a.month, 0)} D 日</span>
-            <span class="red">
-              {dateLabel(a.month, s.day)} {ended ? '結局' : '現在'}
-            </span>
-            {usEntry !== null && <span>{shortDate(a.month, usEntry)} 美軍</span>}
-            <span>{shortDate(a.month, o.endedAt.day)} 結束</span>
+            {(() => {
+              const total = Math.max(1, r.snapshots.length - 1);
+              const posOf = (day: number) => {
+                const i = r.snapshots.findIndex((x) => x.day >= day);
+                return (100 * (i < 0 ? total : i)) / total;
+              };
+              const marks: { pos: number; label: string; red?: boolean; below?: boolean }[] = [
+                { pos: 0, label: `${shortDate(a.month, startDay)} 集結` },
+                { pos: posOf(0), label: `${shortDate(a.month, 0)} D 日` },
+                { pos: 100, label: `${shortDate(a.month, o.endedAt.day)} 結束` },
+              ];
+              if (detectedEv) marks.push({ pos: posOf(detectedEv.day), label: `${shortDate(a.month, detectedEv.day)} 被發現`, below: true });
+              if (usEntry !== null && usEntry <= o.endedAt.day) marks.push({ pos: posOf(usEntry), label: `${shortDate(a.month, usEntry)} 美軍`, below: true });
+              const nowPos = (100 * Math.min(snapIndex.value, total)) / total;
+              return (
+                <>
+                  {marks.map((m) => (
+                    <span key={m.label} class={`tmark${m.below ? ' below' : ''}`} style={{ left: `${m.pos}%` }}>
+                      {m.label}
+                    </span>
+                  ))}
+                  <span class="tmark now red" style={{ left: `${nowPos}%`, transform: nowPos > 85 ? 'translateX(-100%)' : nowPos < 15 ? 'none' : 'translateX(-50%)' }}>
+                    {dateLabel(a.month, s.day)} {ended ? '結局' : '現在'}
+                  </span>
+                </>
+              );
+            })()}
           </div>
         </div>
         <button type="button" class="tbtn outline" onClick={jumpToEnd} disabled={ended} data-testid="jump-end">
