@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>史書 — 結算 v2（三種輸出）</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;font-family:"Noto Serif TC",serif;color:#1F1D1A}
+a{color:#2C4E7A}a:hover{color:#1C3454}
+.sans{font-family:"Noto Sans TC",sans-serif}
+.mono{font-family:"IBM Plex Mono",monospace}
+.lbl{font-family:"Noto Sans TC",sans-serif;font-size:11px;letter-spacing:.14em;color:#5E5A52;text-transform:uppercase}
+p{margin:0;font-size:15px;line-height:28px;text-align:justify}
+.fn{font-family:"IBM Plex Mono",monospace;font-size:10px;color:#2C4E7A;vertical-align:super;line-height:0}
+.q{border-left:2px solid #B3362E;padding:6px 12px;font-size:13px;line-height:21px;color:#3A3732;background:#F8EDEA}
+.tab{font-family:"Noto Sans TC",sans-serif;padding:8px 14px;font-size:13px;border:1px solid #C9C2B2;color:#5E5A52;background:transparent}
+.tab.on{background:#1F1D1A;color:#F3EFE6;border-color:#1F1D1A}
+.hb{display:flex;flex-direction:column;justify-content:flex-end;flex-grow:1}
+.hb i{display:block;background:#C9C2B2}
+.ph{display:flex;flex-direction:column;gap:6px;flex-grow:1;border:1px solid #C9C2B2;padding:10px;background:#FBF9F3}
+.ph .scr{height:120px;background:#0F1B2D;border:1px solid #1F1D1A;position:relative}
+</style>
+</head>
+<body>
+<div style="width:1280px;height:1240px;box-sizing:border-box;background:#F3EFE6;display:flex;flex-direction:column">
+
+  <div class="sans" style="display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid #C9C2B2">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700">如果你是阿共，你要怎麼打過來？</div>
+      <div class="mono" style="font-size:12px;color:#5E5A52">案號 TW-2027-04 · seed 0x3F2A91 · 第 1 / 100 局 · 結算</div>
+    </div>
+    <div style="display:flex;gap:28px;align-items:center">
+      <a href="01-warroom.html" style="font-size:14px;text-decoration:none;color:#5E5A52">作戰室</a>
+      <a href="02-situation.html" style="font-size:14px;text-decoration:none;color:#5E5A52">戰情室</a>
+      <a href="03-chronicle.html" style="font-size:14px;text-decoration:none;border-bottom:2px solid #1F1D1A;color:#1F1D1A;padding-bottom:2px">史書</a>
+    </div>
+  </div>
+
+  <!-- output switcher -->
+  <div class="sans" style="display:flex;align-items:center;justify-content:space-between;padding:16px 40px 0">
+    <div style="display:flex;gap:6px">
+      <button type="button" class="tab on">教科書章節</button>
+      <button type="button" class="tab">頭版（分享卡）</button>
+      <button type="button" class="tab">短影音（分階段）</button>
+      <button type="button" class="tab">事件簿（原始資料）</button>
+    </div>
+    <div style="font-size:12px;color:#5E5A52">同一份事件流，四種讀法。第一版輸出都在本機產生；分享卡與影片以檔案下載。</div>
+  </div>
+
+  <!-- chapter + share preview -->
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;padding:16px 40px 0;flex-grow:1;min-height:0">
+    <div style="background:#FBF9F3;border:1px solid #C9C2B2;padding:40px 48px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px;border-bottom:2px solid #1F1D1A;padding-bottom:16px">
+        <div class="lbl">《東亞現代史 · 下冊》 第十四章 · 本局生成</div>
+        <h1 style="margin:0;font-size:34px;font-weight:700;line-height:46px">二〇二七年四月的七十二小時</h1>
+        <div class="sans" style="font-size:13px;color:#5E5A52">一場在 D+9 停止的登陸 · 主攻北部、先取澎湖 · 每一句可回溯到數據</div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h2 style="margin:0;font-size:18px;font-weight:600">一、看得見的戰爭</h2>
+          <p>戰爭在開始前四十五天就已經開始。福州與廈門外海的滾裝船在兩週內增加三倍，任何訂閱商用衛星影像的人都看得見<span class="fn">[1]</span>。台灣在三月二十日召集後備；同一週，東莞的台資工廠停止加班。</p>
+          <div class="q">「老闆跑了沒我不知道，但這個月薪水是真的沒了。」—— 東莞，一位河南籍線長，D-30</div>
+          <h2 style="margin:0;font-size:18px;font-weight:600">二、澎湖與海峽</h2>
+          <p>四月九日澎湖陷落，是整場戰爭中唯一按計畫完成的部分，代價是百分之十八的運量<span class="fn">[2]</span>。四月十一日主力渡海時窗口只剩七天，第三船團在離岸六十公里處潰散；抵達林口與竹北外海的第一波約九千六百人，低於建立灘頭堡所需的一萬四千人<span class="fn">[3]</span>。</p>
+          <div class="q">「兒子在 73 軍。新聞說一切順利，可他三天沒回訊息了。」—— 上海，一位母親，D+4</div>
+          <h2 style="margin:0;font-size:18px;font-weight:600">三、第九天</h2>
+          <p>四月十六日美軍自關島與沖繩介入，但到了這一天，決定戰局的已經不是美軍。船團損耗、灘頭未建、補給線中斷，三者中任何一項都足以終止登陸。當晚，登陸行動停止。</p>
+          <div class="q">「我們把台積電的產能寫成零，然後發現所有模型都算不出來了。」—— 紐約，一位半導體分析師，D+2</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="lbl">本局統計</div>
+          <div class="sans" style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span>登陸終止</span><span class="mono">D+9</span></div>
+            <div style="display:flex;justify-content:space-between"><span>紅方上岸最大值</span><span class="mono">9,600</span></div>
+            <div style="display:flex;justify-content:space-between"><span>船團損失</span><span class="mono">31%</span></div>
+            <div style="display:flex;justify-content:space-between"><span>沿海停工</span><span class="mono">41%</span></div>
+            <div style="display:flex;justify-content:space-between"><span>費半單日最大跌幅</span><span class="mono">-14%</span></div>
+          </div>
+          <div class="lbl" style="margin-top:6px">本局在 100 場中的位置</div>
+          <div style="display:flex;gap:3px;height:56px;align-items:flex-end">
+            <div class="hb"><i style="height:6%"></i></div><div class="hb"><i style="height:10%"></i></div><div class="hb"><i style="height:22%"></i></div><div class="hb"><i style="height:48%"></i></div><div class="hb"><i style="height:74%"></i></div><div class="hb"><i style="height:100%;background:#B3362E"></i></div><div class="hb"><i style="height:62%"></i></div><div class="hb"><i style="height:30%"></i></div><div class="hb"><i style="height:14%"></i></div><div class="hb"><i style="height:8%"></i></div><div class="hb"><i style="height:4%"></i></div><div class="hb"><i style="height:3%"></i></div>
+          </div>
+          <div style="display:flex;justify-content:space-between" class="mono"><span style="font-size:10px;color:#5E5A52">D+4</span><span style="font-size:10px;color:#B3362E">D+9 本局</span><span style="font-size:10px;color:#5E5A52">D+30 以上 3%</span></div>
+          <div class="lbl" style="margin-top:6px">註釋</div>
+          <div class="mono" style="font-size:10px;line-height:16px;color:#5E5A52">[1] 商用衛星可辨識門檻，CSIS 2023<br>[2] 輔助作戰運量扣除，本模型假設 A-7<br>[3] 本局事件 #088 · seed 0x3F2A91</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- share card preview -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="lbl">頭版分享卡 · 1080×1350 預覽</div>
+      <div style="width:360px;height:450px;background:#0F1B2D;border:1px solid #1F1D1A;position:relative;overflow:hidden;color:#E8EEF5;display:flex;flex-direction:column;justify-content:space-between;padding:22px;box-sizing:border-box">
+        <div style="display:flex;justify-content:space-between" class="mono"><span style="font-size:10px;color:#9DB4D0">戰情快報 · 2027.04.16</span><span style="font-size:10px;color:#9DB4D0">第 1/100 局</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:11px;letter-spacing:.14em;color:#E0533F" class="sans">登陸於第九天停止</div>
+          <div style="font-size:26px;font-weight:700;line-height:34px">我以為問題是美軍。<br>問題是船不夠、天不夠、錢不夠。</div>
+          <div class="sans" style="font-size:12px;line-height:18px;color:#9DB4D0">主攻北部 · 先取澎湖 · 美軍延遲介入 · 四月</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div style="display:flex;gap:2px;height:40px;align-items:flex-end;width:160px">
+            <i style="display:block;flex-grow:1;height:6%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:22%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:48%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:74%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:100%;background:#E0533F"></i><i style="display:block;flex-grow:1;height:62%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:30%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:14%;background:#5F7C9E"></i><i style="display:block;flex-grow:1;height:6%;background:#5F7C9E"></i>
+          </div>
+          <div class="mono" style="font-size:9px;color:#9DB4D0;text-align:right;line-height:14px">同組假設 100 局<br>撐過 30 天：3 局<br>seed 0x3F2A91</div>
+        </div>
+      </div>
+      <div class="sans" style="font-size:12px;line-height:18px;color:#5E5A52">標題由「玩家原本押的變數」與「實際終止原因」組成；第一版下載 PNG，第二版才有分享連結（上傳 seed 重算）。</div>
+      <div class="sans" style="display:flex;gap:6px;margin-top:4px">
+        <button type="button" style="height:38px;padding:0 14px;border:1px solid #1F1D1A;background:#1F1D1A;color:#F3EFE6;font-size:13px;font-family:inherit">下載 PNG</button>
+        <button type="button" style="height:38px;padding:0 14px;border:1px solid #1F1D1A;background:transparent;color:#1F1D1A;font-size:13px;font-family:inherit">複製 seed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- reel storyboard -->
+  <div class="sans" style="padding:18px 40px 0;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <span class="lbl">短影音 · 直式 9:16 · 每階段一幕，約 45 秒 · 本機 WebCodecs 輸出</span>
+      <span style="font-size:12px;color:#5E5A52">每一幕 = 地圖動態 + 一個數字 + 一句聲音</span>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div class="ph"><div class="scr"><span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">D-45</span><span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px">142 艘滾裝船<br>任何人都看得見</span></div><span style="font-size:12px;font-weight:500">1 動員</span><span style="font-size:11px;color:#5E5A52">衛星影像 · 線長的話</span></div>
+      <div class="ph"><div class="scr"><span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">D+0</span><span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px">1,100 枚飛彈<br>雷達站 60% 存活</span></div><span style="font-size:12px;font-weight:500">2 火力打擊</span><span style="font-size:11px;color:#5E5A52">飛彈軌跡 · 市委書記通報</span></div>
+      <div class="ph"><div class="scr"><span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">D+4</span><span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px">第 3 船團潰散<br>窗口剩 7 天</span></div><span style="font-size:12px;font-weight:500">3 渡海</span><span style="font-size:11px;color:#5E5A52">船團移動 · 家書</span></div>
+      <div class="ph"><div class="scr"><span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">D+5</span><span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px">9,600 / 14,000<br>灘頭堡未建立</span></div><span style="font-size:12px;font-weight:500">4 搶灘</span><span style="font-size:11px;color:#5E5A52">灘頭特寫 · 上海母親</span></div>
+      <div class="ph"><div class="scr"><span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">D+9</span><span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px">登陸停止<br>同組 100 局撐過 30 天：3</span></div><span style="font-size:12px;font-weight:500">5 結局</span><span style="font-size:11px;color:#5E5A52">分佈圖 · 一句總結</span></div>
+    </div>
+  </div>
+
+  <!-- replay -->
+  <div class="sans" style="display:flex;align-items:center;justify-content:space-between;padding:18px 40px 24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span class="lbl">如果重來</span>
+      <span style="font-size:13px;color:#3A3732">改一個假設再跑一次。看看哪一個變數真的改變了結局，哪一個只是改變了代價。</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <a href="01-warroom.html" style="padding:9px 12px;border:1px solid #1F1D1A;text-decoration:none;color:#1F1D1A;font-size:13px">改成十月</a>
+      <a href="01-warroom.html" style="padding:9px 12px;border:1px solid #1F1D1A;text-decoration:none;color:#1F1D1A;font-size:13px">改成全面動員</a>
+      <a href="01-warroom.html" style="padding:9px 12px;border:1px solid #1F1D1A;text-decoration:none;color:#1F1D1A;font-size:13px">不先取澎湖</a>
+      <a href="01-warroom.html" style="padding:9px 12px;border:1px solid #1F1D1A;text-decoration:none;color:#1F1D1A;font-size:13px">美國不介入</a>
+      <a href="01-warroom.html" style="padding:9px 12px;border:1px solid #B3362E;text-decoration:none;color:#B3362E;font-size:13px">看另一局（第 2/100）</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作戰室 — 開局設定 v2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;color:#1F1D1A}
+a{color:#2C4E7A}a:hover{color:#1C3454}
+.serif{font-family:"Noto Serif TC",serif}
+.mono{font-family:"IBM Plex Mono",monospace}
+.pill{display:inline-block;padding:6px 12px;border:1px solid #8C867A;border-radius:2px;font-size:13px;line-height:18px;color:#1F1D1A}
+.pill.on{background:#1F1D1A;color:#F3EFE6;border-color:#1F1D1A}
+.pill.warn{border-color:#B3362E;color:#B3362E}
+.lbl{font-size:11px;letter-spacing:.14em;color:#5E5A52;text-transform:uppercase}
+.intel{font-size:12px;line-height:18px;color:#5E5A52;border-left:2px solid #B3362E;padding-left:10px}
+.row{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px dashed #C9C2B2}
+.h{font-size:14px;font-weight:500;display:flex;justify-content:space-between;align-items:baseline}
+</style>
+</head>
+<body>
+<div style="width:1280px;height:960px;box-sizing:border-box;background:#F3EFE6;display:flex;flex-direction:column">
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:26px 40px 18px;border-bottom:2px solid #1F1D1A">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="lbl">台海兵推 · 教育版 · 第一版（單人 · 全本機運算 · 不上傳任何資料）</div>
+      <h1 class="serif" style="margin:0;font-size:34px;font-weight:700">如果你是阿共，你要怎麼打過來？</h1>
+    </div>
+    <div style="display:flex;gap:28px;align-items:center">
+      <a href="01-warroom.html" style="font-size:14px;text-decoration:none;border-bottom:2px solid #1F1D1A;color:#1F1D1A;padding-bottom:2px">作戰室</a>
+      <a href="02-situation.html" style="font-size:14px;text-decoration:none;color:#5E5A52">戰情室</a>
+      <a href="03-chronicle.html" style="font-size:14px;text-decoration:none;color:#5E5A52">史書</a>
+      <a href="#" style="font-size:14px;text-decoration:none;color:#5E5A52">資料來源</a>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:300px minmax(0,1fr) 280px;gap:36px;padding:22px 40px;flex-grow:1;min-height:0">
+
+    <!-- left: identity + minimap -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="border:1px solid #1F1D1A;padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:#FBF9F3">
+        <div class="lbl">你的身分</div>
+        <div class="serif" style="font-size:18px;font-weight:600;line-height:26px">中央軍委聯合作戰指揮中心 總指揮</div>
+        <div class="mono" style="font-size:12px;color:#5E5A52">案號 TW-2027-04 · 絕密</div>
+        <div style="font-size:13px;line-height:20px;margin-top:4px">上級要求一年內完成統一。你決定何時、從哪裡、用多大規模、賭多少。</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="lbl">你選的攻擊軸</div>
+        <div style="position:relative;height:300px;background:#0F1B2D;border:1px solid #1F1D1A;overflow:hidden">
+          <svg viewBox="0 0 300 300" width="100%" height="100%" aria-label="攻擊軸示意" style="display:block">
+            <polygon points="0,0 80,0 70,60 45,110 20,150 0,170" fill="#1E2F47" stroke="#5F7C9E"/>
+            <polygon points="178,70 198,86 190,110 180,140 172,186 152,232 146,246 136,226 118,208 114,186 114,160 128,130 150,95 160,84" fill="#1E2F47" stroke="#8FB3DB" stroke-width="1.5"/>
+            <circle cx="88" cy="166" r="4" fill="#1E2F47" stroke="#E0533F" stroke-width="1.5"/>
+            <path d="M45 110 L165 84" stroke="#E0533F" stroke-width="2" fill="none"/>
+            <path d="M45 110 L150 98" stroke="#E0533F" stroke-width="2" fill="none"/>
+            <path d="M20 150 L88 166" stroke="#E0533F" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+            <path d="M172 186 Q 230 150 180 140" stroke="#5F7C9E" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+            <rect x="160" y="78" width="7" height="7" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+            <rect x="146" y="94" width="7" height="7" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+            <rect x="178" y="138" width="7" height="7" fill="#0F1B2D" stroke="#5F7C9E" stroke-width="2"/>
+          </svg>
+          <span class="mono" style="position:absolute;left:10px;top:10px;font-size:10px;color:#E0533F">主攻 北部（林口・竹北）</span>
+          <span class="mono" style="position:absolute;left:10px;top:26px;font-size:10px;color:#E0533F">輔助 先取澎湖</span>
+          <span class="mono" style="position:absolute;left:10px;top:42px;font-size:10px;color:#5F7C9E">未選 東岸佯攻</span>
+        </div>
+        <div style="font-size:12px;line-height:18px;color:#5E5A52">地圖隨 ⑦⑧ 的選擇改變。灰色虛線是你沒選、但模型知道的路線。</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:auto">
+        <div class="lbl">理論依據</div>
+        <div style="font-size:12px;line-height:18px;color:#5E5A52">CSIS《The First Battle of the Next War》(2023) · 《阿共打來怎麼辦》《再談阿共打來怎麼辦》· Easton《The Chinese Invasion Threat》· DoD《中國軍力報告》</div>
+      </div>
+    </div>
+
+    <!-- center: 8 assumptions in two columns -->
+    <div style="display:flex;flex-direction:column;min-height:0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4px">
+        <div class="serif" style="font-size:19px;font-weight:600">八個假設</div>
+        <div class="mono" style="font-size:11px;color:#5E5A52">本機組合 #0412-B · 第一版不上傳、不比較他人</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px">
+        <div style="display:flex;flex-direction:column">
+          <div class="row"><div class="h"><span>① 發動月份</span><span class="mono" style="font-size:11px;color:#5E5A52">天候窗口</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">1</span><span class="pill">2</span><span class="pill">3</span><span class="pill on">4</span><span class="pill">5</span><span class="pill">6</span><span class="pill">7</span><span class="pill">8</span><span class="pill">9</span><span class="pill">10</span><span class="pill">11</span><span class="pill">12</span></div>
+            <div class="intel">四月可用海況窗口約 11 天；颱風季與東北季風各吃掉半年。</div></div>
+          <div class="row"><div class="h"><span>② 動員規模</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">偷襲型</span><span class="pill on">中型 · 6 集團軍</span><span class="pill">全面＋徵用民船</span></div>
+            <div class="intel">中型船團集結 6–8 週，D-45 前商用衛星即可辨識。偷襲與規模不能兼得。</div></div>
+          <div class="row"><div class="h"><span>③ 美國介入</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">不介入</span><span class="pill on">延遲 · D+7</span><span class="pill">立即</span></div>
+            <div class="intel">不介入線的登陸成功率在公開兵推中仍低於五成。美國改變的是代價。</div></div>
+          <div class="row" style="border-bottom:none"><div class="h"><span>④ 日本態度</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">中立</span><span class="pill on">開放基地</span><span class="pill">參戰</span></div>
+            <div class="intel">沒有沖繩與九州基地，美軍出擊架次下降約六成。</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <div class="row"><div class="h"><span>⑤ 台灣後備動員率</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">30%</span><span class="pill on">55%</span><span class="pill">80%</span></div>
+            <div class="intel">決定灘頭後方縱深撐幾天，不是灘頭本身。</div></div>
+          <div class="row"><div class="h"><span>⑥ 經濟自損容忍</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">低 · 30 天內收尾</span><span class="pill on">高 · 不計代價</span></div>
+            <div class="intel">高容忍可持久，但家前線的聲音在 D+14 前就會出現。</div></div>
+          <div class="row"><div class="h"><span>⑦ 主攻軸</span><span class="mono" style="font-size:11px;color:#5E5A52">西岸 14 處灘頭</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill on">北部 · 林口/竹北</span><span class="pill">中部 · 台中港</span><span class="pill">南部 · 枋寮</span><span class="pill warn">東岸 · 花蓮/台東</span></div>
+            <div class="intel">東岸可登陸但不可補給：三處灘頭背靠中央山脈，離西部政經中心要翻山。模型允許，但會標紅。</div></div>
+          <div class="row" style="border-bottom:none"><div class="h"><span>⑧ 輔助作戰</span></div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="pill">無</span><span class="pill on">先取澎湖</span><span class="pill">東岸佯攻</span><span class="pill">封鎖為主、登陸為輔</span></div>
+            <div class="intel">任何輔助作戰都從同一池運量扣。先取澎湖分走 18%，東岸佯攻分走 12% 但可能拖住守方 1 個旅。</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="border:1px solid #C9C2B2;padding:16px 18px;display:flex;flex-direction:column;gap:12px;background:#FBF9F3">
+        <div class="lbl">開局前評估（依目前假設）</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span>被提前發現</span><span class="mono" style="color:#B3362E">D-45</span></div>
+          <div style="display:flex;justify-content:space-between"><span>可用灘頭</span><span class="mono">西 14 · 東 3</span></div>
+          <div style="display:flex;justify-content:space-between"><span>可用天候</span><span class="mono">約 11 天</span></div>
+          <div style="display:flex;justify-content:space-between"><span>第一波運量</span><span class="mono">約 1.6 萬人</span></div>
+          <div style="display:flex;justify-content:space-between"><span>扣除輔助作戰</span><span class="mono" style="color:#B3362E">-18%</span></div>
+          <div style="display:flex;justify-content:space-between"><span>家前線壓力</span><span class="mono" style="color:#B3362E">D+14 浮現</span></div>
+        </div>
+        <div style="height:1px;background:#C9C2B2"></div>
+        <div style="font-size:12px;line-height:18px;color:#5E5A52">按下令後會先在你的電腦上跑完所選場數，再播放其中一局。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="lbl">模擬場數</span>
+        <div style="display:flex;gap:4px"><span class="pill">1</span><span class="pill">10</span><span class="pill on">100</span></div>
+        <div style="font-size:11px;color:#5E5A52">100 場約 1 分鐘，結果只存在這台裝置。</div>
+      </div>
+      <a href="02-situation.html" style="display:flex;align-items:center;justify-content:center;height:56px;background:#B3362E;color:#F3EFE6;text-decoration:none;font-size:18px;font-weight:700;letter-spacing:.3em;margin-top:auto">下令</a>
+      <div style="font-size:12px;color:#5E5A52;text-align:center">按下後不能回頭。歷史也是。</div>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;padding:10px 40px;border-top:1px solid #C9C2B2;font-size:11px;color:#5E5A52">
+    <span>所有參數附公開來源。超出公開資料上限的設定以紅色標示。本模擬為教育用途的簡化模型，不代表任何官方評估。</span>
+    <span class="mono">引擎 v0.1 · 決定性 seed</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>戰情室 — 兵推進行中 v2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;color:#1F1D1A}
+a{color:#2C4E7A}a:hover{color:#1C3454}
+.serif{font-family:"Noto Serif TC",serif}
+.mono{font-family:"IBM Plex Mono",monospace}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.step{display:flex;flex-direction:column;gap:3px;padding:8px 12px;border-top:3px solid #C9C2B2;flex-grow:1}
+.step.done{border-top-color:#1F1D1A}
+.step.now{border-top-color:#B3362E}
+.g{display:flex;flex-direction:column;gap:5px}
+.gbar{height:6px;background:#1E2F47}
+.gbar i{display:block;height:6px;background:#9DB4D0}
+.vc{display:flex;flex-direction:column;gap:5px;padding:10px 12px;border-left:3px solid #4C8DD8;background:#15243A}
+.vc.red{border-left-color:#E0533F}
+.vc.amber{border-left-color:#D9A441}
+.who{font-size:11px;letter-spacing:.08em;color:#9DB4D0}
+.say{font-size:13px;line-height:19px;color:#E8EEF5}
+.mk{position:absolute;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div style="width:1280px;height:960px;box-sizing:border-box;background:#F3EFE6;display:flex;flex-direction:column">
+
+  <!-- paper chrome -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 40px 0">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <div class="serif" style="font-size:20px;font-weight:700">如果你是阿共，你要怎麼打過來？</div>
+      <div class="mono" style="font-size:12px;color:#5E5A52">案號 TW-2027-04 · seed 0x3F2A91 · 第 1 / 100 局</div>
+    </div>
+    <div style="display:flex;gap:28px;align-items:center">
+      <a href="01-warroom.html" style="font-size:14px;text-decoration:none;color:#5E5A52">作戰室</a>
+      <a href="02-situation.html" style="font-size:14px;text-decoration:none;border-bottom:2px solid #1F1D1A;color:#1F1D1A;padding-bottom:2px">戰情室</a>
+      <a href="03-chronicle.html" style="font-size:14px;text-decoration:none;color:#5E5A52">史書</a>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;padding:12px 40px 12px">
+    <div class="step done"><span class="lbl" style="color:#5E5A52">階段 1</span><span style="font-size:13px">動員與集結</span><span class="mono" style="font-size:11px;color:#5E5A52">D-60 → D-1 · D-45 被發現</span></div>
+    <div class="step done"><span class="lbl" style="color:#5E5A52">階段 2</span><span style="font-size:13px">火力打擊與封鎖</span><span class="mono" style="font-size:11px;color:#5E5A52">D+0 → D+3</span></div>
+    <div class="step now"><span class="lbl" style="color:#5E5A52">階段 3</span><span style="font-size:13px;font-weight:700">渡海（主攻北部 · 輔助先取澎湖）</span><span class="mono" style="font-size:11px;color:#B3362E">D+4 → 進行中</span></div>
+    <div class="step"><span class="lbl" style="color:#5E5A52">階段 4</span><span style="font-size:13px">搶灘與灘頭堡</span><span class="mono" style="font-size:11px;color:#5E5A52">門檻 ≥ 1.4 萬人上岸</span></div>
+    <div class="step"><span class="lbl" style="color:#5E5A52">階段 5</span><span style="font-size:13px">縱深與持久</span><span class="mono" style="font-size:11px;color:#5E5A52">門檻 補給線 ≥ 7 天</span></div>
+  </div>
+
+  <!-- war room screen -->
+  <div style="margin:0 40px;background:#0F1B2D;border:1px solid #1F1D1A;display:grid;grid-template-columns:250px minmax(0,1fr) 300px;gap:0;flex-grow:1;min-height:0">
+
+    <!-- left: posture -->
+    <div style="padding:18px 16px;display:flex;flex-direction:column;gap:16px;border-right:1px solid #1E2F47;color:#E8EEF5">
+      <div class="lbl" style="color:#9DB4D0">態勢 · D+4 06:40</div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>軍事 · 船團存活</span><span class="mono">69%</span></div><div class="gbar"><i style="width:69%"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>軍事 · 海峽制空</span><span class="mono">局部 · 日間</span></div><div class="gbar"><i style="width:52%"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>守方 · 岸置飛彈剩餘</span><span class="mono">61%</span></div><div class="gbar"><i style="width:61%;background:#4C8DD8"></i></div></div>
+      <div style="height:1px;background:#1E2F47"></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>區域 · 美軍介入</span><span class="mono" style="color:#E0533F">D+7 · 剩 3 天</span></div><div class="gbar"><i style="width:57%;background:#E0533F"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>區域 · 日本基地開放</span><span class="mono">嘉手納 ✓ 岩國 ✓</span></div><div class="gbar"><i style="width:80%;background:#4C8DD8"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>世界 · 全球供應鏈</span><span class="mono" style="color:#D9A441">晶片 -100%</span></div><div class="gbar"><i style="width:35%;background:#D9A441"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>家前線 · 沿海就業</span><span class="mono" style="color:#D9A441">停工 41%</span></div><div class="gbar"><i style="width:41%;background:#D9A441"></i></div></div>
+      <div class="g"><div style="display:flex;justify-content:space-between;font-size:12px"><span>家前線 · 士氣</span><span class="mono">74</span></div><div class="gbar"><i style="width:74%"></i></div></div>
+      <div style="height:1px;background:#1E2F47"></div>
+      <div style="border:1px solid #E0533F;padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+        <div class="lbl" style="color:#E0533F">下一道門檻</div>
+        <div style="font-size:12px;line-height:18px">第一波需 <span class="mono">14,000</span> 人上岸，預計 <span class="mono" style="color:#E0533F">9,600</span>。澎湖已下，但分走了 18% 運量。</div>
+      </div>
+      <div style="margin-top:auto;font-size:11px;line-height:17px;color:#9DB4D0">同組假設 100 局中，走到這裡還過得了門檻的：22 局。</div>
+    </div>
+
+    <!-- center: map -->
+    <div style="position:relative;overflow:hidden;background:#0F1B2D">
+      <svg viewBox="0 0 760 620" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="台海戰區地圖" style="display:block;position:absolute;inset:0">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1B2B42" stroke-width="1"/></pattern>
+          <pattern id="mtn" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#2E4A6B" stroke-width="2"/></pattern>
+        </defs>
+        <rect width="760" height="620" fill="url(#grid)"/>
+        <!-- Fujian coast -->
+        <polygon points="0,0 253,0 253,19 219,95 203,143 160,191 93,248 42,305 0,334" fill="#1E2F47" stroke="#5F7C9E" stroke-width="1"/>
+        <!-- Luzon tip -->
+        <polygon points="338,620 440,620 430,600 400,585 360,595" fill="#1E2F47" stroke="#5F7C9E" stroke-width="1"/>
+        <!-- Ryukyu -->
+        <circle cx="506" cy="241" r="4" fill="#1E2F47" stroke="#5F7C9E"/>
+        <circle cx="608" cy="248" r="6" fill="#1E2F47" stroke="#5F7C9E"/>
+        <circle cx="700" cy="210" r="6" fill="#1E2F47" stroke="#5F7C9E"/>
+        <!-- Penghu -->
+        <circle cx="215" cy="329" r="7" fill="#1E2F47" stroke="#E0533F" stroke-width="1.5"/>
+        <!-- Taiwan -->
+        <polygon points="384,162 422,191 409,229 390,286 376,372 338,458 325,487 308,448 274,415 266,372 266,324 291,267 329,205 342,186 367,172" fill="#1E2F47" stroke="#8FB3DB" stroke-width="1.5"/>
+        <!-- Central range -->
+        <polygon points="372,200 398,240 384,340 352,430 330,420 352,330 362,250" fill="url(#mtn)" stroke="none"/>
+        <!-- defender detection ring -->
+        <ellipse cx="340" cy="320" rx="230" ry="235" fill="none" stroke="#4C8DD8" stroke-dasharray="4 5" opacity=".55"/>
+        <!-- beaches west -->
+        <rect x="362" y="168" width="8" height="8" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+        <rect x="325" y="200" width="8" height="8" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+        <rect x="287" y="262" width="8" height="8" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+        <rect x="268" y="400" width="8" height="8" fill="#0F1B2D" stroke="#8FB3DB" stroke-width="2"/>
+        <!-- beaches east (greyed, few) -->
+        <rect x="386" y="282" width="8" height="8" fill="#0F1B2D" stroke="#5F7C9E" stroke-width="2"/>
+        <rect x="372" y="368" width="8" height="8" fill="#0F1B2D" stroke="#5F7C9E" stroke-width="2"/>
+        <!-- red fleet groups -->
+        <rect x="294" y="144" width="12" height="12" fill="#E0533F" transform="rotate(45 300 150)"/>
+        <rect x="258" y="205" width="12" height="12" fill="#E0533F" transform="rotate(45 264 211)"/>
+        <rect x="190" y="300" width="12" height="12" fill="#E0533F" opacity=".45" transform="rotate(45 196 306)"/>
+        <!-- red axes -->
+        <path d="M160 191 L362 172" stroke="#E0533F" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+        <path d="M160 191 L325 204" stroke="#E0533F" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+        <path d="M93 248 L215 329" stroke="#E0533F" stroke-width="1.5" fill="none"/>
+        <!-- east coast feint (ghost) -->
+        <path d="M338 620 Q 430 520 386 286" stroke="#5F7C9E" stroke-width="1" stroke-dasharray="2 6" fill="none" opacity=".6"/>
+        <!-- US CSG -->
+        <circle cx="633" cy="429" r="9" fill="none" stroke="#4C8DD8" stroke-width="2"/>
+        <circle cx="633" cy="429" r="2.5" fill="#4C8DD8"/>
+        <path d="M633 429 L470 390" stroke="#4C8DD8" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+        <!-- 7th fleet from NE -->
+        <path d="M760 60 L690 180" stroke="#4C8DD8" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+        <!-- satellite pass -->
+        <line x1="120" y1="620" x2="520" y2="0" stroke="#4C8DD8" stroke-width="18" opacity=".08"/>
+        <!-- scale -->
+        <line x1="40" y1="580" x2="124" y2="580" stroke="#9DB4D0" stroke-width="1"/>
+      </svg>
+      <!-- labels (editable) -->
+      <span class="mk" style="left:24px;top:24px;color:#9DB4D0;font-size:12px">福建</span>
+      <span class="mk" style="left:24px;top:44px;color:#E0533F">集結港 ×6 · 船團 142 艘</span>
+      <span class="mk" style="left:410px;top:300px;color:#9DB4D0;font-size:12px">台灣</span>
+      <span class="mk" style="left:388px;top:330px;color:#5F7C9E;width:60px;line-height:13px">中央山脈<br>東西不通</span>
+      <span class="mk" style="left:420px;top:162px;color:#8FB3DB">林口 · 守備 2 旅</span>
+      <span class="mk" style="left:250px;top:192px;color:#8FB3DB">竹北 · 守備 1 旅</span>
+      <span class="mk" style="left:200px;top:258px;color:#8FB3DB">台中港 · 守備 3 旅</span>
+      <span class="mk" style="left:190px;top:398px;color:#8FB3DB">枋寮 · 守備 1 旅</span>
+      <span class="mk" style="left:400px;top:276px;color:#5F7C9E">花蓮 · 灘頭 1 處</span>
+      <span class="mk" style="left:388px;top:380px;color:#5F7C9E">台東 · 灘頭 2 處 · 不可補給</span>
+      <span class="mk" style="left:160px;top:338px;color:#E0533F">澎湖 · D+2 已下</span>
+      <span class="mk" style="left:312px;top:132px;color:#E0533F">第 1 船團 68%</span>
+      <span class="mk" style="left:276px;top:222px;color:#E0533F">第 2 船團 74%</span>
+      <span class="mk" style="left:150px;top:290px;color:#5F7C9E">第 3 船團 潰散</span>
+      <span class="mk" style="left:648px;top:422px;color:#4C8DD8">美軍 CSG · D+7 抵達</span>
+      <span class="mk" style="left:600px;top:40px;color:#4C8DD8;text-align:right;width:140px">第七艦隊 ← 橫須賀</span>
+      <span class="mk" style="left:500px;top:222px;color:#9DB4D0">與那國</span>
+      <span class="mk" style="left:596px;top:262px;color:#9DB4D0">石垣</span>
+      <span class="mk" style="left:680px;top:190px;color:#9DB4D0">宮古</span>
+      <span class="mk" style="left:360px;top:596px;color:#9DB4D0">呂宋</span>
+      <span class="mk" style="left:40px;top:586px;color:#9DB4D0">100 km</span>
+      <span class="mk" style="left:560px;top:596px;color:#5F7C9E">關島 → 2,700 km</span>
+      <!-- legend -->
+      <div style="position:absolute;right:12px;bottom:12px;display:flex;flex-direction:column;gap:5px;font-size:10px;color:#9DB4D0" class="mono">
+        <span style="display:flex;align-items:center;gap:6px"><i style="display:inline-block;width:8px;height:8px;background:#E0533F;transform:rotate(45deg)"></i>紅方船團 / 攻擊軸</span>
+        <span style="display:flex;align-items:center;gap:6px"><i style="display:inline-block;width:8px;height:8px;border:2px solid #8FB3DB"></i>可用灘頭（西岸 14 · 東岸 3）</span>
+        <span style="display:flex;align-items:center;gap:6px"><i style="display:inline-block;width:9px;height:9px;border:2px solid #4C8DD8;border-radius:50%"></i>美日兵力 / 介入路線</span>
+        <span style="display:flex;align-items:center;gap:6px"><i style="display:inline-block;width:12px;height:0;border-top:1px dashed #5F7C9E"></i>未選的替代路線（東岸佯攻）</span>
+      </div>
+      <div style="position:absolute;left:12px;top:70px;background:#15243A;border:1px solid #1E2F47;padding:5px 9px;font-size:11px;color:#E8EEF5" class="mono">海況 浪高 2.1 m · 窗口剩 7 天 · 衛星過境中</div>
+    </div>
+
+    <!-- right: voices -->
+    <div style="padding:18px 16px;display:flex;flex-direction:column;gap:10px;border-left:1px solid #1E2F47;min-height:0;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <div class="lbl" style="color:#9DB4D0">聲音 · 這一天有人在說</div>
+        <div class="mono" style="font-size:10px;color:#5F7C9E">D+4</div>
+      </div>
+      <div class="vc red"><span class="who">第 73 集團軍 · 列兵 · 泉州外海</span><span class="say">家書：「廠裡沒發薪，你爸的藥先停了。」</span></div>
+      <div class="vc amber"><span class="who">東莞 · 台資廠線長 · 河南籍</span><span class="say">「老闆跑了沒我不知道，但這個月薪水是真的沒了。老家問我要不要回去，回去幹嘛？」</span></div>
+      <div class="vc amber"><span class="who">昆山 · 台商 · 第二代</span><span class="say">「三千個員工等我發薪，我的錢在台灣的銀行，匯不過來。」</span></div>
+      <div class="vc"><span class="who">福州 · 市委書記</span><span class="say">內部通報：「港口徵用民船後，沿海漁業停擺；請各區做好群眾情緒疏導。」</span></div>
+      <div class="vc"><span class="who">上海 · 一位母親</span><span class="say">「兒子在 73 軍。新聞說一切順利，可他三天沒回訊息了。」</span></div>
+      <div class="vc"><span class="who">石垣島 · 民宿老闆</span><span class="say">「自衛隊叫我們往北撤。四月本來是旺季。」</span></div>
+      <div class="vc"><span class="who">台東 · 延繩釣漁民</span><span class="say">「海巡說東岸外海有潛艦，不准出港。我這一季的錢就在那條船上。」</span></div>
+      <div class="vc"><span class="who">紐約 · 半導體分析師</span><span class="say">「我們把台積電的產能寫成零，然後發現所有模型都算不出來了。」</span></div>
+      <div style="margin-top:auto;font-size:10px;color:#5F7C9E;line-height:15px" class="mono">聲音由家前線層／世界層事件觸發，角色與語氣從人物庫以 seed 抽取；同一 seed 永遠得到同一句。</div>
+    </div>
+  </div>
+
+  <!-- timeline -->
+  <div style="display:flex;align-items:center;gap:16px;padding:14px 40px 18px">
+    <button type="button" style="height:40px;padding:0 18px;border:1px solid #1F1D1A;background:#1F1D1A;color:#F3EFE6;font-size:14px;font-family:inherit">▶ 播放</button>
+    <button type="button" style="height:40px;padding:0 12px;border:1px solid #1F1D1A;background:transparent;color:#1F1D1A;font-size:14px;font-family:inherit">×4</button>
+    <div style="flex-grow:1;display:flex;flex-direction:column;gap:4px">
+      <label for="tl2" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">時間軸</label>
+      <input id="tl2" type="range" min="-60" max="30" value="4" style="width:100%;accent-color:#1F1D1A">
+      <div style="display:flex;justify-content:space-between" class="mono"><span style="font-size:11px;color:#5E5A52">D-60 集結</span><span style="font-size:11px;color:#5E5A52">D-45 被發現</span><span style="font-size:11px;color:#5E5A52">D+0 開火</span><span style="font-size:11px;color:#B3362E">D+4 現在</span><span style="font-size:11px;color:#5E5A52">D+7 美軍</span><span style="font-size:11px;color:#5E5A52">D+30</span></div>
+    </div>
+    <a href="03-chronicle.html" style="height:40px;padding:0 16px;border:1px solid #B3362E;color:#B3362E;display:flex;align-items:center;text-decoration:none;font-size:14px">跳到結局</a>
+  </div>
+</div>
+</body>
+</html>
