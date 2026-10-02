@@ -1,0 +1,14 @@
+{
+  // Cloudflare Workers（靜態資產模式）設定。沒有 Worker 程式碼，只把 dist/ 當靜態站台服務。
+  // 有這個檔案，`wrangler deploy` 就不會嘗試依 Vite 自動設定（那條路要 Vite ≥ 6）。
+  // 用 Pages 部署時不需要這個檔案，Pages 會忽略它。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "akiong-wargame",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "observability": { "enabled": false }
+}

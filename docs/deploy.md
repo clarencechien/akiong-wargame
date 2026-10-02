@@ -11,6 +11,16 @@
 
 每次 push 到 main 自動部署；PR 會有預覽網址。
 
+## Cloudflare Workers（Workers Builds，`npx wrangler deploy`）
+
+如果在 Cloudflare 建的是 Workers 專案而不是 Pages，部署指令會是 `npx wrangler deploy`。repo 裡的 `wrangler.jsonc` 已設成靜態資產模式：沒有 Worker 程式碼，只把 `dist/` 當靜態站台服務，`_headers` 一樣生效。
+
+- Build command `npm run build`；Deploy command `npx wrangler deploy`；不需要環境變數。
+- 沒有 `wrangler.jsonc` 時 wrangler 會嘗試依 Vite 自動設定，那條路要求 Vite ≥ 6，會失敗（錯誤：The version of Vite used in the project cannot be automatically configured）。有設定檔就不走那條路。
+- 本機驗證：`npm run build && npx wrangler deploy --dry-run`。
+
+Pages 與 Workers 擇一即可；兩邊都不需要密鑰，執行期不呼叫任何 API。
+
 ## 其他靜態空間
 
 GitHub Pages、Netlify、S3 + CloudFront 都可以。`vite.config.ts` 的 `base: './'`，放在子路徑也能跑。只有 `_headers` 是 Cloudflare 格式，其他平台要用各自的方式設標頭（可不設，功能不受影響）。
