@@ -15,9 +15,12 @@ export const progress = signal<{ done: number; total: number } | null>(null);
 export const batch = signal<BatchResult | null>(null);
 export const runIndex = signal(0);
 export const error = signal<string | null>(null);
+/** 玩家最後改的假設（分享卡標題用：「我以為問題是…」） */
+export const lastChanged = signal<keyof Assumptions | null>(null);
 
 export const currentResult = computed(() => batch.value?.results[runIndex.value] ?? null);
 
 export function setAssumption<K extends keyof Assumptions>(key: K, value: Assumptions[K]): void {
+  if (assumptions.value[key] !== value) lastChanged.value = key;
   assumptions.value = { ...assumptions.value, [key]: value };
 }

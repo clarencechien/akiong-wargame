@@ -58,8 +58,24 @@ try {
   if (back >= eventsCount) throw new Error('拖回時間軸起點後事件沒有減少');
   await page.locator('#tl').fill(String(await page.locator('#tl').getAttribute('max')));
   await page.screenshot({ path: 'docs/screenshots/02-situation-end.png' });
+  // 史書：章節、註釋、分享卡、事件簿、如果重來
+  await page.getByTestId('to-chronicle').click();
+  await page.locator('.paper h1').waitFor({ timeout: 5000 });
+  const chapterChars = (await page.locator('.prose').innerText()).replace(/\s/g, '').length;
+  const notes = await page.locator('.notes li').count();
+  if (chapterChars < 1200 || notes < 3) throw new Error(`章節太短（${chapterChars} 字）或註釋太少（${notes}）`);
+  await page.screenshot({ path: 'docs/screenshots/03-chronicle.png', fullPage: true });
+  await page.getByTestId('tab-book').click();
+  const rows = await page.locator('.book tbody tr').count();
+  if (rows !== eventsCount) throw new Error(`事件簿列數 ${rows} ≠ 事件數 ${eventsCount}`);
+  await page.getByTestId('tab-card').click();
+  await page.locator('canvas.sharecard').waitFor();
+  const replays = await page.getByTestId('replay').count();
+  if (replays !== 5) throw new Error(`如果重來應有 5 顆按鈕，實際 ${replays}`);
+  await page.getByTestId('replay').first().click();
+  await page.getByRole('radiogroup', { name: '發動月份' }).waitFor();
   await browser.close();
-  console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則（播放中 ${before} → ${during}）；頁面錯誤 ${errors.length} 個`);
+  console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則（播放中 ${before} → ${during}）；章節 ${chapterChars} 字、註釋 ${notes} 條；頁面錯誤 ${errors.length} 個`);
   for (const e of errors) console.log('  ' + e);
   if (ms >= 60_000 || eventsCount < 5 || errors.length > 0) process.exitCode = 1;
 } finally {

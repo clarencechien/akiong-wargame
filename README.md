@@ -29,4 +29,4 @@ npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假�
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：M1 引擎、M2 參數庫、M3 作戰室 + worker pool、M4 戰情室、M5 聲音引擎完成。正式聲音模板待人工審稿（候選 90 句在 `data/_candidates/`），審過 promote 後戰情室會出現聲音流。下一步 M6 史書。
+狀態：M1 到 M6 完成（引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書）。正式聲音模板待人工審稿（候選 90 句在 `data/_candidates/`），審過 promote 後戰情室的聲音流與史書的引文才會出現。下一步 M7 來源頁與上線。

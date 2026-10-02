@@ -236,7 +236,7 @@ export function Situation() {
         <button type="button" class="tbtn outline" onClick={jumpToEnd} disabled={ended} data-testid="jump-end">
           跳到結局
         </button>
-        <button type="button" class="tbtn outline" disabled title="史書在 M6">
+        <button type="button" class="tbtn outline" onClick={() => (screen.value = 'chronicle')} data-testid="to-chronicle">
           讀史書
         </button>
       </div>

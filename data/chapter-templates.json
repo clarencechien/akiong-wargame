@@ -1,0 +1,344 @@
+{
+  "note": "章節模板（HANDOFF §9）。段落依條件選、依 seed 抽變體；{slot} 由 src/narrative/chapter.ts 填，{ref:kind} 會換成指向該事件的 [n]（找不到就刪掉）。條件：phase>=N / phase==N（終止階段索引 0–4）、reason=…、failedBy=…、aux=…、us=…、axis=…、scale=…、event:kind（本局有此事件）、! 否定、& 且。",
+  "titles": {
+    "coastalMissilesIntact": [
+      "{yearZh}年{monthZh}：找不到的發射車",
+      "三天打擊之後"
+    ],
+    "windowClosed": [
+      "{yearZh}年{monthZh}的海",
+      "天不夠的那一年"
+    ],
+    "fleetBroken": [
+      "第{endDayZh}天的海峽",
+      "船沒了之後"
+    ],
+    "tooSlow": [
+      "灘頭上的算術",
+      "每天八千人"
+    ],
+    "secondWaveFailed": [
+      "四十八小時",
+      "第二波沒有來"
+    ],
+    "beachheadCrushed": [
+      "被壓回海裡的四十八小時",
+      "灘頭"
+    ],
+    "forcesDepleted": [
+      "縱深",
+      "打不出去的灘頭堡"
+    ],
+    "moraleCollapse": [
+      "先倒下的是後方",
+      "階段性目標"
+    ],
+    "day30": [
+      "第三十天",
+      "膠著"
+    ],
+    "objectiveReached": [
+      "{yearZh}年{monthZh}之後",
+      "過了門檻的那一局"
+    ]
+  },
+  "sections": {
+    "visible": {
+      "heading": "一、看得見的戰爭",
+      "paragraphs": [
+        {
+          "when": "always",
+          "variants": [
+            "戰爭在開始前{leadDays}天就已經開始。{portName}外海的船團在幾週內成形，{scaleText}；任何訂閱商用衛星影像的人都看得見{ref:detected}。這不是情報失誤的故事，是物理的故事：一支要把{liftWan}人送過海峽的船團，沒有辦法藏在港裡。",
+            "後來的史家把開戰日定在 D 日，但住在{portName}的人會說，開始的日子是 D{detectedDay}。那一天開源情報帳號貼出衛星影像，{scaleText}{ref:detected}。從那一刻起，每多一天準備，守方就多一天準備。"
+          ]
+        },
+        {
+          "when": "event:requisition",
+          "variants": [
+            "D{requisitionDay}，交通運輸部徵用渤海與福建航線的滾裝船{ref:requisition}。渡輪航班停駛，船東接到「國防動員」通知。這一步讓運量多了一截，也讓「偷襲」兩個字從此不再適用：民船一徵用，全世界的港口資料庫都會同步更新。",
+            "徵用民船是一道單向門{ref:requisition}。船一旦離開航線，航運公司、保險公司、港口調度都知道了。模型裡這只是運量加一個係數；現實裡這是幾千名船員與他們的家人同時收到的通知。"
+          ]
+        },
+        {
+          "when": "event:twReserveActivated",
+          "variants": [
+            "台灣在 D{reserveDay}發布後備召集令，動員率設定在{reservePct}{ref:twReserveActivated}。公開資料裡，這個數字介於國防部宣稱的「二十四小時二十一萬」與二〇二四年教召實際到位的四成多之間。模型取了玩家選的值；真實世界會取哪一個，沒有人知道。",
+            "D{reserveDay}的召集令{ref:twReserveActivated}是這場戰爭第一個「守方決定」。模型裡守方不下指令，但後備動員率決定灘頭後方能撐幾天。{reservePct}的動員率，意思是每十個被召集的人裡有{reserveTen}個真的到了海岸陣地。"
+          ]
+        },
+        {
+          "when": "phase>=1",
+          "variants": [
+            "D 日凌晨，火箭軍對機場、雷達站與岸置飛彈陣地發射首波飛彈，三日計畫用量{missiles}枚{ref:strike}。西部機場跑道多數受損{ref:airfieldsHit}，但佳山與志航洞庫裡的機隊沒有損失。固定的東西被打掉了；會動的東西，沒有。",
+            "首波{missiles}枚飛彈{ref:strike}是這場戰爭裡最像教科書的部分：目標清單、發射序列、戰果評估。到了第二天，評估的人開始發現問題：固定雷達站的照片很清楚，機動發射車的照片是空地{ref:launcherHunt}。"
+          ]
+        },
+        {
+          "when": "phase>=1",
+          "variants": [
+            "三天打擊之後，守方岸置飛彈剩下{coastalLeftPct}{ref:strikeGate}。《阿共打來怎麼辦》用一整章解釋為什麼「飛彈洗地」打不掉機動發射車；一九九一年波灣戰爭的飛毛腿獵殺與二〇二二年烏克蘭的經驗說的是同一件事。模型把這寫成兩個數字：固定陣地存活{fixedSurvPct}，機動發射車每日損失{mobileAttrPct}。",
+            "打擊階段的門檻不是「打中多少」，是「剩下多少」。D+3 深夜的評估是{coastalLeftPct}{ref:strikeGate}，可渡海的上限是{gateMaxPct}。這條線是模型假設，不是公開資料；公開資料只告訴我們，沒有人真的知道那條線在哪裡。"
+          ]
+        },
+        {
+          "when": "phase==1",
+          "variants": [
+            "D+3 深夜，聯合作戰指揮中心取消了 D+4 的渡海{ref:gateFailed}。船團沒有出港。後來的回憶錄裡，這個決定被寫成「審慎」；當時的通報裡，它被寫成「調整」。對{liftWan}人的運量來說，它只是沒有發生。",
+            "這一局在渡海之前就結束了{ref:gateFailed}。歷史上大多數沒有發生的戰爭都長這樣：沒有灘頭、沒有船沉，只有一份停在桌上的命令，和一支在港裡多停了幾個月的船團。"
+          ]
+        },
+        {
+          "when": "phase==0",
+          "variants": [
+            "這一局甚至沒有等到 D 日{ref:gateFailed}。{monthZh}的海峽月均浪高超過兩公尺，好天預算只有{windowDays}天，不夠完成一次渡海。船團在港裡等天氣，天氣沒有來。",
+            "聯合作戰指揮中心在 D-1 做了唯一正確的決定：不出港{ref:gateFailed}。{monthZh}的東北季風不是意外，是日曆。模型裡這只是一個月份參數；現實裡這是為什麼公開分析都說一年只有兩個窗口。"
+          ]
+        },
+        {
+          "when": "phase<=1",
+          "variants": [
+            "計畫裡的下一步是這樣的：D+4 第一波自{portName}出港，{groups}個船團群、{liftWan}人運量、航程{transitHours}小時；主攻{axisName}，{auxText}；灘頭每日可卸約八千人，三天內上岸一萬四千人建立灘頭堡。計畫寫得很完整。它停在第一頁。",
+            "值得把沒有執行的計畫寫下來：{liftWan}人、{groups}個船團群、{transitHours}小時航程，目標{axisName}，{auxText}。公開兵推裡這一步大多過得去；這一局連這一步都沒有走到，因為過不去的是前一步。"
+          ]
+        },
+        {
+          "when": "phase==0",
+          "variants": [
+            "{monthZh}的台灣海峽是什麼樣子，氣象資料說得很清楚：海峽中部浮標的月均示性波高在十一月到一月之間超過兩公尺，桃園沿岸風速達每秒十公尺以上的時間在冬季接近一半，每年蒲福六級以上的日子有一百五十六天。登陸艇與駁船的作業上限大約是浪高一公尺半。這不是守方的功勞，是地理的。",
+            "為什麼公開分析都說一年只有兩個窗口？因為東北季風從十月中吹到三月，颱風季從六月到九月，剩下的只有四月前後與十月前後。{monthZh}落在季風期裡：好天預算{windowDays}天，而且不連續。模型把這寫成一個月份參數；現實裡它是船團在港裡等了幾週、然後等到春天。"
+          ]
+        }
+      ]
+    },
+    "strait": {
+      "heading": "二、海峽",
+      "paragraphs": [
+        {
+          "when": "phase>=2",
+          "variants": [
+            "D+4，第一波船團自{portName}出港，{liftWan}人的運量押在這一趟{ref:fleetDeparture}。航程{transitHours}小時，船團速度不到十節。CSIS 的兵推裡，台灣單獨作戰時岸置飛彈在前十天擊沉約一成六的兩棲艦；在這一局，第一趟的損失是{firstTransitLossPct}。",
+            "出港那天{ref:fleetDeparture}，船團的平均戰力是百分之百。這個數字在接下來的每一趟都會往下掉，掉的速度取決於三件事：守方還剩多少岸置飛彈、美軍什麼時候來、天氣給不給。{liftWan}人的運量裡，最後能上岸的只有一部分。"
+          ]
+        },
+        {
+          "when": "aux=penghu&phase>=2",
+          "variants": [
+            "澎湖在 D+5 易手{ref:penghuTaken}，是整場戰爭裡唯一按計畫完成的部分。代價是{penghuCostPct}的運量，和多給守方兩天確認主攻方向。CSIS 二十四局兵推裡三局先取澎湖，報告的評語是「作戰死胡同」。",
+            "先取澎湖{ref:penghuTaken}在地圖上很合理：一個跳板、一座機場、一條短得多的補給線。在運量表上它是減號：{penghuCostPct}。模型沒有讓澎湖變成跳板，因為公開分析裡沒有人能說明它怎麼變成跳板。"
+          ]
+        },
+        {
+          "when": "aux=eastFeint&phase>=2",
+          "variants": [
+            "東岸佯攻船團在花蓮外海現身{ref:eastFeint}。佯攻分走{feintCostPct}運量；它有沒有拖住守方一個旅，取決於守方信不信。模型用一個機率處理；現實裡這是情報戰。"
+          ]
+        },
+        {
+          "when": "event:seaBad&phase>=2",
+          "variants": [
+            "海況在渡海期間轉差過{ref:seaBad}。登陸艇與駁船在浪高逾兩公尺時無法作業，在航的船團改為抗風航行，錨泊卸載中的船團被迫起錨{ref:unloadingAborted}。{monthZh}的好天比例約{goodDayPct}；模型用兩態馬可夫鏈模擬逐日海況，壞天平均持續兩三天。",
+            "天氣是這一局裡唯一不聽命令的參與者{ref:seaBad}。四月與十月之所以被稱為窗口，不是因為沒有壞天，是因為壞天少一點。每一個壞天，船團就少一天卸載，灘頭就少一天補給。"
+          ]
+        },
+        {
+          "when": "event:typhoon",
+          "variants": [
+            "颱風警報在 D+{typhoonDay}發布{ref:typhoon}，所有渡海作業中止{typhoonHaltDays}天。一九一一年到二〇二四年，{monthZh}侵台的颱風有{typhoonCount}個。模型抽到了其中一個。"
+          ]
+        },
+        {
+          "when": "phase>=3",
+          "variants": [
+            "D+{landingDay}，抵岸兵力達到建立灘頭堡的最低需求{ref:crossingGate}，灘頭戰開始{ref:landingStart}。守方{regularBrigades}個常備旅與陸續到位的後備旅在灘頭後方展開，有效戰力約{defenderStrength}人當量。台灣約四成六的營在北部三分之一，這是 CSIS 二十四局裡二十一局選在南部登陸的原因。",
+            "灘頭戰{ref:landingStart}在模型裡是一條線性律：守方每小時扣攻方一點，攻方每小時扣守方一點，卸載的兵力過灘岸火網時先損失一成。真實的灘頭戰沒有這麼乾淨，但量級對得上：塔拉瓦首日三成、奧馬哈部分灘區逾三成。"
+          ]
+        },
+        {
+          "when": "event:usEngaged",
+          "variants": [
+            "D+{usEntryDay}，美軍{usFrom}開始對海峽船團發動打擊{ref:usEngaged}。CSIS 的基準情境裡，解放軍兩棲船團約九成在十到十四天內被擊沉；在這一局，美軍介入後每趟航渡的損失從{taiwanLossPct}跳到{usLossPct}。{japanText}",
+            "美軍介入{ref:usEngaged}改變的不是能不能上岸，是上岸之後。第一波早就過去了；美軍打的是第二到第四趟，也就是補給與增援。這是為什麼「美軍不來就打得下」在公開兵推裡不成立：不來，也不到五成。"
+          ]
+        },
+        {
+          "when": "phase==2",
+          "variants": [
+            "渡海沒有過門檻{ref:gateFailed}。{failedByText}上岸的{maxTroops}人沒有等到第二波，守方砲兵把灘頭變成射擊場。模型在這裡結算，因為公開資料裡沒有任何一個版本的故事能讓這些人走出灘頭。",
+            "這一局止於海峽{ref:gateFailed}。{failedByText}史家後來爭論的是決策，但數字不爭論：需要{requiredTroops}人，到了{maxTroops}人。"
+          ]
+        },
+        {
+          "when": "phase==3",
+          "variants": [
+            "灘頭堡沒有撐過四十八小時的考驗{ref:gateFailed}。{failedByText}上岸最多{maxTroops}人，船團損失{fleetLossPct}。灘頭堡的定義不是「有人站在沙灘上」，是「第二波卸得下來」。",
+            "搶灘階段結束在 D+{endDay}{ref:gateFailed}。{failedByText}模型裡灘頭堡要同時滿足兩件事：撐過四十八小時、第二波卸載。這一局只做到了一件。"
+          ]
+        },
+        {
+          "when": "phase<=1",
+          "variants": [
+            "海峽在這一局裡是空的。船團沒有出港，{liftWan}人的運量留在{portName}的碼頭上。這一節沒有事件可以註釋，只有一張沒有用到的航行計畫：航程{transitHours}小時，主攻{axisName}，{auxText}。",
+            "沒有渡海的渡海章節。後來的教科書通常跳過這一段，但它值得一寫：{liftWan}人、{groups}個船團群、{transitHours}小時的航程，全部停在計畫階段。這一局教的是「想打就打」為什麼不成立。"
+          ]
+        },
+        {
+          "when": "phase>=4",
+          "variants": [
+            "灘頭堡在 D+{inlandDay}算是站住了{ref:landingGate}：撐過四十八小時，第二波卸了下來。從這一刻起，戰爭變成一道算術題：補給船團每天有{supplyHitPct}的機率被切斷，每一個壞海況的日子補給線存活天數就少一天，守方縱深反擊每天扣掉登陸部隊的一小部分。要連續七天不斷，才算達成目標。",
+            "進入縱深階段{ref:landingGate}的那一天，灘頭上有{troopsAtLanding}人。接下來的每一天都在問同一個問題：補給船團今天過得來嗎？模型用每日{supplyHitPct}的被切機率、海況與美軍倍數回答；答案連續七天是「過得來」，才算贏。"
+          ]
+        },
+        {
+          "when": "phase==0",
+          "variants": [
+            "如果船團真的在{monthZh}出港，會發生什麼？模型可以回答，因為它用兩態馬可夫鏈模擬逐日海況：好天比例{goodDayPct}，壞天平均持續兩三天。在航的船團遇壞天會被打散，錨泊卸載中的船團被迫起錨，本趟作廢。以這個月的機率，一趟往返有超過一半的機會碰上壞天。指揮中心不出港，不是膽小，是算過。",
+            "海峽在這個月不需要守。歷史上成功的大型登陸都挑過日子：諾曼第等了一天的天氣窗口，仁川算的是潮差。台灣海峽的日子比它們都少。{monthZh}的好天預算{windowDays}天，渡海至少需要三天連續好天，而第二波、第三波與補給線各自還要再等一次。"
+          ]
+        }
+      ]
+    },
+    "ending": {
+      "heading": "三、第{endDayZh}天",
+      "paragraphs": [
+        {
+          "when": "phase==0",
+          "variants": [
+            "這一局教的東西和其他局不一樣：它沒有門檻失敗的戲劇性，只有一本日曆。下一個窗口在春天，到那時候船團已經在港裡停了幾個月，徵用的民船已經錯過一個航運旺季，而台灣的後備軍人已經練了一輪又一輪。等待本身就是代價，而且是攻方付的。",
+            "後來的檢討報告會問：為什麼選{monthZh}？答案通常不在軍事裡。政治日程、對手的選舉、國內的壓力，這些模型都沒有算；它只算天氣。而天氣在這一局裡贏了，沒有開一槍。"
+          ]
+        },
+        {
+          "when": "phase==0",
+          "variants": [
+            "帳單的另一面在台灣。後備軍人在 D{reserveDay}被召集，在海岸陣地上待到窗口關閉；漁港停擺，股市重挫，晶片客戶開始分散訂單。沒有登陸的威脅也是威脅，而且因為沒有結束的那一天，它會一直算下去。模型在 D-1 結算，是因為公開資料對「等到春天」沒有數字。"
+          ]
+        },
+        {
+          "when": "phase<=1",
+          "variants": [
+            "沒有灘頭、沒有船沉、沒有補給線，史書通常不會給這樣的一局一章。但它有代價：{leadDays}天的集結已經讓全世界的市場、保險公司與港口重新定價，沿海停工{shutdownPct}，徵用的民船停在港裡，台灣的後備軍人在海岸陣地上多待了幾週。沒有發生的戰爭也有帳單。",
+            "這一局的結算日是 D+{endDay}，比大多數局早得多。早結束不等於沒有代價：被辨識的那一天起，股市、保費、航運班表、沿海工廠的加班時數，全都已經改變。模型把這些寫進世界層與家前線層；它們不會因為船團沒有出港就歸零。"
+          ]
+        },
+        {
+          "when": "phase==4&reason=gateFailed",
+          "variants": [
+            "D+{endDay}，縱深作戰結束{ref:gateFailed}。{failedByText}上岸最多{maxTroops}人，船團損失{fleetLossPct}，沿海停工{shutdownPct}。灘頭堡還在，但已經打不出去；補給線連續存活的天數從來沒有到過七天。",
+            "縱深與持久是五道門檻裡最少人到的一道，這一局到了，然後停在這裡{ref:gateFailed}。{failedByText}CSIS 基準情境的描述是「灘頭部隊十天內耗盡補給」；這一局的數字是 D+{endDay}。"
+          ]
+        },
+        {
+          "when": "reason=timeout&failedBy=moraleCollapse",
+          "variants": [
+            "D+{endDay}，中央宣布「階段性目標已達成」，行動停止{ref:stopped}。士氣跌破了模型的停止線。沿海停工{shutdownPct}，台商薪資發放能力剩{payrollPct}，船團損失{fleetLossPct}。先倒下的不是灘頭，是後方。",
+            "停止的那一天{ref:stopped}，前線還有{troopsAtEnd}人在灘頭上。模型把這一局寫成「停止」而不是「失敗」，因為史書通常也這樣寫。家前線的壓力在 D{homefrontDay}就浮現了；它不是突然崩的，是一天一天算出來的。"
+          ]
+        },
+        {
+          "when": "reason=timeout&failedBy=moraleCollapse",
+          "variants": [
+            "回頭看，士氣這條線沒有任何一天出現轉折。它每天掉一點：基礎衰減、船團損失、沿海停工。模型裡低於四十時補給累積減半，低於二十五就結算；這兩條線都是模型假設，公開資料裡沒有任何數字能告訴我們一個政權什麼時候會停。只知道歷史上重大海軍損失不會在數週內導致停戰，所以這條線畫得很低。",
+            "「階段性目標已達成」是這一局最後一個事件，也是最誠實的一個：它承認目標被重新定義了。家前線的壓力從 D{homefrontDay}浮現，到結算時停工{shutdownPct}、台商薪資發放能力剩{payrollPct}。在陸台商雇用的勞工數各家估計差一個數量級，但方向沒有爭議：持久的代價先落在自己人身上。"
+          ]
+        },
+        {
+          "when": "reason=timeout&failedBy=day30",
+          "variants": [
+            "D+30，戰事膠著{ref:timeout}。灘頭堡{beachheadText}，上岸{troopsAtEnd}人，船團損失{fleetLossPct}。模型在第三十天停筆，不是因為戰爭結束，是因為公開資料對三十天之後沒有話說。"
+          ]
+        },
+        {
+          "when": "reason=objectiveReached",
+          "variants": [
+            "D+{endDay}，補給線連續存活七天，上岸兵力{troopsAtEnd}人開始向內陸推進{ref:objectiveReached}。戰略目標達成，至少教科書的這一章是這樣寫的。同組假設的{n}局裡，走到這裡的有{objectiveN}局。",
+            "這一局過了所有門檻{ref:objectiveReached}。值得記住的是它過得多勉強：船團損失{fleetLossPct}，沿海停工{shutdownPct}，而「達成目標」的定義只是補給線撐了七天。接下來的事，模型沒有寫，公開資料也沒有。"
+          ]
+        },
+        {
+          "when": "phase<=3&!reason=objectiveReached&!failedBy=moraleCollapse",
+          "variants": [
+            "結算在 D+{endDay}。{outcomeShort}。這一局最多有{maxTroops}人同時在灘頭上，船團損失{fleetLossPct}，沿海停工{shutdownPct}，全球市場最大跌幅{marketPct}。",
+            "史家習慣在這裡寫轉折點，但這一局沒有轉折點，只有累積：每一趟少幾艘船、每一天少幾小時好天、每一個停工的廠多幾個不領薪水的人。D+{endDay}，累積到了。"
+          ]
+        },
+        {
+          "when": "always",
+          "variants": [
+            "同一組假設跑{n}局，登陸成功{landedN}局，穩固灘頭堡{solidN}局，三十天內達成目標{objectiveN}局，中位終止日 D+{medianDay}。這一局在分佈的{positionText}。玩家看到的不是「結果」，是「機率」。",
+            "把這一局放回{n}局的分佈裡：{landedN}局上得了岸，{solidN}局站得穩，{objectiveN}局走得出去。這一局{positionText}。歷史只發生一次，但模型可以告訴你它有多常見。"
+          ]
+        },
+        {
+          "when": "always",
+          "variants": [
+            "{lessonText}",
+            "{lessonText}"
+          ]
+        }
+      ]
+    },
+    "world": {
+      "heading": "四、世界",
+      "paragraphs": [
+        {
+          "when": "event:marketsReact",
+          "variants": [
+            "世界層比 D 日早醒。船團被辨識的那一天，台股與亞洲股市開盤重挫，保險公司暫停承保台海航線戰爭險{ref:marketsReact}。市場不等門檻；它看到衛星影像就定價。這是為什麼「偷襲」在二十一世紀是一個經濟學問題，不只是軍事問題。",
+            "在任何一枚飛彈發射之前，全球的保險公司已經做出了第一個軍事判斷：暫停承保{ref:marketsReact}。船團被辨識後，航運公司開始改班表，半導體客戶開始問庫存。世界層的時鐘從 D{detectedDay}開始走，比軍事層早。"
+          ]
+        },
+        {
+          "when": "event:chipShutdown",
+          "variants": [
+            "D 日當天，新竹、台中、台南的晶圓廠停工，全球先進製程產能剩{chipPct}{ref:chipShutdown}。台灣佔全球晶圓代工產能約四成六、十奈米以下九成以上；戰時停工的比例是模型假設，停工的事實不是。",
+            "世界層在 D 日醒來{ref:chipShutdown}。紐約的分析師把台灣產能寫成零，發現模型算不出來；慕尼黑的採購發現六週庫存很短。這一節寫的是戰爭最快傳到最遠的部分。"
+          ]
+        },
+        {
+          "when": "event:shippingReroute",
+          "variants": [
+            "超過半數貨櫃航線在 D+{rerouteDay}改道呂宋海峽以東{ref:shippingReroute}，戰爭險保費跳升。二〇二二年全球約四成八的貨櫃船隊經過台灣海峽；改道的代價是每趟多三到十一天，釜山與新加坡的港口排到看不見盡頭。"
+          ]
+        },
+        {
+          "when": "event:marketShock",
+          "variants": [
+            "全球股市自開戰以來的跌幅在 D+{marketDay}達到{marketShockEventPct}{ref:marketShock}。Bloomberg Economics 估計台海戰爭使全球 GDP 損失約一成；市場用跌幅提前定價，定價的速度比船團快。"
+          ]
+        },
+        {
+          "when": "event:coastalShutdown",
+          "variants": [
+            "家前線是這個模型與其他兵推最大的差別。福建、廣東的沿海停工比例在 D{shutdownFirstDay}越過一成{ref:coastalShutdown}，到結算時是{shutdownPct}。在陸台商雇用的勞工數，各家估計從二百六十萬到一千萬；戰時資金匯不進來，薪水就發不出去。這些人沒有出現在任何一場兵推的傷亡表上。",
+            "停工曲線{ref:coastalShutdown}是這一局最安靜的一條線。它不炸、不沉、不上新聞，但到結算時它是{shutdownPct}，而且不會因為戰爭停止就回去。模型把它寫成一個係數；聲音系統裡的線長、船東、台商二代，是這個係數的臉。"
+          ]
+        },
+        {
+          "when": "event:moraleLow",
+          "variants": [
+            "D+{moraleLowDay}，內部通報把宣傳口徑改為「階段性目標已達成」{ref:moraleLow}。這是家前線層回頭影響軍事層的時刻：士氣低於四十，補給線存活天數的累積減半。模型裡這只是一個係數；聲音系統裡，這是官媒編輯刪掉的那篇稿子。"
+          ]
+        },
+        {
+          "when": "phase>=2&!event:moraleLow",
+          "variants": [
+            "世界層的數字在結算時是：晶片產能{chipPct}、航運改道{reroutePct}、能源價格{energyPct}、市場{marketPct}跌幅。這些數字沒有一個會因為登陸停止就回去。史書寫戰爭通常寫灘頭；這一章多寫一節，因為供應鏈斷裂的那一天，離台灣最遠的人最先知道。"
+          ]
+        }
+      ]
+    }
+  },
+  "lessons": {
+    "coastalMissilesIntact": "這一局教的是「飛彈洗地」為什麼不成立。固定的東西打得掉，會動的東西打不掉；三天之後剩下的那{coastalLeftPct}岸置飛彈，足以讓一支船團不敢出港。",
+    "windowClosed": "這一局教的是「想打就打」為什麼不成立。{monthZh}的海峽不是敵人，是日曆；一年只有兩個窗口，窗口裡也不是每天都開。",
+    "fleetBroken": "這一局教的是上岸不是最難的。第一趟過得去，第二到第四趟過不去；船沒了，灘頭上的人就成了孤軍。CSIS 二十四局兵推每一局解放軍都上得了岸，輸的是同一件事。",
+    "tooSlow": "這一局教的是吞吐量。沒有港口，每天只能卸幾千人；守方的縱深部隊每天都在到位。灘頭上的算術不是誰勇敢，是誰先到。",
+    "secondWaveFailed": "這一局教的是第二波。灘頭堡的定義不是有人站在沙灘上，是第二波卸得下來；美軍、天氣、守方砲兵，打的都是第二波。",
+    "beachheadCrushed": "這一局教的是守備旅。灘頭後方不只是沙灘上的那幾個旅，是四十八小時內能到的所有旅；北部三分之一有台灣四成六的營。",
+    "forcesDepleted": "這一局教的是縱深。登陸只是開始；後備動員率決定灘頭後方能撐幾天，而每一天守方都在扣登陸部隊的人數。",
+    "moraleCollapse": "這一局教的是家前線。持久戰的代價先落在自己人身上：停工、欠薪、等不到電話的家庭。士氣不是突然崩的，是一天一天算出來的。",
+    "day30": "這一局教的是時間。三十天過去，灘頭堡還在，目標還沒到；模型在這裡停筆，因為公開資料對第三十一天沒有話說。",
+    "objectiveReached": "這一局過了，但看看它過得多勉強，再看看{n}局裡有幾局過。公開兵推裡美軍不介入的情境解放軍也不到五成能在三十天內達標；這一局是那少數之一。"
+  }
+}

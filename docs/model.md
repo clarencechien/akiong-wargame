@@ -76,6 +76,12 @@ HANDOFF 把窗口寫成「剩餘可用海況天數」倒數。實作改成兩態
 
 正式模板檔 `data/voice-templates.json` 只收人工審過的句子；LLM 候選在 `data/_candidates/*.candidates.json`，流程見 `scripts/gen-templates/README.md`。
 
+## 1.5 史書（M6）
+
+章節由 `data/chapter-templates.json` 拼裝：四節（看得見的戰爭／海峽／第 N 天／世界），段落依條件（終止階段、結束原因、假設、本局有無某事件）選、依 seed 抽變體；`{ref:kind}` 換成指向該事件的 `[n]`；每節從該階段的聲音裡抽一則引文（沒有就借用其他階段）。章節用自己的 PRNG（`mix32(seed, 0xc4a9)`），不碰模擬的隨機流。字數 1,500–3,000 以測試守住（目前各種結局落在 1,500–2,200）。
+
+分享卡標題公式 `「我以為問題是{玩家最後改的假設或美軍}。問題是{三個名詞}。」`，三個名詞依結束原因碼查表（`src/narrative/sharecard.ts`）。事件簿每行帶當時的狀態量（從快照取），標紅假設的結算事件高亮。
+
 ## 2. 與 HANDOFF 的差異（PR 說明要列）
 
 | HANDOFF | 實作 | 為什麼 |

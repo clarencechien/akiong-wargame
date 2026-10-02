@@ -147,3 +147,45 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .step.now, .step.fail { border-left-color: var(--red); }
   .hdr.compact { padding: 12px 16px 8px; }
 }
+
+/* 03 史書 */
+.chronicle { display: flex; flex-direction: column; flex: 1; gap: 16px; padding-bottom: 24px; }
+.tabs { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 40px; flex-wrap: wrap; }
+.tab { padding: 8px 14px; border: 1px solid var(--rule-2); font-size: 13px; background: transparent; }
+.tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chapter-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; padding: 0 40px; }
+.chapter-grid.single { grid-template-columns: minmax(0, 1fr); }
+.paper { background: var(--paper-2); border: 1px solid var(--rule); padding: 40px 48px; display: flex; flex-direction: column; gap: 22px; font-family: var(--serif); }
+.paper header { display: flex; flex-direction: column; gap: 8px; border-bottom: 2px solid var(--ink); padding-bottom: 16px; }
+.paper header .lbl, .paper header .muted { font-family: var(--sans); }
+.paper h1 { margin: 0; font-size: 34px; font-weight: 700; line-height: 46px; }
+.chapter-body { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 28px; }
+.prose { display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 27px; }
+.prose h2 { margin: 10px 0 0; font-size: 18px; font-weight: 600; }
+.prose p { margin: 0; text-align: justify; }
+.prose .fn a { color: var(--red); text-decoration: none; font-family: var(--mono); font-size: 11px; }
+.prose .q { margin: 4px 0 0; padding: 10px 14px; border-left: 2px solid var(--red); background: rgba(179, 54, 46, .05); font-size: 14px; line-height: 24px; }
+.prose .tail { border-top: 1px dashed var(--rule); padding-top: 12px; font-family: var(--sans); }
+.chapter-aside { display: flex; flex-direction: column; gap: 10px; font-family: var(--sans); }
+.notes { margin: 0; padding: 0; list-style: none; font-size: 10px; line-height: 16px; color: var(--ink-2); }
+.sharecard { display: block; aspect-ratio: 1080 / 1350; border: 1px solid var(--ink); background: var(--panel); }
+.reel { display: flex; gap: 10px; flex-wrap: wrap; }
+.ph { display: flex; flex-direction: column; gap: 6px; flex: 1 1 180px; border: 1px solid var(--rule); padding: 10px; background: var(--paper-2); }
+.ph .scr { height: 120px; background: var(--panel); border: 1px solid var(--ink); position: relative; }
+.book-wrap { overflow: auto; max-height: 70vh; border: 1px solid var(--rule); background: var(--paper-2); }
+.book { border-collapse: collapse; font-size: 12px; width: 100%; }
+.book th, .book td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.book th { position: sticky; top: 0; background: var(--paper); font-weight: 500; font-size: 11px; letter-spacing: .06em; }
+.book tr.flag td { background: rgba(179, 54, 46, .08); color: var(--red); }
+.book tr.voice td:last-child { font-family: var(--serif); }
+.replay { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 40px 0; border-top: 1px solid var(--rule); margin: 0 40px; flex-wrap: wrap; }
+@media (max-width: 1100px) {
+  .chapter-grid { grid-template-columns: minmax(0, 1fr); }
+  .chapter-body { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .tabs, .chapter-grid, .replay { padding-left: 16px; padding-right: 16px; }
+  .replay { margin: 0; }
+  .paper { padding: 24px 18px; }
+  .paper h1 { font-size: 26px; line-height: 36px; }
+}
