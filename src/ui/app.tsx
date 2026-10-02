@@ -14,7 +14,9 @@ async function order(): Promise<void> {
   error.value = null;
   const n = runCount.value;
   progress.value = { done: 0, total: n };
-  const seeds = Array.from({ length: n }, (_, i) => 1 + i);
+  // 每次下令換一組 seed（同假設再跑一次會是不同的局；seed 印在畫面與分享編碼上，可重現）
+  const base = (crypto.getRandomValues(new Uint32Array(1))[0] ?? 1) >>> 0;
+  const seeds = Array.from({ length: n }, (_, i) => ((base + i) >>> 0) || 1);
   try {
     const result = await runBatch(assumptions.value, seeds, (done, total) => {
       progress.value = { done, total };
@@ -42,7 +44,7 @@ function NavLink({ to, label }: { to: Screen; label: string }) {
 export function App() {
   if (recent.value === null) void loadRecent();
   return (
-    <div class="page">
+    <div class={`page${screen.value === 'situation' ? ' fit' : ''}`}>
       <header class={`hdr${screen.value === 'situation' || screen.value === 'chronicle' ? ' compact' : ''}`}>
         <div style="display:flex;flex-direction:column;gap:6px">
           <div class="lbl">台海兵推 · 教育版 · 第一版（單人 · 全本機運算 · 不上傳任何資料）</div>
@@ -59,7 +61,7 @@ export function App() {
       {screen.value === 'situation' && <Situation />}
       {screen.value === 'chronicle' && <Chronicle />}
       {screen.value === 'sources' && <Sources />}
-      <footer class="ftr">
+      <footer class={`ftr${screen.value === 'situation' ? ' hide-fit' : ''}`}>
         <span>所有參數附公開來源。超出公開資料上限的設定以紅色標示。本模擬為教育用途的簡化模型，不代表任何官方評估。</span>
         <span class="mono">引擎 {ENGINE_VERSION} · 決定性 seed</span>
       </footer>

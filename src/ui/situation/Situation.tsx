@@ -18,9 +18,9 @@ const dl = (d: number) => (d < 0 ? `D${d}` : `D+${d}`);
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 const fmt = (n: number) => Math.round(n).toLocaleString('zh-Hant-TW');
 
-function Gauge({ label, value, text, color }: { label: string; value: number; text: string; color?: string | undefined }) {
+function Gauge({ label, value, text, color, sec }: { label: string; value: number; text: string; color?: string | undefined; sec?: boolean }) {
   return (
-    <div class="g">
+    <div class={`g${sec ? ' sec' : ''}`}>
       <div class="gh">
         <span>{label}</span>
         <span class="mono" style={color ? { color } : undefined}>
@@ -141,7 +141,7 @@ export function Situation() {
             態勢 · {dateLabel(a.month, s.day)} {String(s.hour).padStart(2, '0')}:00
           </div>
           <Gauge label="軍事 · 船團存活" value={avgStrength(s)} text={pct(avgStrength(s))} />
-          <Gauge label="軍事 · 海峽制空" value={s.military.airControl} text={s.military.airControl === 0 ? '未開戰' : s.military.airControl > 0.5 ? `局部 ${pct(s.military.airControl)}` : `爭奪中 ${pct(s.military.airControl)}`} />
+          <Gauge sec label="軍事 · 海峽制空" value={s.military.airControl} text={s.military.airControl === 0 ? '未開戰' : s.military.airControl > 0.5 ? `局部 ${pct(s.military.airControl)}` : `爭奪中 ${pct(s.military.airControl)}`} />
           <Gauge label="守方 · 岸置飛彈剩餘" value={s.military.twCoastalMissiles} text={pct(s.military.twCoastalMissiles)} color="#4C8DD8" />
           <Gauge label="軍事 · 上岸兵力" value={s.military.troopsAshore / (required * 1.5)} text={`${fmt(s.military.troopsAshore)} 人`} />
           <div class="phr" />
@@ -151,9 +151,9 @@ export function Situation() {
             text={usEntry === null ? '不介入' : s.regional.usEngaged ? '打擊中' : `D+${usEntry} · 剩 ${Math.max(0, usEntry - s.day)} 天`}
             color="#E0533F"
           />
-          <Gauge label="區域 · 日本基地" value={s.regional.japanBases ? 1 : 0.2} text={s.regional.japanBases ? (s.regional.ryukyuClosed ? '開放 · 琉球封閉' : '開放') : '中立'} color="#4C8DD8" />
-          <Gauge label="世界 · 晶片產能" value={s.world.chipOutput} text={pct(s.world.chipOutput)} color="#D9A441" />
-          <Gauge label="世界 · 市場" value={1 + s.world.marketShock} text={s.world.marketShock === 0 ? '持平' : `${Math.round(s.world.marketShock * 100)}%`} color="#D9A441" />
+          <Gauge sec label="區域 · 日本基地" value={s.regional.japanBases ? 1 : 0.2} text={s.regional.japanBases ? (s.regional.ryukyuClosed ? '開放 · 琉球封閉' : '開放') : '中立'} color="#4C8DD8" />
+          <Gauge sec label="世界 · 晶片產能" value={s.world.chipOutput} text={pct(s.world.chipOutput)} color="#D9A441" />
+          <Gauge sec label="世界 · 市場" value={1 + s.world.marketShock} text={s.world.marketShock === 0 ? '持平' : `${Math.round(s.world.marketShock * 100)}%`} color="#D9A441" />
           <Gauge label="家前線 · 沿海就業" value={1 - s.homefront.coastalShutdown} text={`停工 ${pct(s.homefront.coastalShutdown)}`} color="#D9A441" />
           <Gauge label="家前線 · 士氣" value={s.homefront.morale / 100} text={String(Math.round(s.homefront.morale))} color={s.homefront.morale < 40 ? '#E0533F' : undefined} />
           <div class="phr" />

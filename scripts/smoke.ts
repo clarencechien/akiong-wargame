@@ -40,6 +40,9 @@ try {
   await page.getByTestId('order').click();
   await page.locator('.situation').waitFor({ timeout: 60_000 });
   const ms = Date.now() - t0;
+  // 戰情室要一屏放下（1280×960）
+  const fit = await page.evaluate(() => document.documentElement.scrollHeight - document.documentElement.clientHeight);
+  if (fit > 2) throw new Error(`戰情室一屏放不下，多出 ${fit}px`);
   // 戰情室：播放 → 事件增加；跳到結局 → 門檻框變結局；時間軸可拖
   const before = await page.locator('.feed .vc').count();
   // 進戰情室會自動播放；切 ×16 加速

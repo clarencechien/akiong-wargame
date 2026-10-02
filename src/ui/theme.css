@@ -244,3 +244,55 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .prose .appendix h2 { font-size: 14px; font-family: var(--sans); font-weight: 600; margin: 0 0 6px; color: var(--ink); }
 .prose .appendix ol { margin: 0; padding-left: 20px; }
 @media (max-width: 720px) { .verdict { margin: 0 16px; } .verdict-h { font-size: 20px; line-height: 28px; } }
+
+/* 戰情室：一屏放下（桌機），手機取捨 */
+.page.fit { height: 100vh; overflow: hidden; }
+.page.fit .hdr.compact { padding: 8px 40px 6px; }
+.page.fit .hdr.compact h1 { font-size: 17px; }
+.ftr.hide-fit { display: none; }
+.page.fit .situation { flex: 1; min-height: 0; }
+.page.fit .sit-meta { padding: 4px 40px 0; font-size: 11px; }
+.page.fit .sit-meta .pill { padding: 3px 9px; font-size: 12px; }
+.page.fit .steps { padding: 6px 40px; gap: 6px; }
+.page.fit .step { padding: 3px 10px; gap: 0; }
+.page.fit .step .lbl { font-size: 9px; }
+.page.fit .step > span:nth-child(2) { font-size: 12px; }
+.page.fit .panel { flex: 1; min-height: 0; grid-template-columns: 230px minmax(0, 1fr) 290px; }
+.page.fit .pcol { padding: 10px 12px; gap: 7px; overflow: auto; }
+.page.fit .g .gh { font-size: 11px; }
+.page.fit .gbar, .page.fit .gbar i { height: 5px; }
+.page.fit .gatebox { padding: 8px 10px; gap: 4px; }
+.page.fit .gatebox > div { font-size: 11.5px; line-height: 17px; }
+.page.fit .pcol.left > div:last-child { font-size: 10px; line-height: 15px; }
+.page.fit .feed { max-height: none; }
+.page.fit .vc { padding: 7px 10px; gap: 3px; }
+.page.fit .say { font-size: 12px; line-height: 17px; }
+.page.fit .vc.headline .say { font-size: 13px; }
+.page.fit .timeline { padding: 6px 40px 8px; gap: 10px; }
+.page.fit .tbtn { height: 34px; font-size: 13px; }
+.page.fit .tlabels { font-size: 10px; }
+@media (max-height: 760px) {
+  .page.fit .steps { display: none; }
+  .page.fit .sit-meta { display: none; }
+}
+@media (max-width: 1100px) {
+  .page.fit .panel { grid-template-columns: 210px minmax(0, 1fr); }
+  .page.fit .pcol.right { max-height: 32vh; }
+}
+@media (max-width: 720px) {
+  .page.fit { height: auto; overflow: visible; }
+  .page.fit .panel { grid-template-columns: minmax(0, 1fr); }
+  .page.fit .pmap { min-height: 46vw; max-height: 300px; }
+  .page.fit .g.sec { display: none; }
+  .page.fit .pcol.left { max-height: none; }
+  .page.fit .pcol.right { max-height: 240px; }
+  .page.fit .steps { display: flex; flex-direction: row; overflow-x: auto; gap: 4px; padding: 6px 16px; }
+  .page.fit .step { flex: 0 0 auto; border-left: 0; border-top: 3px solid var(--rule); padding: 2px 8px; }
+  .page.fit .step .lbl { display: none; }
+  .page.fit .step > span:nth-child(3) { display: none; }
+  .page.fit .step.done { border-top-color: var(--ink); }
+  .page.fit .step.now, .page.fit .step.fail { border-top-color: var(--red); }
+  .page.fit .sit-meta { display: flex; }
+  .page.fit .tlabels span:nth-child(2), .page.fit .tlabels span:nth-child(5) { display: none; }
+  .endcard { position: fixed; top: auto; bottom: 12px; left: 12px; right: 12px; width: auto; transform: none; }
+}
