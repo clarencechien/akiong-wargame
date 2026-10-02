@@ -249,7 +249,6 @@ export function Warroom({ onOrder }: { onOrder: () => void }) {
         {error.value && <div class="red" style="font-size:12px">{error.value}</div>}
         <div class="muted" style="font-size:12px;text-align:center">按下後不能回頭。歷史也是。</div>
         <div class="mono muted" style="font-size:11px;text-align:center">引擎 {ENGINE_VERSION} · 決定性 seed</div>
-      </div>
         </div>
         <div class="card soft" style="gap:12px">
           <div class="lbl">開局前評估（依目前假設）</div>
@@ -300,6 +299,7 @@ export function Warroom({ onOrder }: { onOrder: () => void }) {
           <div class="hr" />
           <div class="muted" style="font-size:12px;line-height:18px">按下令後會先在你的電腦上跑完所選場數，再播放其中一局。</div>
         </div>
+      </div>
     </div>
   );
 }
