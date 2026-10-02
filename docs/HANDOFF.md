@@ -60,10 +60,14 @@
 │  │  ├─ situation/           # 02 戰情室
 │  │  ├─ chronicle/           # 03 史書
 │  │  └─ sources/             # 資料來源頁 + 現實面的考量
-│  ├─ narrative/              # 章節拼裝、分享卡繪製
+│  ├─ narrative/              # 章節拼裝、結局一句話、第三十一天外推、日期、分享卡、事件簿
 │  └─ store/                  # IndexedDB
 ├─ scripts/
-│  └─ gen-templates/          # 開發期 LLM 生模板的腳本（輸出進 data/，需人工審）
+│  ├─ gen-templates/          # 開發期 LLM 生模板的腳本（輸出進 data/_candidates，需人工審）
+│  ├─ merge-voice-batches.ts  # 合併寫手批次並驗格式
+│  ├─ voice-stats.ts          # 1,000 seed 聲音重複度
+│  ├─ check-params.ts         # 參數庫 source／range 檢查
+│  └─ smoke.ts                # Playwright 全流程 + 截圖
 └─ tests/
 ```
 
@@ -266,7 +270,7 @@ run(assumptions, seed):
 
 ## 8. 聲音系統
 
-### 8.1 人物庫（`data/personas.json`，第一版 30 人，1.1 擴到 120）
+### 8.1 人物庫（`data/personas.json`，第一版 30 人；2026-10-02 擴到 150 人，見 `docs/model.md` §1.4）
 
 ```json
 {
@@ -300,8 +304,10 @@ run(assumptions, seed):
 ```
 
 - `stage` 1→3 對應同一人物三次出場的語氣變化（先算帳、後麻木）。
-- `slots` 可用：`{day}`, `{unit}`, `{amount}`, `{place}`, `{ships}`。
-- 抽樣：觸發時 `rng` 從符合 `requires` 的模板裡抽；同一人物不重複同一 `stage`。
+- `slots` 可用：`{day}`, `{unit}`, `{amount}`, `{place}`, `{ships}`, `{troops}`。
+- 觸發指標的語意以 `src/engine/voices.ts` 的 `flattenMetrics` 為準。寫手容易誤用的：`seaClosed` 是「本月好天用罄」不是海區封鎖（海區封鎖用 `phaseIndex ≥ 1`）；`priceIndex` 全程最高約 1.2；`supplyDays ≤ n` 在登陸前恆成立，要搭配 `troopsAshore ≥ 1`。
+- 抽樣：觸發時 `rng` 從符合 `requires` 的模板裡抽；同一人物不重複同一 `stage`。集結期最多佔三成名額；人物權重 = 出場少 × 階層未出現 × 1／√（本局可用觸發點數）。
+- 重複度量測：`npm run voices:stats`（1,000 個隨機 seed）。1.1 數字：連玩第 2 局看過的句子 7%、第 10 局 46%。
 - 每局聲音總數目標 12–20 則，軍事事件與聲音在同一條事件流交錯。
 - 每則 voice event 的 `data.triggerEventId` 指向觸發它的事件，章節註釋用。
 
@@ -309,6 +315,8 @@ run(assumptions, seed):
 
 - 輸入 persona + stage + tone + 狀態區間 → LLM 產 5–10 句候選 → 寫到 `data/_candidates/`。
 - **人工審過才搬進 `data/voice-templates.json`**。腳本不准直接寫正式檔。
+- 多位寫手（或多個 LLM 批次）交稿時用 `scripts/merge-voice-batches.ts`：人物進 `personas.json`，句子進候選檔並驗欄位、指標、字數、槽位、重複。
+- 抽檢流程：分層隨機抽 10% 逐句審，審過的標 `approved: true`，候選檔 `note` 寫上審過／未審比例與抽檢結果，再決定只搬審過的或 `--all`。
 - 規則：不寫具名真實人物、不寫血腥細節、台灣正體中文、每句 ≤ 60 字。
 
 ## 9. 章節生成（`src/narrative/`）
@@ -319,6 +327,9 @@ run(assumptions, seed):
 - 書名與章號：從 `booknames.json` 抽書名，章號 = `hash(seed) % 20 + 8`，年代跟 `month` 與假設走（固定 2027，章節標題寫中文數字）。
 - 章節字數 1,500–3,000。
 - 來源註釋尾段固定列：本局 seed、引擎版本、標紅參數清單。
+- 正文只寫「發生過的事」（過去式、真實日期、人、數字）；模型假設與來源收進附錄（段落的 `appendix`），不進正文。
+- 變異（2026-10-02 起）：每段至少 4 個變體；變體內可用 `{{甲|乙|丙}}` 行內替換（依 seed 抽，可巢狀）；段落可帶 `prob`（場景段，依 seed 擲骰決定出不出現）；`titles` 每種結局 ≥ 6 個、`lessons` 每種 3 個。同組假設相鄰兩局段落完全相同的比例 1%；同 seed 永遠同一章。
+- D+30 結局多一段「第三十一天之後」：`src/narrative/outlook.ts` 用本局參數外推灘頭上的人會怎樣（明寫是外推，不計入驗收）。
 
 ## 10. UI 畫面（對照 Design 畫布 v2）
 
@@ -336,7 +347,8 @@ run(assumptions, seed):
 - 守方偵測圈、衛星過境帶、未選路線灰色虛線，都是裝飾，但要從 state 讀，不是寫死。
 
 ### 03 史書
-- 分頁：教科書章節 / 頭版分享卡 / 事件簿（1.0）；短影音分頁放「1.1 推出」占位。
+- 版面（2026-10-02 起）：最上面是分享卡（主體，桌機 520px 可直接讀字）＋ 右欄結局說明、下載鈕、本局數字、同組分佈；接著分頁：教科書章節 / 事件簿 / 短影音占位。手機：分享卡滿版、右欄接在下面。
+- 日期：D±n 一律轉成真實日期（D 日 = 該月 10 日），UI 寫「5/1（D+22）」，史書正文寫「五月一日」。
 - 本局在 N 場中的位置：終止日直方圖，本局紅色。
 - 「如果重來」：五顆按鈕，每顆只改一個假設回作戰室；「看另一局」切 run index。
 - 分享卡：Canvas 繪製，標題公式 = `「我以為問題是{玩家最後改的假設或美軍}。問題是{failedGate 對應的三個名詞}。」`，下載 PNG；角落印分享編碼。
@@ -366,7 +378,8 @@ run(assumptions, seed):
 | M5 聲音 | 30 人、模板、觸發、交錯 | voices.test 過（2026-10-02 完成；90 句候選經作者核准後 promote 進正式檔） |
 | M6 史書 | 章節、分享卡、事件簿、直方圖、如果重來 | narrative.test 過（2026-10-02 完成） |
 | M7 來源頁 + 上線 | 參數表、現實面的考量初稿、致謝；Cloudflare Pages | 1.0（2026-10-02 完成；上線步驟見 `docs/deploy.md`） |
-| 1.1 | Run 2 封鎖（第二條階段梯 + 世界層狀態量 + 航運人物）、人物庫 120、短影音 template/素材包、Suno 配樂、⑨ 灰色作戰假設 | 另開 handoff |
+| 1.0.x 修整 | 結局可見（結局卡、第三十一天之後外推）、史書敘事體＋附錄、真實日期、戰情室一屏、分享卡 1080×1920 含里程碑、史書以分享卡為主體、人物庫 150 人 990 句、史書段落變異 | 2026-10-02 完成，見 `docs/CHANGELOG.md` |
+| 1.1 | Run 2 封鎖（第二條階段梯 + 世界層狀態量 + 航運人物）、短影音 template/素材包、Suno 配樂、⑨ 灰色作戰假設；候選檔剩餘 810 句補審 | 另開 handoff |
 
 ## 13. 明確不做（1.0）
 

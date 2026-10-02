@@ -22,6 +22,8 @@ npm test                           # 決定性、分佈、效能、參數庫格�
 npm run check:params               # 參數庫每筆 source／range 檢查
 npm run sim -- --events --seed 7 --candidates   # 用候選模板預覽聲音（審稿用）
 npm run voices:promote -- --all    # 審過候選檔後搬進正式檔（見 scripts/gen-templates/README.md）
+npm run voices:stats               # 1,000 個隨機 seed 量聲音重複度（連玩第 k 局看過的句子比例）
+npx tsx scripts/merge-voice-batches.ts --tag <日期> <寫手批次.json>…   # 合併多批人物與句子並驗格式
 npm run dev                        # 作戰室（Vite 開發伺服器）
 npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假設、情報評估、東岸標紅、100 場 < 60 s
 ```
@@ -30,4 +32,4 @@ npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假�
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：1.0 程式完成（M1 到 M7：引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書、資料來源頁、本機存檔、上線設定與 CI）。聲音模板已核准搬進正式檔，`docs/realism.md` 為第一版。上線步驟見 [`docs/deploy.md`](docs/deploy.md)。
+狀態：1.0 程式完成（M1 到 M7），之後的修整見 [`docs/CHANGELOG.md`](docs/CHANGELOG.md)。人物庫 150 人、990 句（900 句新句抽審 10%、問題率約 1%，整批先上線，其餘待補審）。`docs/realism.md` 為第一版。上線步驟見 [`docs/deploy.md`](docs/deploy.md)。
