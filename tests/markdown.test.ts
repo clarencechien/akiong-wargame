@@ -18,6 +18,7 @@ describe('極簡 Markdown', () => {
 
   it('docs/realism.md 能渲染且三段都在', () => {
     const html = renderMarkdown(readFileSync('docs/realism.md', 'utf8'));
-    for (const h of ['刻意的簡化', '資料不足之處', '未來可能怎麼做']) expect(html).toContain(h);
+    for (const h of ['TL;DR', '刻意的簡化', '資料不足之處', '下一步會做的', '人寫', 'AI 初稿']) expect(html).toContain(h);
+    expect(html.indexOf('TL;DR')).toBeLessThan(html.indexOf('刻意的簡化'));
   });
 });
