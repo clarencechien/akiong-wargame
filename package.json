@@ -15,7 +15,8 @@
     "preview": "vite preview --port 4173 --strictPort",
     "smoke": "tsx scripts/smoke.ts",
     "voices:gen": "tsx scripts/gen-templates/gen.ts",
-    "voices:promote": "tsx scripts/gen-templates/promote.ts"
+    "voices:promote": "tsx scripts/gen-templates/promote.ts",
+    "voices:stats": "tsx scripts/voice-stats.ts"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.131.0",

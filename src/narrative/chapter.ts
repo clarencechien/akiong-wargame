@@ -12,10 +12,13 @@ import { ENGINE_VERSION } from '../engine/simulate.js';
 import templatesJson from '../../data/chapter-templates.json';
 import booksJson from '../../data/booknames.json';
 import { zhDate, dateLabel } from './dates.js';
+import { outlook } from './outlook.js';
 
 interface ParagraphTpl {
   when: string;
   variants: string[];
+  /** 場景段：依 seed 丟骰，機率 prob 才出現（讓同一組假設的幾局結構不同） */
+  prob?: number;
   /** 這段用到的假設與來源，收進附錄，不進正文 */
   appendix?: string;
 }
@@ -26,7 +29,7 @@ interface SectionTpl {
 interface ChapterTemplates {
   titles: Record<string, string[]>;
   sections: Record<'visible' | 'strait' | 'ending' | 'world', SectionTpl>;
-  lessons: Record<string, string>;
+  lessons: Record<string, string | string[]>;
 }
 const T = templatesJson as unknown as ChapterTemplates;
 const BOOKS = (booksJson as { books: string[] }).books;
@@ -211,7 +214,9 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
     reroutePct: pct(lastSnap?.world.shippingReroute ?? 0),
     energyPct: `${Math.round(((lastSnap?.world.energyPrice ?? 1) - 1) * 100)}%`,
   };
-  slots['lessonText'] = fill(T.lessons[key] ?? T.lessons['fleetBroken']!, slots);
+  slots['outlook'] = outlook(run)?.text ?? '';
+  const lessonTpl = T.lessons[key] ?? T.lessons['fleetBroken']!;
+  slots['lessonText'] = fill(Array.isArray(lessonTpl) ? rng.pick(lessonTpl) : lessonTpl, slots, rng);
 
   // 條件
   const hasEvent = (kind: string) => ev.some((e) => e.kind === kind);
@@ -293,8 +298,9 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
     const paragraphs: string[] = [];
     for (const para of tpl.paragraphs) {
       if (!cond(para.when)) continue;
+      if (para.prob !== undefined && !rng.chance(para.prob)) continue;
       const v = rng.pick(para.variants);
-      paragraphs.push(resolveRefs(fill(v, slots)));
+      paragraphs.push(resolveRefs(fill(v, slots, rng)));
       if (para.appendix) {
         const ap = fill(para.appendix, slots);
         if (!appendix.includes(ap)) appendix.push(ap);
@@ -310,7 +316,7 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
   if (endIdx >= 1 || hasEvent('detected')) sections.push(buildSection(T.sections.world, voiceIn(1, 4)));
 
   const titleVariants = T.titles[key] ?? T.titles['fleetBroken']!;
-  const title = fill(rng.pick(titleVariants), slots);
+  const title = fill(rng.pick(titleVariants), slots, rng);
   const subtitle = `一場在${zd(o.endedAt.day)}${o.reason === 'objectiveReached' ? '達標' : '停止'}的登陸 · 主攻${slots['axisName']}、${slots['auxText']} · 每一句可回溯到數據`;
   const tail = [
     `本局 seed ${run.seed}，引擎 ${ENGINE_VERSION}，同組假設 ${stats.n} 局。`,
@@ -321,8 +327,19 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
   return { book, chapterNo, chapterNoZh: `第${zhNumber(chapterNo)}章`, title, subtitle, sections, notes, appendix, tail, charCount };
 }
 
-export function fill(text: string, slots: Record<string, string>): string {
-  return text.replace(/\{(\w+)\}/g, (s, k: string) => (k.startsWith('ref') ? s : (slots[k] ?? s)));
+/**
+ * 填槽。`{slot}` 換成值；`{{甲|乙|丙}}` 是行內替換，給了 rng 就依 seed 抽一個（沒給 rng 取第一個），
+ * 讓同一段變體在不同局長得不一樣。行內替換可巢狀，由內而外解。
+ */
+export function fill(text: string, slots: Record<string, string>, rng?: { pick<T>(xs: readonly T[]): T }): string {
+  let out = text;
+  for (let guard = 0; guard < 8 && out.includes('{{'); guard++) {
+    out = out.replace(/\{\{([^{}]*)\}\}/g, (_m, body: string) => {
+      const opts = body.split('|');
+      return rng ? rng.pick(opts) : opts[0]!;
+    });
+  }
+  return out.replace(/\{(\w+)\}/g, (s, k: string) => (k.startsWith('ref') ? s : (slots[k] ?? s)));
 }
 
 /** 從一批結果算統計（給章節與分享卡）。 */

@@ -99,75 +99,77 @@ export function Chronicle() {
         </span>
       </div>
 
-      {/* 一、分享圖 + 結局 TL;DR */}
+      {/* 一、分享圖為主體；右側是補充說明 + 儀表板 */}
       <section class="hero">
         <canvas ref={canvasRef} class="sharecard" aria-label="頭版分享卡 1080×1920" />
-        <div class="hero-text" data-testid="verdict">
-          <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
-          <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>
-          <div class="verdict-d">{annotateDates(v.detail, a.month)}</div>
-          <div class="verdict-l">{v.lesson}</div>
-          <div class="muted" style="font-size:12px">{assumptionSummary(a)}</div>
-          <div class="pills" style="margin-top:4px">
-            <button type="button" class="tbtn solid" style="height:38px" onClick={() => canvasRef.current && downloadCanvas(canvasRef.current, `akiong-${code}.png`)} data-testid="dl-png">
-              下載分享圖
-            </button>
-            <button type="button" class="tbtn" style="height:38px" onClick={() => void navigator.clipboard?.writeText(code)}>
-              複製分享編碼
-            </button>
-            {suggested && (
-              <button type="button" class="tbtn outline" style="height:38px" onClick={() => replay(suggested.key, suggested.value)} data-testid="replay-suggested">
-                重來：{suggested.label}
+        <div class="hero-side">
+          <div class="hero-text" data-testid="verdict">
+            <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
+            <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>
+            <div class="verdict-d">{annotateDates(v.detail, a.month)}</div>
+            <div class="verdict-l">{v.lesson}</div>
+            <div class="muted" style="font-size:12px">{assumptionSummary(a)}</div>
+            <div class="pills" style="margin-top:4px">
+              <button type="button" class="tbtn solid" style="height:38px" onClick={() => canvasRef.current && downloadCanvas(canvasRef.current, `akiong-${code}.png`)} data-testid="dl-png">
+                下載分享圖
               </button>
-            )}
+              <button type="button" class="tbtn" style="height:38px" onClick={() => void navigator.clipboard?.writeText(code)}>
+                複製分享編碼
+              </button>
+              {suggested && (
+                <button type="button" class="tbtn outline" style="height:38px" onClick={() => replay(suggested.key, suggested.value)} data-testid="replay-suggested">
+                  重來：{suggested.label}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* 二、數字儀表板 */}
-      <section class="dash">
-        <div class="tiles">
-          {tiles.map((t) => (
-            <div key={t.label} class="tile">
-              <div class="lbl">{t.label}</div>
-              <div class={`mono tile-v${t.red ? ' red' : ''}`}>{t.value}</div>
+          <div class="dash">
+            <div class="lbl">本局數字 · 圖上的六個數字加兩個</div>
+            <div class="tiles">
+              {tiles.map((t) => (
+                <div key={t.label} class="tile">
+                  <div class="lbl">{t.label}</div>
+                  <div class={`mono tile-v${t.red ? ' red' : ''}`}>{t.value}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div class="dash-dist">
-          <div class="lbl">同組假設 {n} 局 · 終止日分佈（紅色是本局）</div>
-          <div class="hist tall" aria-label="終止日直方圖" role="img">
-            {histogram.map((h) => (
-              <div key={h.day} class={h.day === o.endedAt.day ? 'me' : ''} style={{ height: `${(100 * h.count) / maxBin}%` }} title={`${dd(h.day)}：${h.count} 局`} />
-            ))}
-          </div>
-          <div class="mono muted" style="font-size:10px;display:flex;justify-content:space-between">
-            <span>{dd(minD)}</span>
-            <span class="red">{dd(o.endedAt.day)} 本局</span>
-            <span>{dd(maxD)}</span>
-          </div>
-          <div class="tiles small">
-            <div class="tile">
-              <div class="lbl">登陸成功</div>
-              <div class="mono tile-v">
-                {stats.landedN} / {n}
+            <div class="dash-dist">
+              <div class="lbl">同組假設 {n} 局 · 終止日分佈（紅色是本局）</div>
+              <div class="hist tall" aria-label="終止日直方圖" role="img">
+                {histogram.map((h) => (
+                  <div key={h.day} class={h.day === o.endedAt.day ? 'me' : ''} style={{ height: `${(100 * h.count) / maxBin}%` }} title={`${dd(h.day)}：${h.count} 局`} />
+                ))}
               </div>
-            </div>
-            <div class="tile">
-              <div class="lbl">穩固灘頭堡</div>
-              <div class="mono tile-v">
-                {stats.solidN} / {n}
+              <div class="mono muted" style="font-size:10px;display:flex;justify-content:space-between">
+                <span>{dd(minD)}</span>
+                <span class="red">{dd(o.endedAt.day)} 本局</span>
+                <span>{dd(maxD)}</span>
               </div>
-            </div>
-            <div class="tile">
-              <div class="lbl">達成目標</div>
-              <div class="mono tile-v">
-                {stats.objectiveN} / {n}
+              <div class="tiles small">
+                <div class="tile">
+                  <div class="lbl">登陸成功</div>
+                  <div class="mono tile-v">
+                    {stats.landedN} / {n}
+                  </div>
+                </div>
+                <div class="tile">
+                  <div class="lbl">穩固灘頭堡</div>
+                  <div class="mono tile-v">
+                    {stats.solidN} / {n}
+                  </div>
+                </div>
+                <div class="tile">
+                  <div class="lbl">達成目標</div>
+                  <div class="mono tile-v">
+                    {stats.objectiveN} / {n}
+                  </div>
+                </div>
+                <div class="tile">
+                  <div class="lbl">中位終止日</div>
+                  <div class="mono tile-v">{dd(stats.medianDay)}</div>
+                </div>
               </div>
-            </div>
-            <div class="tile">
-              <div class="lbl">中位終止日</div>
-              <div class="mono tile-v">{dd(stats.medianDay)}</div>
             </div>
           </div>
         </div>

@@ -123,7 +123,14 @@ export function run(assumptions: Assumptions, seed: number, opts: RunOptions = {
 
     // 時間上限
     if (s.day >= MAX_DAY && s.hour === 23) {
-      ctx.emit('military', 'timeout', `D+${MAX_DAY}：戰事膠著，灘頭堡${s.military.beachhead ? '仍在' : '未建立'}，上岸兵力 ${Math.round(s.military.troopsAshore)} 人。`, { by: 'day30' });
+      {
+        const m = s.military;
+        const fleetNow = m.fleetGroups.length ? m.fleetGroups.reduce((acc, g) => acc + g.strength, 0) / m.fleetGroups.length : 0;
+        const tail = m.beachhead
+          ? `${m.weatherWindowDays <= 0 ? '本月好天已用罄，' : ''}補給線存活 ${Math.round(m.supplyDays)} 天，船團剩 ${Math.round(fleetNow * 100)}%。史料到此為止，岸上的人還在。`
+          : '史料到此為止。';
+        ctx.emit('military', 'timeout', `D+${MAX_DAY}：戰事膠著，灘頭堡${m.beachhead ? '仍在' : '未建立'}，上岸兵力 ${Math.round(m.troopsAshore)} 人。${tail}`, { by: 'day30' });
+      }
       outcome = finish(ctx, { kind: 'timeout', by: 'day30', text: '' }, maxTroopsAshore, marketShockMax);
       break;
     }

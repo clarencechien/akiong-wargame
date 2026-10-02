@@ -72,6 +72,7 @@ try {
   const notes = await page.locator('.notes li').count();
   if (chapterChars < 1200 || notes < 3) throw new Error(`章節太短（${chapterChars} 字）或註釋太少（${notes}）`);
   await page.screenshot({ path: 'docs/screenshots/03-chronicle.png', fullPage: true });
+  await page.locator('.hero').screenshot({ path: 'docs/screenshots/03-chronicle-hero.png' });
   await page.getByTestId('tab-book').click();
   const rows = await page.locator('.book tbody tr').count();
   if (rows !== eventsCount) throw new Error(`事件簿列數 ${rows} ≠ 事件數 ${eventsCount}`);
@@ -105,6 +106,15 @@ try {
   const has100 = await mobile.getByRole('radiogroup', { name: '模擬場數' }).getByRole('radio', { name: '100', exact: true }).count();
   if (has100 !== 0) throw new Error('手機寬度仍顯示 100 場');
   await mobile.screenshot({ path: 'docs/screenshots/01-warroom-mobile.png', fullPage: true });
+  // 手機：跑一局進史書，分享圖在最上面且不超出寬度
+  await mobile.getByRole('radiogroup', { name: '模擬場數' }).getByRole('radio', { name: '1', exact: true }).click();
+  await mobile.getByTestId('order').click();
+  await mobile.getByTestId('to-chronicle').waitFor({ timeout: 20_000 });
+  await mobile.getByTestId('to-chronicle').click();
+  await mobile.locator('.paper h1').waitFor({ timeout: 5000 });
+  const mOverflow = await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  if (mOverflow > 2) throw new Error(`手機史書有水平捲動：${mOverflow}px`);
+  await mobile.locator('.hero').screenshot({ path: 'docs/screenshots/03-chronicle-hero-mobile.png' });
   await browser.close();
   console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則（播放中 ${before} → ${during}）；章節 ${chapterChars} 字、註釋 ${notes} 條；頁面錯誤 ${errors.length} 個`);
   for (const e of errors) console.log('  ' + e);

@@ -5,6 +5,7 @@
 import type { Assumptions, Run } from '../engine/types.js';
 import { P } from '../engine/params.js';
 import { avgStrength } from '../engine/gateinfo.js';
+import { outlook } from './outlook.js';
 
 export interface Verdict {
   /** 一句話 */
@@ -98,12 +99,16 @@ export function verdict(run: Run): Verdict {
         lesson: '這一局過了。看看它過得多勉強，再看看一百局裡有幾局過。',
         suggest: null,
       };
-    default:
+    default: {
+      const ol = outlook(run);
       return {
-        headline: `D+30，戰事膠著。`,
-        detail: `灘頭堡${o.beachhead ? '仍在' : '未建立'}，上岸 ${fmt(ashore)} 人，船團損失 ${pct(o.fleetLoss)}。模型在第三十天停筆。`,
-        lesson: '三十天過去，目標還沒到。公開資料對第三十一天沒有話說。',
-        suggest: 'us',
+        headline: o.beachhead ? `D+30，灘頭堡還在，目標沒到。` : `D+30，戰事膠著。`,
+        detail: `${ol?.text ?? `灘頭堡${o.beachhead ? '仍在' : '未建立'}，上岸 ${fmt(ashore)} 人，船團損失 ${pct(o.fleetLoss)}。`}史料到第三十天為止，後面是外推。`,
+        lesson: o.beachhead
+          ? '上岸不等於贏。三十天後灘頭還在，但每一天守方都在到位，而船與天氣決定還能不能補給。'
+          : '三十天過去，目標還沒到。公開資料對第三十一天沒有話說。',
+        suggest: o.beachhead && a.us !== 'none' ? 'month' : 'us',
       };
+    }
   }
 }
