@@ -5,6 +5,7 @@
 import type { Assumptions, Outcome, Run } from '../engine/types.js';
 import { encodeShare } from '../engine/share.js';
 import type { BatchStats } from './chapter.js';
+import { shortDate } from './dates.js';
 
 export const ASSUMPTION_LABEL: Record<keyof Assumptions, string> = {
   month: '月份',
@@ -30,13 +31,14 @@ const NOUNS: Record<string, [string, string, string]> = {
   day30: ['時間', '補給', '耐心'],
 };
 
-export function shareTitle(o: Outcome, lastChanged: keyof Assumptions | null, stats: BatchStats): { kicker: string; title: string } {
+export function shareTitle(o: Outcome, lastChanged: keyof Assumptions | null, stats: BatchStats, month = 4): { kicker: string; title: string } {
   const x = lastChanged ? ASSUMPTION_LABEL[lastChanged] : '美軍';
+  const when = `${shortDate(month, o.endedAt.day)}（D${o.endedAt.day >= 0 ? '+' : ''}${o.endedAt.day}）`;
   if (o.reason === 'objectiveReached') {
-    return { kicker: `D+${o.endedAt.day} 達成戰略目標`, title: `這一局過了。${stats.n} 局裡有 ${stats.objectiveN} 局過。` };
+    return { kicker: `${when} 達成戰略目標`, title: `這一局過了。${stats.n} 局裡有 ${stats.objectiveN} 局過。` };
   }
   const nouns = NOUNS[o.failedBy ?? 'day30'] ?? NOUNS['day30']!;
-  const kicker = o.reason === 'timeout' ? `登陸於第${o.endedAt.day}天停止` : `登陸於第${o.endedAt.day}天終止`;
+  const kicker = o.failedBy === 'coastalMissilesIntact' ? `${when} 船團沒有出港` : o.reason === 'timeout' ? `登陸於 ${when} 停止` : `登陸於 ${when} 終止`;
   return { kicker, title: `我以為問題是${x}。\n問題是${nouns[0]}、${nouns[1]}、${nouns[2]}。` };
 }
 
@@ -110,7 +112,7 @@ export function drawShareCard(canvas: HTMLCanvasElement, input: ShareCardInput):
   const right = `第 ${input.runIndex + 1}/${stats.n} 局`;
   ctx.fillText(right, W - pad - ctx.measureText(right).width, pad);
 
-  const { kicker, title } = shareTitle(o, input.lastChanged, stats);
+  const { kicker, title } = shareTitle(o, input.lastChanged, stats, run.assumptions.month);
   ctx.fillStyle = '#E0533F';
   ctx.font = `600 30px ${sans}`;
   ctx.fillText(kicker, pad, 360);
@@ -165,11 +167,12 @@ export function drawShareCard(canvas: HTMLCanvasElement, input: ShareCardInput):
   ctx.font = `22px ${mono}`;
   const d0 = input.histogram[0]?.day ?? 0;
   const d1 = input.histogram[input.histogram.length - 1]?.day ?? 0;
-  ctx.fillText(d0 < 0 ? `D${d0}` : `D+${d0}`, hx, hy + hh + 12);
-  const lastLbl = d1 < 0 ? `D${d1}` : `D+${d1}`;
+  const mo = run.assumptions.month;
+  ctx.fillText(shortDate(mo, d0), hx, hy + hh + 12);
+  const lastLbl = shortDate(mo, d1);
   ctx.fillText(lastLbl, hx + hw - ctx.measureText(lastLbl).width, hy + hh + 12);
   ctx.fillStyle = '#E0533F';
-  const me = `D+${o.endedAt.day} 本局`;
+  const me = `${shortDate(mo, o.endedAt.day)} 本局`;
   ctx.fillText(me, hx + hw / 2 - ctx.measureText(me).width / 2, hy + hh + 12);
 
   // 右下統計與編碼

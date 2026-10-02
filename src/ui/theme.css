@@ -216,3 +216,31 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .sources { padding: 16px; }
   .pillars { font-size: 12px; }
 }
+
+/* 戰情室：動態與結局 */
+.banner { position: absolute; left: 0; right: 0; top: 34%; text-align: center; pointer-events: none; animation: bannerIn 2.6s ease-out forwards; }
+.banner-t { font-size: 44px; font-weight: 700; color: #E8EEF5; letter-spacing: .2em; text-shadow: 0 2px 18px rgba(15,27,45,.9); }
+.banner-s { font-size: 14px; color: #9DB4D0; margin-top: 6px; letter-spacing: .1em; }
+@keyframes bannerIn { 0% { opacity: 0; transform: translateY(8px); } 12% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; } }
+.endcard { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(560px, calc(100% - 32px)); background: rgba(15, 27, 45, .96); border: 1px solid #E0533F; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 40px rgba(0,0,0,.5); animation: endIn .5s ease-out; }
+.endcard-h { font-size: 26px; font-weight: 700; line-height: 36px; color: #E8EEF5; }
+.endcard-d { font-size: 13px; line-height: 20px; color: #E8EEF5; }
+.endcard-l { font-size: 12px; line-height: 18px; color: #9DB4D0; border-left: 2px solid #E0533F; padding-left: 10px; }
+@keyframes endIn { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+.vc.headline .say { font-size: 14px; font-weight: 500; }
+.vc.headline { border-left-width: 4px; }
+.vc.latest { animation: cardIn .35s ease-out; }
+@keyframes cardIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+.step.now { animation: stepPulse 1.6s ease-in-out infinite; }
+@keyframes stepPulse { 0%, 100% { border-top-color: var(--red); } 50% { border-top-color: #E99A94; } }
+@media (max-width: 720px) { .banner-t { font-size: 28px; } .endcard { padding: 16px; } .endcard-h { font-size: 20px; line-height: 28px; } }
+
+/* 史書結局卡與附錄 */
+.verdict { margin: 0 40px; border: 1px solid var(--red); background: var(--paper-2); padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
+.verdict-h { font-size: 24px; font-weight: 700; line-height: 34px; }
+.verdict-d { font-size: 14px; line-height: 22px; }
+.verdict-l { font-size: 13px; line-height: 20px; color: var(--ink-2); border-left: 2px solid var(--red); padding-left: 10px; }
+.prose .appendix { border-top: 1px dashed var(--rule); padding-top: 12px; font-family: var(--sans); font-size: 12.5px; line-height: 20px; color: var(--ink-2); }
+.prose .appendix h2 { font-size: 14px; font-family: var(--sans); font-weight: 600; margin: 0 0 6px; color: var(--ink); }
+.prose .appendix ol { margin: 0; padding-left: 20px; }
+@media (max-width: 720px) { .verdict { margin: 0 16px; } .verdict-h { font-size: 20px; line-height: 28px; } }

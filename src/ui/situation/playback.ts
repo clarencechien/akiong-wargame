@@ -73,10 +73,40 @@ effect(() => {
   }, ms);
 });
 
-// 換局就回到開頭
+/** 進戰情室自動播放（×4）；換局也重播 */
+export const autoplay = signal(true);
+let autoplayTimer: ReturnType<typeof setTimeout> | null = null;
 effect(() => {
   void runIndex.value;
   void batch.value;
   snapIndex.value = 0;
   playing.value = false;
+  if (autoplayTimer) clearTimeout(autoplayTimer);
+  if (autoplay.peek() && currentRun.peek()) {
+    autoplayTimer = setTimeout(() => {
+      if (snapIndex.peek() === 0 && !playing.peek()) playing.value = true;
+    }, 1200);
+  }
+});
+
+/** 覆蓋在地圖上的大字：階段切換、D 日、結局 */
+export const banner = computed<{ title: string; sub: string; kind: 'phase' | 'end' } | null>(() => {
+  const r = currentRun.value;
+  const s = currentState.value;
+  if (!r || !s) return null;
+  if (atEnd.value) return { title: '結局', sub: '', kind: 'end' };
+  const now = s.day * 24 + s.hour;
+  // 最近 12 小時內的階段切換
+  const ev = [...r.events].reverse().find((e) => (e.kind === 'phaseAdvance' || e.kind === 'start') && now - (e.day * 24 + e.hour) >= 0 && now - (e.day * 24 + e.hour) < 12);
+  if (!ev) return null;
+  const to = String(ev.data?.['to'] ?? 'mobilize');
+  const titles: Record<string, [string, string]> = {
+    mobilize: ['集結令下達', '船團開始集結，任何人都看得見'],
+    strike: ['D 日', '火箭軍開火，三天內要壓制岸置飛彈'],
+    crossing: ['船團出港', '渡海開始，天氣與飛彈都在等'],
+    landing: ['搶灘', '四十八小時，第二波要跟上'],
+    inland: ['灘頭堡站住了', '補給線要連續七天不斷'],
+  };
+  const t = titles[to] ?? titles['mobilize']!;
+  return { title: t[0], sub: t[1], kind: 'phase' };
 });

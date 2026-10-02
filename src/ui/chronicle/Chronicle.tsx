@@ -9,6 +9,8 @@ import { drawShareCard, downloadCanvas, shareTitle, assumptionSummary } from '..
 import { eventRows, eventBookCSV, eventBookJSON, downloadText } from '../../narrative/eventbook.js';
 import { batch, runIndex, screen, assumptions, lastChanged, setAssumption } from '../state.ts';
 import { currentRun } from '../situation/playback.ts';
+import { verdict } from '../../narrative/verdict.js';
+import { dateLabel, annotateDates } from '../../narrative/dates.js';
 
 type Tab = 'chapter' | 'card' | 'reel' | 'book';
 const dl = (d: number) => (d < 0 ? `D${d}` : `D+${d}`);
@@ -43,6 +45,8 @@ export function Chronicle() {
   const o = r.outcome;
   const a = r.assumptions;
   const code = encodeShare(a, r.seed);
+  const v = verdict(r);
+  const dd = (d: number) => dateLabel(a.month, d);
 
   // 如果重來：五顆按鈕，每顆只改一個假設
   const replays: { label: string; key: keyof Assumptions; value: Assumptions[keyof Assumptions] }[] = [
@@ -93,6 +97,18 @@ export function Chronicle() {
         <div class="muted" style="font-size:12px">同一份事件流，四種讀法。第一版輸出都在本機產生；分享卡以檔案下載。</div>
       </div>
 
+      <div class="verdict" data-testid="verdict">
+        <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
+        <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>
+        <div class="verdict-d">{annotateDates(v.detail, a.month)}</div>
+        <div class="verdict-l">{v.lesson}</div>
+        {v.suggest && (
+          <div class="muted" style="font-size:12px">
+            如果重來，最相關的是 <b>{replays.find((x) => x.key === v.suggest)?.label ?? ''}</b>（下方）。
+          </div>
+        )}
+      </div>
+
       {tab === 'chapter' && (
         <div class="chapter-grid">
           <article class="paper">
@@ -111,11 +127,21 @@ export function Chronicle() {
                     ))}
                     {sec.quote && (
                       <blockquote class="q">
-                        「{sec.quote.text}」—— {sec.quote.location}，{sec.quote.who}，{dl(sec.quote.day)}
+                        「{sec.quote.text}」—— {sec.quote.location}，{sec.quote.who}，{dd(sec.quote.day)}
                       </blockquote>
                     )}
                   </section>
                 ))}
+                {chapter.appendix.length > 0 && (
+                  <section class="appendix">
+                    <h2>附錄：這些數字怎麼來的</h2>
+                    <ol>
+                      {chapter.appendix.map((t, i) => (
+                        <li key={i}>{t}</li>
+                      ))}
+                    </ol>
+                  </section>
+                )}
                 <section class="tail">
                   {chapter.tail.map((t, i) => (
                     <p key={i} class="muted" style="font-size:12px">
@@ -129,7 +155,7 @@ export function Chronicle() {
                 <div class="kv">
                   <div>
                     <span>{o.reason === 'objectiveReached' ? '達成目標' : '登陸終止'}</span>
-                    <span class="mono">{dl(o.endedAt.day)}</span>
+                    <span class="mono">{dd(o.endedAt.day)}</span>
                   </div>
                   <div>
                     <span>紅方上岸最大值</span>
@@ -187,7 +213,7 @@ export function Chronicle() {
                 <ol class="notes mono">
                   {chapter.notes.map((nt) => (
                     <li key={nt.n} id={`note-${nt.n}`}>
-                      [{nt.n}] 事件 #{nt.event.id} · {dl(nt.event.day)} {String(nt.event.hour).padStart(2, '0')}:00 · {nt.event.kind}
+                      [{nt.n}] 事件 #{nt.event.id} · {dd(nt.event.day)} {String(nt.event.hour).padStart(2, '0')}:00 · {nt.event.kind}
                     </li>
                   ))}
                 </ol>
@@ -260,7 +286,7 @@ export function Chronicle() {
                   <tr key={row.id} class={row.flagged ? 'flag' : row.layer === 'voice' ? 'voice' : ''}>
                     <td class="mono">{row.id}</td>
                     <td class="mono">
-                      {dl(row.day)} {String(row.hour).padStart(2, '0')}
+                      {dd(row.day)} {String(row.hour).padStart(2, '0')}
                     </td>
                     <td>{row.layer}</td>
                     <td class="mono">{row.kind}</td>
@@ -270,7 +296,7 @@ export function Chronicle() {
                     <td class="mono">{Math.round(row.twCoastalMissiles * 100)}%</td>
                     <td class="mono">{row.morale}</td>
                     <td class="mono">{Math.round(row.coastalShutdown * 100)}%</td>
-                    <td>{row.layer === 'voice' ? `「${row.text}」` : row.text}</td>
+                    <td>{row.layer === 'voice' ? `「${annotateDates(row.text, a.month)}」` : annotateDates(row.text, a.month)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -286,7 +312,7 @@ export function Chronicle() {
         </div>
         <div class="pills">
           {replays.map((rp) => (
-            <button key={rp.label} type="button" class="pill" onClick={() => replay(rp.key, rp.value)} data-testid="replay">
+            <button key={rp.label} type="button" class={`pill${rp.key === v.suggest ? ' on' : ''}`} onClick={() => replay(rp.key, rp.value)} data-testid="replay" title={rp.key === v.suggest ? '這一局最相關的假設' : ''}>
               {rp.label}
             </button>
           ))}
@@ -303,7 +329,7 @@ function ShareCardPanel({ histogram, stats, large }: { histogram: { day: number;
   useEffect(() => {
     if (ref.current) drawShareCard(ref.current, { run: r, stats, histogram, lastChanged: lastChanged.value, runIndex: idx });
   }, [r, stats, histogram, idx, lastChanged.value]);
-  const { title } = shareTitle(r.outcome, lastChanged.value, stats);
+  const { title } = shareTitle(r.outcome, lastChanged.value, stats, r.assumptions.month);
   const code = encodeShare(r.assumptions, r.seed);
   return (
     <div class="col" style="gap:10px">
@@ -328,12 +354,13 @@ function reelFrames(r: ReturnType<typeof currentRun.peek> & object) {
   const ev = r.events;
   const first = (kind: string) => ev.find((e) => e.kind === kind);
   const voiceNear = (day: number) => ev.filter((e) => e.layer === 'voice').sort((x, y) => Math.abs(x.day - day) - Math.abs(y.day - day))[0];
+  const m = r.assumptions.month;
   const frames = [
-    { title: '1 動員', when: dl(first('detected')?.day ?? r.snapshots[0]?.day ?? 0), number: `${first('fleetDeparture')?.data?.['liftCapacity'] ? Number(first('fleetDeparture')!.data!['liftCapacity']).toLocaleString('zh-Hant-TW') + ' 人運量' : '船團集結'}\n任何人都看得見`, voice: voiceNear(first('detected')?.day ?? -30)?.data?.['personaName'] },
-    { title: '2 火力打擊', when: 'D+0', number: `${Number(first('strike')?.data?.['missiles'] ?? 0).toLocaleString('zh-Hant-TW')} 枚飛彈\n機動發射車找不到`, voice: voiceNear(1)?.data?.['personaName'] },
-    { title: '3 渡海', when: 'D+4', number: `${first('fleetScattered') ? '船團被打散' : '第一波出港'}\n好天剩 ${r.snapshots.find((s) => s.day === 4)?.military.weatherWindowDays ?? '—'} 天`, voice: voiceNear(5)?.data?.['personaName'] },
-    { title: '4 搶灘', when: dl(first('landingStart')?.day ?? r.outcome.endedAt.day), number: `${r.outcome.maxTroopsAshore.toLocaleString('zh-Hant-TW')} 人上岸\n${r.outcome.beachhead ? '灘頭堡建立' : '灘頭堡未建立'}`, voice: voiceNear(first('landingStart')?.day ?? 7)?.data?.['personaName'] },
-    { title: '5 結局', when: dl(r.outcome.endedAt.day), number: `${r.outcome.reason === 'objectiveReached' ? '達成戰略目標' : '登陸停止'}\n船團損失 ${Math.round(r.outcome.fleetLoss * 100)}%`, voice: voiceNear(r.outcome.endedAt.day)?.data?.['personaName'] },
+    { title: '1 動員', when: dateLabel(m, first('detected')?.day ?? r.snapshots[0]?.day ?? 0), number: `${first('fleetDeparture')?.data?.['liftCapacity'] ? Number(first('fleetDeparture')!.data!['liftCapacity']).toLocaleString('zh-Hant-TW') + ' 人運量' : '船團集結'}\n任何人都看得見`, voice: voiceNear(first('detected')?.day ?? -30)?.data?.['personaName'] },
+    { title: '2 火力打擊', when: dateLabel(m, 0), number: `${Number(first('strike')?.data?.['missiles'] ?? 0).toLocaleString('zh-Hant-TW')} 枚飛彈\n機動發射車找不到`, voice: voiceNear(1)?.data?.['personaName'] },
+    { title: '3 渡海', when: dateLabel(m, 4), number: `${first('fleetScattered') ? '船團被打散' : '第一波出港'}\n好天剩 ${r.snapshots.find((s) => s.day === 4)?.military.weatherWindowDays ?? '—'} 天`, voice: voiceNear(5)?.data?.['personaName'] },
+    { title: '4 搶灘', when: dateLabel(m, first('landingStart')?.day ?? r.outcome.endedAt.day), number: `${r.outcome.maxTroopsAshore.toLocaleString('zh-Hant-TW')} 人上岸\n${r.outcome.beachhead ? '灘頭堡建立' : '灘頭堡未建立'}`, voice: voiceNear(first('landingStart')?.day ?? 7)?.data?.['personaName'] },
+    { title: '5 結局', when: dateLabel(m, r.outcome.endedAt.day), number: `${r.outcome.reason === 'objectiveReached' ? '達成戰略目標' : '登陸停止'}\n船團損失 ${Math.round(r.outcome.fleetLoss * 100)}%`, voice: voiceNear(r.outcome.endedAt.day)?.data?.['personaName'] },
   ];
   return frames.map((f) => ({ ...f, voice: f.voice ? `聲音：${String(f.voice)}` : '聲音：（正式模板待核准）' }));
 }

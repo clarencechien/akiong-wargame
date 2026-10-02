@@ -11,10 +11,13 @@ import { portFor } from '../engine/geography.js';
 import { ENGINE_VERSION } from '../engine/simulate.js';
 import templatesJson from '../../data/chapter-templates.json';
 import booksJson from '../../data/booknames.json';
+import { zhDate, dateLabel } from './dates.js';
 
 interface ParagraphTpl {
   when: string;
   variants: string[];
+  /** 這段用到的假設與來源，收進附錄，不進正文 */
+  appendix?: string;
 }
 interface SectionTpl {
   heading: string;
@@ -49,7 +52,10 @@ export interface Chapter {
   sections: Section[];
   /** [n] → 事件 */
   notes: { n: number; event: Event }[];
+  /** 附錄：這些數字怎麼來的（正文用到的段落所附的假設與來源） */
+  appendix: string[];
   tail: string[]; // 來源註釋尾段
+  /** 正文字數（段落 + 引文 + 標題，不含附錄與註釋） */
   charCount: number;
 }
 
@@ -119,9 +125,27 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
   const lastSnap = run.snapshots[run.snapshots.length - 1];
   const positionText = stats.percentile < 0.25 ? '前四分之一，比大多數局結束得早' : stats.percentile > 0.75 ? '後四分之一，比大多數局撐得久' : '中段，是一局常態';
 
+  const zd = (day: number | undefined) => (day === undefined ? '' : zhDate(a.month, day));
   const slots: Record<string, string> = {
     yearZh: zhYear(2027),
     monthZh,
+    dateD: zd(0),
+    dateDetected: zd(detectedEv?.day ?? 0),
+    dateEnd: zd(o.endedAt.day),
+    dateLanding: zd(landingEv?.day ?? 0),
+    dateUs: zd(usEv?.day ?? 0),
+    datePenghu: zd(first('penghuTaken')?.day ?? 5),
+    dateRequisition: zd(first('requisition')?.day ?? 0),
+    dateReserve: zd(first('twReserveActivated')?.day ?? 0),
+    dateDeparture: zd(first('fleetDeparture')?.day ?? 4),
+    dateCrossingPlan: zd(4),
+    dateInland: zd(ev.find((e) => e.kind === 'phaseAdvance' && e.data?.['to'] === 'inland')?.day ?? 0),
+    dateTyphoon: zd(first('typhoon')?.day ?? 0),
+    dateReroute: zd(first('shippingReroute')?.day ?? 0),
+    dateMarket: zd(first('marketShock')?.day ?? 0),
+    dateShutdown: zd(shutdownEv?.day ?? 0),
+    dateHomefront: zd(shutdownEv?.day ?? 0),
+    dateMoraleLow: zd(first('moraleLow')?.day ?? 0),
     endDay: String(o.endedAt.day),
     endDayZh: zhNumber(Math.max(0, o.endedAt.day)),
     leadDays: String(detectedEv ? -detectedEv.day : 0),
@@ -261,15 +285,20 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
     if (!e) return null;
     const name = String(e.data?.['personaName'] ?? e.personaId ?? '');
     const parts = name.split(' · ');
-    return { text: e.text, location: parts[0] ?? '', who: parts.slice(1).join(' · ') || name, day: e.day, eventId: e.id };
+    return { text: e.text.replace(/D([+-]\d{1,2})/g, (_m, n: string) => dateLabel(a.month, Number(n))), location: parts[0] ?? '', who: parts.slice(1).join(' · ') || name, day: e.day, eventId: e.id };
   };
 
+  const appendix: string[] = [];
   const buildSection = (tpl: SectionTpl, quote: Event | null): Section => {
     const paragraphs: string[] = [];
     for (const para of tpl.paragraphs) {
       if (!cond(para.when)) continue;
       const v = rng.pick(para.variants);
       paragraphs.push(resolveRefs(fill(v, slots)));
+      if (para.appendix) {
+        const ap = fill(para.appendix, slots);
+        if (!appendix.includes(ap)) appendix.push(ap);
+      }
     }
     return { heading: fill(tpl.heading, slots), paragraphs, quote: toQuote(quote) };
   };
@@ -282,14 +311,14 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
 
   const titleVariants = T.titles[key] ?? T.titles['fleetBroken']!;
   const title = fill(rng.pick(titleVariants), slots);
-  const subtitle = `一場在 D+${o.endedAt.day} ${o.reason === 'objectiveReached' ? '達標' : '停止'}的登陸 · 主攻${slots['axisName']}、${slots['auxText']} · 每一句可回溯到數據`;
+  const subtitle = `一場在${zd(o.endedAt.day)}${o.reason === 'objectiveReached' ? '達標' : '停止'}的登陸 · 主攻${slots['axisName']}、${slots['auxText']} · 每一句可回溯到數據`;
   const tail = [
     `本局 seed ${run.seed}，引擎 ${ENGINE_VERSION}，同組假設 ${stats.n} 局。`,
     run.flagged.length ? `標紅假設：${run.flagged.join('、')}。超出公開資料範圍的設定，史書與事件簿同步高亮。` : '本局沒有超出公開資料範圍的設定。',
     '數字來自 data/params.json 的抽樣值與本局事件；來源見資料來源頁。本章由模板拼裝，執行期不呼叫任何網路服務。',
   ];
   const charCount = sections.reduce((s, sec) => s + sec.paragraphs.reduce((x, p) => x + p.length, 0) + (sec.quote ? sec.quote.text.length : 0), 0) + title.length;
-  return { book, chapterNo, chapterNoZh: `第${zhNumber(chapterNo)}章`, title, subtitle, sections, notes, tail, charCount };
+  return { book, chapterNo, chapterNoZh: `第${zhNumber(chapterNo)}章`, title, subtitle, sections, notes, appendix, tail, charCount };
 }
 
 export function fill(text: string, slots: Record<string, string>): string {

@@ -36,11 +36,14 @@ export function gateInfo(run: Run, s: State): GateInfo {
     }
     case 'strike': {
       const max = P(p, 'gate.strike.coastalMissilesMax');
+      const daysLeft = Math.max(0, 3 - s.day);
+      const need = Math.max(0, m.twCoastalMissiles - max);
       return {
         phase: s.phase,
         label: GATE_LABEL.strike,
         progress: clamp((1 - m.twCoastalMissiles) / (1 - max)),
-        text: `守方岸置飛彈剩 ${pct(m.twCoastalMissiles)}，D+3 前要壓到 ${pct(max)} 以下。固定陣地打得掉，機動發射車找不到。`,
+        text: `岸置飛彈剩 ${pct(m.twCoastalMissiles)} → 需壓到 ${pct(max)} 以下，還差 ${pct(need)}，剩 ${daysLeft} 天。固定陣地打得掉，機動發射車找不到。`,
+        secondary: { label: `D+3 前剩 ${daysLeft} 天`, progress: clamp(1 - daysLeft / 4) },
       };
     }
     case 'crossing': {
@@ -49,7 +52,8 @@ export function gateInfo(run: Run, s: State): GateInfo {
         phase: s.phase,
         label: GATE_LABEL.crossing,
         progress: clamp(m.troopsArrived / need),
-        text: `抵岸 ${fmt(m.troopsArrived)} 人，需 ${fmt(need)} 人。好天還剩 ${m.weatherWindowDays} 天，船團平均戰力 ${pct(avgStrength(s))}。`,
+        text: `抵岸 ${fmt(m.troopsArrived)} → 需 ${fmt(need)} 人，還差 ${fmt(Math.max(0, need - m.troopsArrived))}。好天剩 ${m.weatherWindowDays} 天，船團 ${pct(avgStrength(s))}。`,
+        secondary: { label: '好天預算', progress: clamp(m.weatherWindowDays / 14) },
       };
     }
     case 'landing': {

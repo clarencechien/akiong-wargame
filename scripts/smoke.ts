@@ -42,8 +42,9 @@ try {
   const ms = Date.now() - t0;
   // 戰情室：播放 → 事件增加；跳到結局 → 門檻框變結局；時間軸可拖
   const before = await page.locator('.feed .vc').count();
+  // 進戰情室會自動播放；切 ×16 加速
   await page.getByTestId('speed').click(); // ×16
-  await page.getByTestId('play').click();
+  if ((await page.getByTestId('play').innerText()).includes('播放')) await page.getByTestId('play').click();
   // 集結期事件稀疏，等到事件數增加（最多 20 s）
   await page.waitForFunction((n) => document.querySelectorAll('.feed .vc').length > n, before, { timeout: 20_000 });
   const during = await page.locator('.feed .vc').count();
@@ -52,6 +53,9 @@ try {
   await page.screenshot({ path: 'docs/screenshots/02-situation.png' });
   await page.getByTestId('jump-end').click();
   await page.locator('.gatebox', { hasText: '結局' }).waitFor({ timeout: 5000 });
+  await page.getByTestId('endcard').waitFor({ timeout: 5000 });
+  await page.screenshot({ path: 'docs/screenshots/02-situation-endcard.png' });
+  await page.getByRole('button', { name: '留在戰情室' }).click();
   const eventsCount = await page.locator('.feed .vc').count();
   await page.locator('#tl').fill('0');
   const back = await page.locator('.feed .vc').count();

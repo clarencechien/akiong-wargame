@@ -5,6 +5,7 @@ import type { Assumptions, Outcome } from '../src/engine/types.js';
 import type { VoiceTemplate } from '../src/engine/voices.js';
 import { buildChapter, batchStats, zhNumber } from '../src/narrative/chapter.js';
 import { shareTitle, assumptionSummary } from '../src/narrative/sharecard.js';
+import { dateLabel, zhDate, annotateDates } from '../src/narrative/dates.js';
 import { eventBookCSV, eventBookJSON, eventRows, CSV_COLUMNS } from '../src/narrative/eventbook.js';
 import candidates from '../data/_candidates/voice-templates.candidates.json';
 
@@ -52,6 +53,8 @@ describe('章節生成（HANDOFF §9）', () => {
             }
           }
         }
+        expect(ch.appendix.length, `${label} 沒有附錄`).toBeGreaterThan(0);
+        for (const sec of ch.sections) for (const p of sec.paragraphs) expect(p, `${label} 正文不該出現模型字眼：${p}`).not.toMatch(/模型假設|參數|公開資料裡/);
         expect(ch.title.length).toBeGreaterThan(1);
         expect(ch.book.length).toBeGreaterThan(1);
         expect(ch.chapterNo).toBeGreaterThanOrEqual(8);
@@ -119,5 +122,17 @@ describe('事件簿', () => {
     // 東岸主攻：結算事件標紅
     const e = run({ ...BASELINE, mainAxis: 'east' }, 4, { voiceTemplates: CANDIDATES });
     expect(eventRows(e).some((x) => x.flagged)).toBe(true);
+  });
+});
+
+describe('日期', () => {
+  it('D 日 = 該月 10 日；跨月與負數正確；文字裡的 D±n 會換成日期', () => {
+    expect(dateLabel(4, 0)).toBe('4/10（D+0）');
+    expect(dateLabel(4, 22)).toBe('5/2（D+22）');
+    expect(dateLabel(4, -31)).toBe('3/10（D-31）');
+    expect(zhDate(4, 3)).toBe('四月十三日');
+    expect(zhDate(12, 25)).toBe('一月四日');
+    expect(annotateDates('在 D-27 公開辨識，D+4 出港', 4)).toBe('在 3/14（D-27） 公開辨識，4/14（D+4） 出港');
+    expect(annotateDates('4/14（D+4） 出港', 4)).toBe('4/14（D+4） 出港');
   });
 });
