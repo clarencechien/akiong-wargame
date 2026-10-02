@@ -30,4 +30,4 @@ npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假�
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：1.0 程式完成（M1 到 M7：引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書、資料來源頁、本機存檔、上線設定與 CI）。發布前還需兩件人工的事：審聲音模板候選（`data/_candidates/`，審過 `npm run voices:promote`）與改 `docs/realism.md` 初稿。上線步驟見 [`docs/deploy.md`](docs/deploy.md)。
+狀態：1.0 程式完成（M1 到 M7：引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書、資料來源頁、本機存檔、上線設定與 CI）。聲音模板已核准搬進正式檔，`docs/realism.md` 為第一版。上線步驟見 [`docs/deploy.md`](docs/deploy.md)。

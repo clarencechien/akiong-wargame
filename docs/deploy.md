@@ -26,6 +26,6 @@ GitHub Pages、Netlify、S3 + CloudFront 都可以。`vite.config.ts` 的 `base:
 ## 上線前檢查
 
 - `npm run check:params` 通過（每筆有 source 與 range）。
-- `data/voice-templates.json` 已有人工核准的句子（否則戰情室沒有聲音、史書沒有引文）。
-- `docs/realism.md` 已人工改過（來源頁直接載入這份檔）。
+- `data/voice-templates.json` 有人工核准的句子（1.0：90 句，2026-10-02 核准）。
+- `docs/realism.md` 是目前版本（來源頁直接載入這份檔）。
 - `npm run build && npm run smoke` 通過。

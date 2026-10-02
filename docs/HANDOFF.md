@@ -363,9 +363,9 @@ run(assumptions, seed):
 | M2 參數庫 | `params.json` 全部帶 source/range；`geography.json` | 無 `assumption:true` 以外的空 source（2026-10-02 完成，`npm run check:params`） |
 | M3 作戰室 + worker pool | 八假設、情報評估、下令、進度 | 100 場 < 60 s（2026-10-02 完成，`npm run smoke` 量測約 0.3 s） |
 | M4 戰情室 | 地圖、儀表、時間軸、事件流（先無聲音） | 可播完一局（2026-10-02 完成，`npm run smoke` 播放、跳到結局、拖時間軸） |
-| M5 聲音 | 30 人、模板、觸發、交錯 | voices.test 過（2026-10-02 引擎與測試完成；正式模板待人工審 `data/_candidates/voice-templates.candidates.json` 後 `npm run voices:promote`） |
-| M6 史書 | 章節、分享卡、事件簿、直方圖、如果重來 | narrative.test 過（2026-10-02 完成；章節引文需正式聲音模板核准後才會在 UI 出現） |
-| M7 來源頁 + 上線 | 參數表、現實面的考量初稿、致謝；Cloudflare Pages | 1.0（2026-10-02 程式完成；上線步驟見 `docs/deploy.md`，待人工審聲音模板與 realism.md 後發布） |
+| M5 聲音 | 30 人、模板、觸發、交錯 | voices.test 過（2026-10-02 完成；90 句候選經作者核准後 promote 進正式檔） |
+| M6 史書 | 章節、分享卡、事件簿、直方圖、如果重來 | narrative.test 過（2026-10-02 完成） |
+| M7 來源頁 + 上線 | 參數表、現實面的考量初稿、致謝；Cloudflare Pages | 1.0（2026-10-02 完成；上線步驟見 `docs/deploy.md`） |
 | 1.1 | Run 2 封鎖（第二條階段梯 + 世界層狀態量 + 航運人物）、人物庫 120、短影音 template/素材包、Suno 配樂、⑨ 灰色作戰假設 | 另開 handoff |
 
 ## 13. 明確不做（1.0）
