@@ -180,7 +180,7 @@
     {
       "id": "xiamen-port-crane",
       "stratum": "homefrontLabor",
-      "name": "廈門港 · 橋式起重機操作員",
+      "name": "廈門港 · 橋吊司機",
       "side": "prc",
       "location": "廈門港",
       "maxAppearances": 3,
@@ -463,7 +463,7 @@
     {
       "id": "navy-wife-zhanjiang",
       "stratum": "rearFamily",
-      "name": "湛江 · 海軍軍眷",
+      "name": "湛江 · 海軍軍嫂",
       "side": "prc",
       "location": "湛江",
       "maxAppearances": 3,
