@@ -41,8 +41,9 @@ function checkRun(r: Run): void {
 }
 
 describe('人物庫與模板格式', () => {
-  it('30 人、八個階層都有、每人 maxAppearances ≤ 3', () => {
-    expect(PERSONAS.length).toBe(30);
+  it('至少 30 人、id 不重複、八個階層都有、每人 maxAppearances ≤ 3', () => {
+    expect(PERSONAS.length).toBeGreaterThanOrEqual(30);
+    expect(new Set(PERSONAS.map((p) => p.id)).size).toBe(PERSONAS.length);
     const strata = new Set(PERSONAS.map((p) => p.stratum));
     for (const s of ['frontline', 'homefrontLabor', 'twBusiness', 'party', 'rearFamily', 'regional', 'world', 'taiwan']) expect(strata.has(s as never), s).toBe(true);
     for (const p of PERSONAS) expect(p.maxAppearances).toBeLessThanOrEqual(3);
