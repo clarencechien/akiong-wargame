@@ -311,7 +311,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .hero-text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .dash { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; margin: 0 40px; }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-.tiles.small { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 10px; }
+.tiles.small { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 10px; }
 .tile { border: 1px solid var(--rule); background: var(--paper-2); padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .tile-v { font-size: 20px; font-weight: 500; line-height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tiles.small .tile-v { font-size: 16px; }
