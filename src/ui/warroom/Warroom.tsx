@@ -5,7 +5,9 @@ import { ENGINE_VERSION } from '../../engine/simulate.js';
 import { hashAssumptions } from '../../engine/assumptions.js';
 import intelNotes from '../../../data/intel-notes.json';
 import { Minimap } from './Minimap.tsx';
-import { assumptions, runCount, running, progress, error, setAssumption, isMobile } from '../state.ts';
+import { assumptions, runCount, running, progress, error, setAssumption, isMobile, recent, loadRecent, lastChanged } from '../state.ts';
+import { clearBatches } from '../../store/db.js';
+import { assumptionSummary } from '../../narrative/sharecard.js';
 
 type Notes = Record<string, Record<string, string>>;
 const NOTES = intelNotes as unknown as Notes;
@@ -81,6 +83,37 @@ export function Warroom({ onOrder }: { onOrder: () => void }) {
           <Minimap a={a} />
           <div class="muted" style="font-size:12px;line-height:18px">地圖隨 ⑦⑧ 的選擇改變。灰色虛線是你沒選、但模型知道的路線。</div>
         </div>
+        {(recent.value?.length ?? 0) > 0 && (
+          <div class="col" style="gap:6px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div class="lbl">這台裝置跑過的局</div>
+              <button type="button" class="muted" style="font-size:11px;text-decoration:underline" onClick={() => void clearBatches().then(loadRecent)}>
+                清除
+              </button>
+            </div>
+            <div class="recent">
+              {recent.value!.map((b) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  class="recent-row"
+                  disabled={running.value}
+                  onClick={() => {
+                    assumptions.value = { ...b.assumptions };
+                    lastChanged.value = null;
+                  }}
+                  title="載回這組假設"
+                >
+                  <span style="font-size:12px;line-height:16px">{assumptionSummary(b.assumptions)}</span>
+                  <span class="mono muted" style="font-size:10px">
+                    {b.summary.n} 局 · 登陸 {b.summary.landed} · 穩固 {b.summary.solid} · 目標 {b.summary.objective} · 中位 D+{b.summary.medianDay}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div class="muted" style="font-size:11px">只存假設、seed 與摘要在這台裝置的瀏覽器裡，不上傳。</div>
+          </div>
+        )}
         <div class="col" style="gap:6px;margin-top:auto">
           <div class="lbl">理論依據</div>
           <div class="muted" style="font-size:12px;line-height:18px">

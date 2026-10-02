@@ -189,3 +189,30 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .paper { padding: 24px 18px; }
   .paper h1 { font-size: 26px; line-height: 36px; }
 }
+
+/* 資料來源頁 */
+.sources { display: flex; flex-direction: column; gap: 28px; padding: 22px 40px 32px; max-width: 1100px; }
+.src-intro h1 { margin: 6px 0 10px; font-size: 26px; line-height: 36px; font-weight: 700; }
+.pillars { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; }
+.pillars th, .pillars td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.pillars th { font-size: 11px; letter-spacing: .08em; font-weight: 500; color: var(--ink-2); }
+.src-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+.src-controls input[type=search], .src-controls select { font: inherit; padding: 6px 10px; border: 1px solid var(--rule-2); background: var(--paper-2); color: var(--ink); border-radius: 2px; }
+.src-controls input[type=search] { min-width: 240px; flex: 1 1 240px; }
+.book.params tr.assumed td:first-child { border-left: 3px solid #D9A441; }
+.badge { display: inline-block; margin-top: 4px; padding: 1px 6px; border: 1px solid #D9A441; color: #8a6a1c; font-size: 10px; letter-spacing: .06em; border-radius: 2px; }
+.src-prose { font-size: 15px; line-height: 27px; max-width: 760px; }
+.src-prose h1 { font-family: var(--serif); font-size: 24px; line-height: 34px; margin: 0 0 8px; }
+.src-prose h2 { font-family: var(--serif); font-size: 19px; margin: 18px 0 6px; }
+.src-prose h3 { font-size: 15px; margin: 14px 0 4px; }
+.src-prose p { margin: 0 0 12px; text-align: justify; }
+.src-prose blockquote { margin: 0 0 12px; padding: 8px 14px; border-left: 2px solid var(--rule-2); color: var(--ink-2); font-size: 13px; line-height: 22px; }
+.src-prose ul, .src-prose ol { margin: 0 0 12px; padding-left: 22px; }
+.src-prose code { font-family: var(--mono); font-size: 12px; background: rgba(0,0,0,.05); padding: 1px 4px; }
+.recent { display: flex; flex-direction: column; gap: 4px; }
+.recent-row { display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 6px 8px; border: 1px solid var(--rule); background: var(--paper-2); }
+.recent-row:hover { border-color: var(--ink); }
+@media (max-width: 720px) {
+  .sources { padding: 16px; }
+  .pillars { font-size: 12px; }
+}

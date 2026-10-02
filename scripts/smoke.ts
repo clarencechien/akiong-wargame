@@ -74,6 +74,25 @@ try {
   if (replays !== 5) throw new Error(`如果重來應有 5 顆按鈕，實際 ${replays}`);
   await page.getByTestId('replay').first().click();
   await page.getByRole('radiogroup', { name: '發動月份' }).waitFor();
+  // 來源頁：參數表可搜尋、現實面的考量載入
+  await page.getByRole('button', { name: '資料來源' }).click();
+  await page.getByTestId('param-search').waitFor();
+  const total = await page.getByTestId('param-count').innerText();
+  await page.getByTestId('param-search').fill('颱風');
+  const filtered = await page.getByTestId('param-count').innerText();
+  if (filtered === total || Number(filtered.split(' ')[0]) >= Number(total.split(' ')[0])) throw new Error(`參數搜尋沒有作用：${total} → ${filtered}`);
+  const realismOk = await page.locator('.src-prose', { hasText: '刻意的簡化' }).count();
+  if (!realismOk) throw new Error('現實面的考量沒有載入');
+  await page.screenshot({ path: 'docs/screenshots/04-sources.png', fullPage: true });
+  // 手機寬度：作戰室不應有水平捲動，且場數隱藏 100
+  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await mobile.goto(`http://localhost:${PORT}/`, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+  await mobile.getByRole('radiogroup', { name: '模擬場數' }).waitFor();
+  const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  if (overflow > 2) throw new Error(`手機寬度有水平捲動：${overflow}px`);
+  const has100 = await mobile.getByRole('radiogroup', { name: '模擬場數' }).getByRole('radio', { name: '100', exact: true }).count();
+  if (has100 !== 0) throw new Error('手機寬度仍顯示 100 場');
+  await mobile.screenshot({ path: 'docs/screenshots/01-warroom-mobile.png', fullPage: true });
   await browser.close();
   console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則（播放中 ${before} → ${during}）；章節 ${chapterChars} 字、註釋 ${notes} 條；頁面錯誤 ${errors.length} 個`);
   for (const e of errors) console.log('  ' + e);

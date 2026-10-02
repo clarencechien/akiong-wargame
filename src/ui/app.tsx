@@ -1,6 +1,9 @@
 import { Warroom } from './warroom/Warroom.tsx';
 import { Situation } from './situation/Situation.tsx';
 import { Chronicle } from './chronicle/Chronicle.tsx';
+import { Sources } from './sources/Sources.tsx';
+import { saveBatch, summarize } from '../store/db.js';
+import { recent, loadRecent } from './state.ts';
 import { assumptions, batch, error, progress, runCount, runIndex, running, screen, type Screen } from './state.ts';
 import { runBatch } from '../worker/pool.js';
 import { ENGINE_VERSION } from '../engine/simulate.js';
@@ -19,6 +22,7 @@ async function order(): Promise<void> {
     batch.value = result;
     runIndex.value = 0;
     screen.value = 'situation';
+    void saveBatch({ at: Date.now(), engineVersion: ENGINE_VERSION, assumptions: result.assumptions, seeds, summary: summarize(result.results.map((r) => r.outcome)) }).then(loadRecent);
   } catch (e) {
     error.value = e instanceof Error ? e.message : String(e);
   } finally {
@@ -36,6 +40,7 @@ function NavLink({ to, label }: { to: Screen; label: string }) {
 }
 
 export function App() {
+  if (recent.value === null) void loadRecent();
   return (
     <div class="page">
       <header class={`hdr${screen.value === 'situation' || screen.value === 'chronicle' ? ' compact' : ''}`}>
@@ -53,7 +58,7 @@ export function App() {
       {screen.value === 'warroom' && <Warroom onOrder={() => void order()} />}
       {screen.value === 'situation' && <Situation />}
       {screen.value === 'chronicle' && <Chronicle />}
-      {screen.value === 'sources' && <div style="padding:22px 40px">資料來源頁在 M7；目前見 repo 的 docs/sources.md 與 docs/realism.md。</div>}
+      {screen.value === 'sources' && <Sources />}
       <footer class="ftr">
         <span>所有參數附公開來源。超出公開資料上限的設定以紅色標示。本模擬為教育用途的簡化模型，不代表任何官方評估。</span>
         <span class="mono">引擎 {ENGINE_VERSION} · 決定性 seed</span>

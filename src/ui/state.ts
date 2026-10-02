@@ -2,6 +2,7 @@ import { signal, computed } from '@preact/signals';
 import type { Assumptions } from '../engine/types.js';
 import { BASELINE } from '../engine/assumptions.js';
 import type { BatchResult } from '../worker/pool.js';
+import { listBatches, type SavedBatch } from '../store/db.js';
 
 export type Screen = 'warroom' | 'situation' | 'chronicle' | 'sources';
 
@@ -23,4 +24,10 @@ export const currentResult = computed(() => batch.value?.results[runIndex.value]
 export function setAssumption<K extends keyof Assumptions>(key: K, value: Assumptions[K]): void {
   if (assumptions.value[key] !== value) lastChanged.value = key;
   assumptions.value = { ...assumptions.value, [key]: value };
+}
+
+/** 本機存檔裡最近跑過的局（null = 尚未讀取） */
+export const recent = signal<SavedBatch[] | null>(null);
+export async function loadRecent(): Promise<void> {
+  recent.value = await listBatches(6);
 }

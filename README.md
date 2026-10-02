@@ -8,6 +8,7 @@
 - 產品需求：[`docs/PRD.md`](docs/PRD.md)
 - 模型說明與校準紀錄：[`docs/model.md`](docs/model.md)
 - 理論基礎與資料來源：[`docs/sources.md`](docs/sources.md)（原始研究筆記在 [`docs/research/`](docs/research/)）
+- 上線：[`docs/deploy.md`](docs/deploy.md)
 - 畫面參考：[`docs/mockup/`](docs/mockup/)
 
 ## 跑起來
@@ -29,4 +30,4 @@ npm run build && npm run smoke     # 建置後用 Playwright 跑一遍：八假�
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：M1 到 M6 完成（引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書）。正式聲音模板待人工審稿（候選 90 句在 `data/_candidates/`），審過 promote 後戰情室的聲音流與史書的引文才會出現。下一步 M7 來源頁與上線。
+狀態：1.0 程式完成（M1 到 M7：引擎、參數庫、作戰室 + worker pool、戰情室、聲音引擎、史書、資料來源頁、本機存檔、上線設定與 CI）。發布前還需兩件人工的事：審聲音模板候選（`data/_candidates/`，審過 `npm run voices:promote`）與改 `docs/realism.md` 初稿。上線步驟見 [`docs/deploy.md`](docs/deploy.md)。

@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: ['**']
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run check:params
+      - run: npm test
+      - run: npm run build
+      - name: Playwright smoke（八假設、100 場計時、戰情室、史書、來源頁）
+        run: |
+          npx playwright install --with-deps chromium
+          CHROMIUM_PATH="$(node -e "console.log(require('playwright').chromium.executablePath())")" npm run smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: docs/screenshots/
