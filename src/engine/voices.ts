@@ -188,7 +188,9 @@ export function applyVoices(ctx: VoiceContext): Event[] {
   points.sort((x, y) => x.t - y.t || (x.layer === 'daily' ? 1 : -1));
   if (points.length === 0) return events;
 
-  // 2. 先保證每個有觸發點的階段至少一個（取該階段中間的點），再等距補到 N 個，優先真實事件
+  // 2. 先保證每個有觸發點的階段至少一個（取該階段中間的點），再等距補到 N 個，優先真實事件。
+  //    集結期（phase 0）通常佔整條時間軸六成以上，但能說話的人少、事也少，所以最多只分到三成的名額，
+  //    其餘留給開戰之後。
   const N = Math.min(points.length, rng.int(VOICES_PER_RUN[0], VOICES_PER_RUN[1]));
   const chosen = new Set<number>();
   const phasesPresent = [...new Set(points.map((p) => p.phaseIndex))].sort();
@@ -198,31 +200,53 @@ export function applyVoices(ctx: VoiceContext): Event[] {
     const pool = real.length ? real : idxs;
     if (pool.length && chosen.size < N) chosen.add(pool[Math.floor(pool.length / 2)]!);
   }
-  for (let k = 0; k < N && chosen.size < N; k++) {
-    const target = Math.floor(((k + 0.5) * points.length) / N);
-    let pick = -1;
-    for (let w = 0; w < points.length && pick < 0; w++) {
-      for (const cand of [target - w, target + w]) {
-        if (cand < 0 || cand >= points.length || chosen.has(cand)) continue;
-        if (w === 0 && points[cand]!.layer === 'daily') {
-          const alt = [cand - 1, cand + 1].find((c) => c >= 0 && c < points.length && !chosen.has(c) && points[c]!.layer !== 'daily');
-          if (alt !== undefined) {
-            pick = alt;
-            break;
+  const pickEquidistant = (idxs: number[], count: number) => {
+    for (let k = 0; k < count && idxs.length > 0; k++) {
+      const target = Math.floor(((k + 0.5) * idxs.length) / count);
+      let pick = -1;
+      for (let w = 0; w < idxs.length && pick < 0; w++) {
+        for (const pos of [target - w, target + w]) {
+          if (pos < 0 || pos >= idxs.length) continue;
+          const cand = idxs[pos]!;
+          if (chosen.has(cand)) continue;
+          if (w === 0 && points[cand]!.layer === 'daily') {
+            const alt = [pos - 1, pos + 1].map((q) => idxs[q]).find((c) => c !== undefined && !chosen.has(c) && points[c]!.layer !== 'daily');
+            if (alt !== undefined) {
+              pick = alt;
+              break;
+            }
           }
+          pick = cand;
+          break;
         }
-        pick = cand;
-        break;
       }
+      if (pick >= 0) chosen.add(pick);
     }
-    if (pick >= 0) chosen.add(pick);
-  }
+  };
+  const pre = points.map((p, i) => (p.phaseIndex === 0 ? i : -1)).filter((i) => i >= 0);
+  const post = points.map((p, i) => (p.phaseIndex > 0 ? i : -1)).filter((i) => i >= 0);
+  const preQuota = post.length ? Math.min(pre.length, Math.max(1, Math.round(N * 0.3))) : N;
+  const preChosen = [...chosen].filter((i) => points[i]!.phaseIndex === 0).length;
+  pickEquidistant(pre, Math.max(0, preQuota - preChosen));
+  pickEquidistant(post, Math.max(0, N - chosen.size));
+  if (chosen.size < N) pickEquidistant(pre, N - chosen.size);
 
   // 3. 逐點抽人、抽句；不足 N 則時從沒選到的點依時間補位
   const appearances = new Map<string, number>();
   const lastTime = new Map<string, number>();
   const strataUsed = new Set<Stratum>();
   const voices: { t: number; e: Event; triggerIdx: number }[] = [];
+  const availCache = new Map<string, number>();
+  const availability = (p: Persona): number => {
+    let v = availCache.get(p.id);
+    if (v === undefined) {
+      v = 0;
+      for (const idx of chosen) if (triggered(p, metricsAt(points[idx]!.t))) v++;
+      v = Math.max(1, v);
+      availCache.set(p.id, v);
+    }
+    return v;
+  };
   const tryPoint = (pt: TriggerPoint): boolean => {
     const m = metricsAt(pt.t);
     const eligible = (strict: boolean) =>
@@ -237,7 +261,9 @@ export function applyVoices(ctx: VoiceContext): Event[] {
     let pool = eligible(true);
     if (pool.length === 0) pool = eligible(false);
     if (pool.length === 0) return false;
-    const weights = pool.map((p) => (1 / (1 + (appearances.get(p.id) ?? 0))) * (strataUsed.has(p.stratum) ? 1 : 1.8));
+    // 權重：出場少優先、階層還沒出現過優先；再除以「這局有幾個觸發點輪得到他」的平方根，
+    // 讓觸發條件很寬（整局都成立）的人物不會每局都搶到話筒，窄窗口的人物在窗口開時有機會。
+    const weights = pool.map((p) => (1 / (1 + (appearances.get(p.id) ?? 0))) * (strataUsed.has(p.stratum) ? 1 : 1.4) / Math.sqrt(availability(p)));
     const total = weights.reduce((a, b) => a + b, 0);
     let r = rng.next() * total;
     let persona = pool[pool.length - 1]!;

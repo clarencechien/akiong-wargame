@@ -3,9 +3,14 @@ import { run } from '../src/engine/simulate.js';
 import { BASELINE } from '../src/engine/assumptions.js';
 import { PERSONAS, TEMPLATES, type VoiceTemplate } from '../src/engine/voices.js';
 import type { Assumptions, Run } from '../src/engine/types.js';
-import candidates from '../data/_candidates/voice-templates.candidates.json';
+import { readdirSync, readFileSync } from 'node:fs';
 
-const CANDIDATES = (candidates as unknown as { candidates: (VoiceTemplate & { approved: boolean })[] }).candidates;
+// 所有候選檔一起看（第一版 + 寫手批次），正式檔已核准的也算在內
+type Cand = VoiceTemplate & { approved?: boolean };
+const CANDIDATES: Cand[] = readdirSync('data/_candidates')
+  .filter((f) => f.endsWith('.candidates.json'))
+  .sort()
+  .flatMap((f) => (JSON.parse(readFileSync(`data/_candidates/${f}`, 'utf8')) as { candidates: Cand[] }).candidates);
 const SLOTS = new Set(['day', 'place', 'unit', 'amount', 'ships', 'troops']);
 const personaIds = new Set(PERSONAS.map((p) => p.id));
 
