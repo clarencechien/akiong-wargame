@@ -214,7 +214,7 @@ export function buildChapter(run: Run, stats: BatchStats): Chapter {
     reroutePct: pct(lastSnap?.world.shippingReroute ?? 0),
     energyPct: `${Math.round(((lastSnap?.world.energyPrice ?? 1) - 1) * 100)}%`,
   };
-  slots['outlook'] = outlook(run)?.text ?? '';
+  slots['outlook'] = (outlook(run)?.text ?? '').replace(/。$/, '');
   const lessonTpl = T.lessons[key] ?? T.lessons['fleetBroken']!;
   slots['lessonText'] = fill(Array.isArray(lessonTpl) ? rng.pick(lessonTpl) : lessonTpl, slots, rng);
 
