@@ -10,6 +10,7 @@ import { gateInfo, avgStrength, PHASE_NAME, PHASE_ORDER } from '../../engine/gat
 import { batch, runIndex, screen } from '../state.ts';
 import { atEnd, banner, currentRun, currentState, cycleSpeed, jumpToEnd, playing, snapIndex, speed, visibleEvents } from './playback.ts';
 import { verdict } from '../../narrative/verdict.js';
+import { TEMPLATES } from '../../engine/voices.js';
 import { dateLabel, annotateDates, shortDate } from '../../narrative/dates.js';
 import { useState } from 'preact/hooks';
 import { Map } from './Map.tsx';
@@ -223,7 +224,7 @@ export function Situation() {
             ))}
           </div>
           <div style="margin-top:auto;font-size:10px;color:#5F7C9E;line-height:15px" class="mono">
-            {events.some((e) => e.layer === 'voice')
+            {TEMPLATES.length > 0
               ? '聲音由四層事件觸發，角色與語氣從人物庫以 seed 抽取；同一 seed 永遠得到同一句。'
               : '正式聲音模板尚未核准（data/voice-templates.json 為空）。審過 data/_candidates/ 的候選後執行 npm run voices:promote。'}
           </div>
