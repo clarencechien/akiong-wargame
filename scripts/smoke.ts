@@ -75,8 +75,9 @@ try {
   await page.getByTestId('tab-book').click();
   const rows = await page.locator('.book tbody tr').count();
   if (rows !== eventsCount) throw new Error(`事件簿列數 ${rows} ≠ 事件數 ${eventsCount}`);
-  await page.getByTestId('tab-card').click();
   await page.locator('canvas.sharecard').waitFor();
+  await page.getByTestId('verdict').waitFor();
+  await page.getByTestId('tab-chapter').click();
   const replays = await page.getByTestId('replay').count();
   if (replays !== 5) throw new Error(`如果重來應有 5 顆按鈕，實際 ${replays}`);
   await page.getByTestId('replay').first().click();

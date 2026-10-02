@@ -1,24 +1,26 @@
 /**
- * 03 史書：教科書章節 / 頭版分享卡 / 短影音（1.1 占位） / 事件簿；本局在 N 場中的位置；如果重來。
+ * 03 史書：最上面是分享圖 + 結局 TL;DR（馬上可下載），接著數字儀表板，再來戰局小說；事件簿與短影音在分頁。
  */
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Assumptions } from '../../engine/types.js';
 import { encodeShare } from '../../engine/share.js';
+import { P } from '../../engine/params.js';
 import { buildChapter, batchStats } from '../../narrative/chapter.js';
-import { drawShareCard, downloadCanvas, shareTitle, assumptionSummary } from '../../narrative/sharecard.js';
+import { drawShareCard, downloadCanvas, assumptionSummary } from '../../narrative/sharecard.js';
 import { eventRows, eventBookCSV, eventBookJSON, downloadText } from '../../narrative/eventbook.js';
-import { batch, runIndex, screen, assumptions, lastChanged, setAssumption } from '../state.ts';
-import { currentRun } from '../situation/playback.ts';
 import { verdict } from '../../narrative/verdict.js';
 import { dateLabel, annotateDates } from '../../narrative/dates.js';
+import { avgStrength } from '../../engine/gateinfo.js';
+import { batch, runIndex, screen, assumptions, lastChanged, setAssumption } from '../state.ts';
+import { currentRun } from '../situation/playback.ts';
 
-type Tab = 'chapter' | 'card' | 'reel' | 'book';
-const dl = (d: number) => (d < 0 ? `D${d}` : `D+${d}`);
+type Tab = 'chapter' | 'book' | 'reel';
 
 export function Chronicle() {
   const b = batch.value;
   const r = currentRun.value;
   const [tab, setTab] = useState<Tab>('chapter');
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   if (!b || !r) {
     return (
       <div style="padding:22px 40px">
@@ -47,6 +49,11 @@ export function Chronicle() {
   const code = encodeShare(a, r.seed);
   const v = verdict(r);
   const dd = (d: number) => dateLabel(a.month, d);
+  const last = r.snapshots[r.snapshots.length - 1];
+  const pct = (x: number) => `${Math.round(x * 100)}%`;
+  useEffect(() => {
+    if (canvasRef.current) drawShareCard(canvasRef.current, { run: r, stats, histogram, lastChanged: lastChanged.value, runIndex: idx });
+  }, [r, stats, histogram, idx, lastChanged.value]);
 
   // 如果重來：五顆按鈕，每顆只改一個假設
   const replays: { label: string; key: keyof Assumptions; value: Assumptions[keyof Assumptions] }[] = [
@@ -62,6 +69,18 @@ export function Chronicle() {
     lastChanged.value = key;
     screen.value = 'warroom';
   };
+  const suggested = replays.find((x) => x.key === v.suggest);
+
+  const tiles: { label: string; value: string; red?: boolean }[] = [
+    { label: o.reason === 'objectiveReached' ? '達成目標' : '終止', value: dd(o.endedAt.day), red: true },
+    { label: '最多上岸', value: `${o.maxTroopsAshore.toLocaleString('zh-Hant-TW')} 人` },
+    { label: '船團剩餘', value: pct(last ? avgStrength(last) : 1 - o.fleetLoss) },
+    { label: '守方岸置飛彈', value: pct(last?.military.twCoastalMissiles ?? 1) },
+    { label: '沿海停工', value: pct(o.coastalShutdown) },
+    { label: '士氣終值', value: String(Math.round(last?.homefront.morale ?? 0)) },
+    { label: '市場最大跌幅', value: pct(-o.marketShockMax) },
+    { label: '補給線存活', value: `${Math.round(last?.military.supplyDays ?? 0)} / ${P(r.sampledParams, 'inland.supplyDaysRequired')} 天` },
+  ];
 
   return (
     <div class="chronicle">
@@ -79,14 +98,89 @@ export function Chronicle() {
           </button>
         </span>
       </div>
+
+      {/* 一、分享圖 + 結局 TL;DR */}
+      <section class="hero">
+        <canvas ref={canvasRef} class="sharecard" aria-label="頭版分享卡" />
+        <div class="hero-text" data-testid="verdict">
+          <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
+          <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>
+          <div class="verdict-d">{annotateDates(v.detail, a.month)}</div>
+          <div class="verdict-l">{v.lesson}</div>
+          <div class="muted" style="font-size:12px">{assumptionSummary(a)}</div>
+          <div class="pills" style="margin-top:4px">
+            <button type="button" class="tbtn solid" style="height:38px" onClick={() => canvasRef.current && downloadCanvas(canvasRef.current, `akiong-${code}.png`)} data-testid="dl-png">
+              下載分享圖
+            </button>
+            <button type="button" class="tbtn" style="height:38px" onClick={() => void navigator.clipboard?.writeText(code)}>
+              複製分享編碼
+            </button>
+            {suggested && (
+              <button type="button" class="tbtn outline" style="height:38px" onClick={() => replay(suggested.key, suggested.value)} data-testid="replay-suggested">
+                重來：{suggested.label}
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 二、數字儀表板 */}
+      <section class="dash">
+        <div class="tiles">
+          {tiles.map((t) => (
+            <div key={t.label} class="tile">
+              <div class="lbl">{t.label}</div>
+              <div class={`mono tile-v${t.red ? ' red' : ''}`}>{t.value}</div>
+            </div>
+          ))}
+        </div>
+        <div class="dash-dist">
+          <div class="lbl">同組假設 {n} 局 · 終止日分佈（紅色是本局）</div>
+          <div class="hist tall" aria-label="終止日直方圖" role="img">
+            {histogram.map((h) => (
+              <div key={h.day} class={h.day === o.endedAt.day ? 'me' : ''} style={{ height: `${(100 * h.count) / maxBin}%` }} title={`${dd(h.day)}：${h.count} 局`} />
+            ))}
+          </div>
+          <div class="mono muted" style="font-size:10px;display:flex;justify-content:space-between">
+            <span>{dd(minD)}</span>
+            <span class="red">{dd(o.endedAt.day)} 本局</span>
+            <span>{dd(maxD)}</span>
+          </div>
+          <div class="tiles small">
+            <div class="tile">
+              <div class="lbl">登陸成功</div>
+              <div class="mono tile-v">
+                {stats.landedN} / {n}
+              </div>
+            </div>
+            <div class="tile">
+              <div class="lbl">穩固灘頭堡</div>
+              <div class="mono tile-v">
+                {stats.solidN} / {n}
+              </div>
+            </div>
+            <div class="tile">
+              <div class="lbl">達成目標</div>
+              <div class="mono tile-v">
+                {stats.objectiveN} / {n}
+              </div>
+            </div>
+            <div class="tile">
+              <div class="lbl">中位終止日</div>
+              <div class="mono tile-v">{dd(stats.medianDay)}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 三、戰局小說 / 事件簿 / 短影音 */}
       <div class="tabs">
         <div class="pills">
           {(
             [
-              ['chapter', '教科書章節'],
-              ['card', '頭版（分享卡）'],
-              ['reel', '短影音（分階段）'],
+              ['chapter', '戰局小說（教科書章節）'],
               ['book', '事件簿（原始資料）'],
+              ['reel', '短影音（分階段）'],
             ] as [Tab, string][]
           ).map(([t, label]) => (
             <button key={t} type="button" class={`tab${tab === t ? ' on' : ''}`} onClick={() => setTab(t)} data-testid={`tab-${t}`}>
@@ -94,23 +188,11 @@ export function Chronicle() {
             </button>
           ))}
         </div>
-        <div class="muted" style="font-size:12px">同一份事件流，四種讀法。第一版輸出都在本機產生；分享卡以檔案下載。</div>
-      </div>
-
-      <div class="verdict" data-testid="verdict">
-        <div class="lbl" style="color:var(--red)">結局 · {dd(o.endedAt.day)}</div>
-        <div class="serif verdict-h">{annotateDates(v.headline, a.month)}</div>
-        <div class="verdict-d">{annotateDates(v.detail, a.month)}</div>
-        <div class="verdict-l">{v.lesson}</div>
-        {v.suggest && (
-          <div class="muted" style="font-size:12px">
-            如果重來，最相關的是 <b>{replays.find((x) => x.key === v.suggest)?.label ?? ''}</b>（下方）。
-          </div>
-        )}
+        <div class="muted" style="font-size:12px">同一份事件流，三種讀法。全部在本機產生。</div>
       </div>
 
       {tab === 'chapter' && (
-        <div class="chapter-grid">
+        <div class="chapter-grid single">
           <article class="paper">
             <header>
               <div class="lbl">《{chapter.book}》 {chapter.chapterNoZh} · 本局生成</div>
@@ -151,65 +233,7 @@ export function Chronicle() {
                 </section>
               </div>
               <aside class="chapter-aside">
-                <div class="lbl">本局統計</div>
-                <div class="kv">
-                  <div>
-                    <span>{o.reason === 'objectiveReached' ? '達成目標' : '登陸終止'}</span>
-                    <span class="mono">{dd(o.endedAt.day)}</span>
-                  </div>
-                  <div>
-                    <span>紅方上岸最大值</span>
-                    <span class="mono">{o.maxTroopsAshore.toLocaleString('zh-Hant-TW')}</span>
-                  </div>
-                  <div>
-                    <span>船團損失</span>
-                    <span class="mono">{Math.round(o.fleetLoss * 100)}%</span>
-                  </div>
-                  <div>
-                    <span>沿海停工</span>
-                    <span class="mono">{Math.round(o.coastalShutdown * 100)}%</span>
-                  </div>
-                  <div>
-                    <span>市場最大跌幅</span>
-                    <span class="mono">{Math.round(o.marketShockMax * 100)}%</span>
-                  </div>
-                  <div>
-                    <span>章節字數</span>
-                    <span class="mono">{chapter.charCount.toLocaleString('zh-Hant-TW')}</span>
-                  </div>
-                </div>
-                <div class="lbl" style="margin-top:6px">本局在 {n} 場中的位置</div>
-                <div class="hist" aria-label="終止日直方圖">
-                  {histogram.map((h) => (
-                    <div key={h.day} class={h.day === o.endedAt.day ? 'me' : ''} style={{ height: `${(100 * h.count) / maxBin}%` }} title={`${dl(h.day)}：${h.count} 局`} />
-                  ))}
-                </div>
-                <div class="mono muted" style="font-size:10px;display:flex;justify-content:space-between">
-                  <span>{dl(minD)}</span>
-                  <span class="red">{dl(o.endedAt.day)} 本局</span>
-                  <span>{dl(maxD)}</span>
-                </div>
-                <div class="kv" style="font-size:12px">
-                  <div>
-                    <span>登陸成功</span>
-                    <span class="mono">
-                      {stats.landedN} / {n}
-                    </span>
-                  </div>
-                  <div>
-                    <span>穩固灘頭堡</span>
-                    <span class="mono">
-                      {stats.solidN} / {n}
-                    </span>
-                  </div>
-                  <div>
-                    <span>達成目標</span>
-                    <span class="mono">
-                      {stats.objectiveN} / {n}
-                    </span>
-                  </div>
-                </div>
-                <div class="lbl" style="margin-top:6px">註釋</div>
+                <div class="lbl">註釋</div>
                 <ol class="notes mono">
                   {chapter.notes.map((nt) => (
                     <li key={nt.n} id={`note-${nt.n}`}>
@@ -217,37 +241,11 @@ export function Chronicle() {
                     </li>
                   ))}
                 </ol>
+                <div class="lbl" style="margin-top:10px">字數</div>
+                <div class="mono muted" style="font-size:12px">正文 {chapter.charCount.toLocaleString('zh-Hant-TW')} 字 · 附錄 {chapter.appendix.length} 條</div>
               </aside>
             </div>
           </article>
-          <ShareCardPanel histogram={histogram} stats={stats} />
-        </div>
-      )}
-
-      {tab === 'card' && (
-        <div class="chapter-grid single">
-          <ShareCardPanel histogram={histogram} stats={stats} large />
-        </div>
-      )}
-
-      {tab === 'reel' && (
-        <div style="padding:0 40px">
-          <div class="card soft" style="gap:12px">
-            <div class="lbl">短影音 · 直式 9:16 · 每階段一幕，約 45 秒</div>
-            <div style="font-size:14px">1.1 推出。每一幕 = 地圖動態 + 一個數字 + 一句聲音；同時提供 template 與素材包給想二創的人。下面是本局的分鏡草稿。</div>
-            <div class="reel">
-              {reelFrames(r).map((f) => (
-                <div key={f.title} class="ph">
-                  <div class="scr">
-                    <span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">{f.when}</span>
-                    <span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px;white-space:pre-line">{f.number}</span>
-                  </div>
-                  <span style="font-size:12px;font-weight:500">{f.title}</span>
-                  <span class="muted" style="font-size:11px">{f.voice}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       )}
 
@@ -305,6 +303,27 @@ export function Chronicle() {
         </div>
       )}
 
+      {tab === 'reel' && (
+        <div style="padding:0 40px">
+          <div class="card soft" style="gap:12px">
+            <div class="lbl">短影音 · 直式 9:16 · 每階段一幕，約 45 秒</div>
+            <div style="font-size:14px">1.1 推出。每一幕 = 地圖動態 + 一個數字 + 一句聲音；同時提供 template 與素材包給想二創的人。下面是本局的分鏡草稿。</div>
+            <div class="reel">
+              {reelFrames(r).map((f) => (
+                <div key={f.title} class="ph">
+                  <div class="scr">
+                    <span class="mono" style="position:absolute;left:8px;top:8px;font-size:10px;color:#9DB4D0">{f.when}</span>
+                    <span style="position:absolute;left:8px;bottom:8px;font-size:12px;color:#E8EEF5;line-height:16px;white-space:pre-line">{f.number}</span>
+                  </div>
+                  <span style="font-size:12px;font-weight:500">{f.title}</span>
+                  <span class="muted" style="font-size:11px">{f.voice}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div class="replay">
         <div style="display:flex;flex-direction:column;gap:6px">
           <span class="lbl">如果重來</span>
@@ -322,35 +341,7 @@ export function Chronicle() {
   );
 }
 
-function ShareCardPanel({ histogram, stats, large }: { histogram: { day: number; count: number }[]; stats: ReturnType<typeof batchStats>; large?: boolean }) {
-  const r = currentRun.value!;
-  const ref = useRef<HTMLCanvasElement>(null);
-  const idx = runIndex.value;
-  useEffect(() => {
-    if (ref.current) drawShareCard(ref.current, { run: r, stats, histogram, lastChanged: lastChanged.value, runIndex: idx });
-  }, [r, stats, histogram, idx, lastChanged.value]);
-  const { title } = shareTitle(r.outcome, lastChanged.value, stats, r.assumptions.month);
-  const code = encodeShare(r.assumptions, r.seed);
-  return (
-    <div class="col" style="gap:10px">
-      <div class="lbl">頭版分享卡 · 1080×1350 預覽</div>
-      <canvas ref={ref} class="sharecard" style={{ width: large ? 'min(540px, 100%)' : '360px' }} aria-label={title} />
-      <div class="muted" style="font-size:12px;line-height:18px">
-        標題由「玩家原本押的變數」與「實際終止原因」組成；第一版下載 PNG，第二版才有分享連結（上傳 seed 重算）。{assumptionSummary(r.assumptions)}
-      </div>
-      <div class="pills">
-        <button type="button" class="tbtn solid" style="height:38px" onClick={() => ref.current && downloadCanvas(ref.current, `akiong-${code}.png`)} data-testid="dl-png">
-          下載 PNG
-        </button>
-        <button type="button" class="tbtn" style="height:38px" onClick={() => void navigator.clipboard?.writeText(code)}>
-          複製分享編碼
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function reelFrames(r: ReturnType<typeof currentRun.peek> & object) {
+function reelFrames(r: NonNullable<ReturnType<typeof currentRun.peek>>) {
   const ev = r.events;
   const first = (kind: string) => ev.find((e) => e.kind === kind);
   const voiceNear = (day: number) => ev.filter((e) => e.layer === 'voice').sort((x, y) => Math.abs(x.day - day) - Math.abs(y.day - day))[0];
