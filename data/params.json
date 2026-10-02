@@ -1,0 +1,1265 @@
+{
+  "$schema": "./params.schema.json",
+  "version": "0.1.0",
+  "note": "每筆都要 source 與 range。assumption:true 表示來源不足、是模型假設。模擬時在 range 內以三角分佈抽樣（眾數 = value）。數字來源細節見 docs/sources.md。",
+  "params": [
+    {
+      "id": "weather.windowDays.m1",
+      "label": "1 月可用海況天數",
+      "value": 5,
+      "range": [
+        2,
+        9
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "note": "東北季風最強，月均波高 2.3 m",
+      "assumption": true
+    },
+    {
+      "id": "weather.windowDays.m2",
+      "label": "2 月可用海況天數",
+      "value": 6,
+      "range": [
+        3,
+        10
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "東北季風，霧季開始"
+    },
+    {
+      "id": "weather.windowDays.m3",
+      "label": "3 月可用海況天數",
+      "value": 10,
+      "range": [
+        6,
+        15
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "note": "季風減弱但霧日最多（桃園 4.7 天）",
+      "assumption": true
+    },
+    {
+      "id": "weather.windowDays.m4",
+      "label": "4 月可用海況天數",
+      "value": 17,
+      "range": [
+        11,
+        22
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "兩個登陸窗口之一；月均波高約 1.0 m"
+    },
+    {
+      "id": "weather.windowDays.m5",
+      "label": "5 月可用海況天數",
+      "value": 12,
+      "range": [
+        7,
+        16
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "梅雨季起，雨日多、能見度差"
+    },
+    {
+      "id": "weather.windowDays.m6",
+      "label": "6 月可用海況天數",
+      "value": 9,
+      "range": [
+        5,
+        13
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "梅雨尾與颱風季起點"
+    },
+    {
+      "id": "weather.windowDays.m7",
+      "label": "7 月可用海況天數",
+      "value": 8,
+      "range": [
+        4,
+        12
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "波高最低但颱風最頻"
+    },
+    {
+      "id": "weather.windowDays.m8",
+      "label": "8 月可用海況天數",
+      "value": 7,
+      "range": [
+        3,
+        11
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "颱風最頻月份"
+    },
+    {
+      "id": "weather.windowDays.m9",
+      "label": "9 月可用海況天數",
+      "value": 9,
+      "range": [
+        4,
+        13
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "颱風仍頻；月底窗口漸開"
+    },
+    {
+      "id": "weather.windowDays.m10",
+      "label": "10 月可用海況天數",
+      "value": 16,
+      "range": [
+        9,
+        20
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "兩個登陸窗口之一，但月中後東北季風轉強（月均波高已達 2.2 m）"
+    },
+    {
+      "id": "weather.windowDays.m11",
+      "label": "11 月可用海況天數",
+      "value": 7,
+      "range": [
+        3,
+        11
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "東北季風確立"
+    },
+    {
+      "id": "weather.windowDays.m12",
+      "label": "12 月可用海況天數",
+      "value": 5,
+      "range": [
+        2,
+        9
+      ],
+      "unit": "天",
+      "source": "Easton 2017（《中共攻台大解密》副標「一年兩度的時機」）：4 月與 10 月為「good suitability」；徐曉等 2021《熱帶海洋學報》台灣海峽中部浮標逐月平均示性波高（1 月 2.3／3 月 1.3／4–6 月 1.0／7 月 0.87／10 月 2.2／11 月 2.5／12 月 2.98 m）；中油觀塘環評附件：桃園沿岸風速 ≥10 m/s 時間比例（5 月 12%、10 月 69%、1–2 月 44%）；CIMSEC：海峽每年蒲福 6 級以上 156 天",
+      "assumption": true,
+      "note": "月均波高全年最高 2.98 m"
+    },
+    {
+      "id": "weather.typhoonProb.m1",
+      "label": "1 月颱風影響機率",
+      "value": 0.0,
+      "range": [
+        0,
+        0.02
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m2",
+      "label": "2 月颱風影響機率",
+      "value": 0.0,
+      "range": [
+        0,
+        0.02
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m3",
+      "label": "3 月颱風影響機率",
+      "value": 0.0,
+      "range": [
+        0,
+        0.02
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m4",
+      "label": "4 月颱風影響機率",
+      "value": 0.01,
+      "range": [
+        0.01,
+        0.02
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m5",
+      "label": "5 月颱風影響機率",
+      "value": 0.08,
+      "range": [
+        0.05,
+        0.11
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m6",
+      "label": "6 月颱風影響機率",
+      "value": 0.2,
+      "range": [
+        0.12,
+        0.28
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m7",
+      "label": "7 月颱風影響機率",
+      "value": 0.58,
+      "range": [
+        0.35,
+        0.81
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m8",
+      "label": "8 月颱風影響機率",
+      "value": 0.61,
+      "range": [
+        0.37,
+        0.85
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m9",
+      "label": "9 月颱風影響機率",
+      "value": 0.55,
+      "range": [
+        0.33,
+        0.77
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m10",
+      "label": "10 月颱風影響機率",
+      "value": 0.25,
+      "range": [
+        0.15,
+        0.35
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m11",
+      "label": "11 月颱風影響機率",
+      "value": 0.1,
+      "range": [
+        0.06,
+        0.14
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonProb.m12",
+      "label": "12 月颱風影響機率",
+      "value": 0.01,
+      "range": [
+        0.01,
+        0.02
+      ],
+      "unit": "機率",
+      "source": "中央氣象署《颱風百問》(114 年 6 月版) Q38 表 7：1911–2024 侵臺颱風共 378 個，月別 4 月 1／5 月 9／6 月 25／7 月 98／8 月 108／9 月 91／10 月 33／11 月 12／12 月 1；取 P(至少一個) = 1 − e^(−月平均)",
+      "assumption": false
+    },
+    {
+      "id": "weather.typhoonHaltDays",
+      "label": "一次颱風中斷渡海天數",
+      "value": 3,
+      "range": [
+        2,
+        5
+      ],
+      "unit": "天",
+      "source": "中央氣象署颱風警報平均時長",
+      "assumption": true
+    },
+    {
+      "id": "weather.badSpellMeanDays",
+      "label": "一次壞海況持續平均天數",
+      "value": 2.5,
+      "range": [
+        1.5,
+        4
+      ],
+      "unit": "天",
+      "source": "東北季風增強（冷氣團南下）通常持續 2–4 天；中央氣象署颱風警報平均 2–3 天；模型以兩態馬可夫鏈模擬逐日海況，穩態好天比例 = 該月可用海況天數 ÷ 當月天數",
+      "assumption": true
+    },
+    {
+      "id": "lift.amphibShips.count",
+      "label": "海軍兩棲艦艇數（LHA/LPD/LST/LSM）",
+      "value": 66,
+      "range": [
+        56,
+        80
+      ],
+      "unit": "艘",
+      "source": "DoD CMPR 2024 附錄 I：中型／戰車登陸艦與船塢登陸艦 58 艘 + 兩棲攻擊艦 3 艘（075 型 3 艘服役、第 4 艘 2024 年）；p.55：071 型 8 艘；CSIS 2023 p.108：2026 年預估 28 LST + 18 LHD/LPD + 20 LSM = 66 艘",
+      "note": "含 075 型 3–4 艘、071 型 8 艘、072 系列戰車登陸艦約 30 艘、073/074 中型登陸艦",
+      "assumption": false
+    },
+    {
+      "id": "lift.troopsPerAmphib",
+      "label": "每艘兩棲艦平均載員",
+      "value": 500,
+      "range": [
+        350,
+        800
+      ],
+      "unit": "人",
+      "source": "公開艦型資料：071 型約 800 人、075 型約 1,000 人（連裝備）、072 系列約 250 人；加權平均 350–800",
+      "assumption": true
+    },
+    {
+      "id": "lift.roro.count",
+      "label": "可徵用大型滾裝船數",
+      "value": 60,
+      "range": [
+        30,
+        90
+      ],
+      "unit": "艘",
+      "source": "DoD CMPR 2023 p.143：至少 63 艘適合軍事用途的民用滾裝船，戰時最多 64 艘可供解放軍；CMSI Kennedy 2019（CMR 4）：63 艘滾裝船共 14 萬噸；CMSI Dahm 2023（CMR 25）：31 艘大型遠洋滾裝渡輪、2022 年演習用了 18 艘；CSIS 2023 p.108 計入 30 艘",
+      "note": "指曾參與演習或 1 萬噸以上渡輪／汽車運輸船",
+      "assumption": false
+    },
+    {
+      "id": "lift.roro.availability",
+      "label": "滾裝船可用率",
+      "value": 0.7,
+      "range": [
+        0.5,
+        0.85
+      ],
+      "unit": "比例",
+      "source": "DoD CMPR 2023 p.143：民船演習「尚未展現所需的真實性與戰術熟練度」；模型假設維修、航程、徵用拒絕",
+      "assumption": true
+    },
+    {
+      "id": "lift.troopsPerRoro",
+      "label": "每艘滾裝船可運兵力（含車輛）",
+      "value": 1200,
+      "range": [
+        700,
+        2000
+      ],
+      "unit": "人",
+      "source": "CMSI Kennedy 2019（CMR 4）：2 萬噸級渡輪 200 車 + 1,280 人、3.5 萬噸級 300+ 車 + 2,038 人；CMSI Dahm 2023：2022 年 7–8 月演習最高 8,500 車／58,000 人",
+      "assumption": true
+    },
+    {
+      "id": "lift.roroBeachFactor",
+      "label": "滾裝船無港口時可卸載比例",
+      "value": 0.3,
+      "range": [
+        0.1,
+        0.5
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.48 fn120、p.85 fn242：對民船突擊能力存疑（加里波利類比：每日 300–400 噸，約為模型初始卸載能力的 1/50）；Easton 2021《Hostile Harbors》：滾裝船需港口；「水橋」駁船目前 2 組（各 3 艘，棧橋 820–850 m，約 150 車／小時／組）",
+      "note": "模型假設：第一波中滾裝船僅能透過駁船與浮橋卸載",
+      "assumption": true
+    },
+    {
+      "id": "lift.waveRoundTripDays",
+      "label": "每波往返天數",
+      "value": 2.5,
+      "range": [
+        2,
+        4
+      ],
+      "unit": "天",
+      "source": "Easton 2017 ch.6（航程約 100 浬、裝卸時間）",
+      "assumption": true
+    },
+    {
+      "id": "lift.transitHours",
+      "label": "單程航渡小時數",
+      "value": 14,
+      "range": [
+        10,
+        20
+      ],
+      "unit": "小時",
+      "source": "Easton 2021《Hostile Harbors》p.5：海峽最窄 80 浬、最寬 255 浬；船團速 8–12 節",
+      "assumption": false
+    },
+    {
+      "id": "lift.beachThroughputPerDay",
+      "label": "單一灘頭每日可卸載兵力",
+      "value": 4000,
+      "range": [
+        2500,
+        6000
+      ],
+      "unit": "人/天",
+      "source": "CSIS 2023 p.73–74、p.108：卸載率採二戰末期美軍（諾曼第／沖繩），D 日約 8,000 人、3.5 天 16,000 人；減 30% 即福克蘭水準。本模型北部 2 灘頭合計 8,000 人／日",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleAmphibFraction.raid",
+      "label": "偷襲型投入兩棲艦比例",
+      "value": 0.5,
+      "range": [
+        0.4,
+        0.6
+      ],
+      "unit": "比例",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleAmphibFraction.medium",
+      "label": "中型投入兩棲艦比例",
+      "value": 0.85,
+      "range": [
+        0.75,
+        0.95
+      ],
+      "unit": "比例",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleAmphibFraction.full",
+      "label": "全面投入兩棲艦比例",
+      "value": 1.0,
+      "range": [
+        0.9,
+        1.0
+      ],
+      "unit": "比例",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleRoroFraction.raid",
+      "label": "偷襲型徵用滾裝船比例",
+      "value": 0.0,
+      "range": [
+        0,
+        0.1
+      ],
+      "unit": "比例",
+      "source": "模型假設：徵用民船即失去突襲性",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleRoroFraction.medium",
+      "label": "中型徵用滾裝船比例",
+      "value": 0.5,
+      "range": [
+        0.35,
+        0.65
+      ],
+      "unit": "比例",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "lift.scaleRoroFraction.full",
+      "label": "全面徵用滾裝船比例",
+      "value": 1.0,
+      "range": [
+        0.85,
+        1.0
+      ],
+      "unit": "比例",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "detect.assemblyWeeks.raid",
+      "label": "偷襲型集結週數",
+      "value": 3,
+      "range": [
+        2,
+        5
+      ],
+      "unit": "週",
+      "source": "模型假設；Easton 2017 認為任何規模登陸都需數週準備",
+      "assumption": true
+    },
+    {
+      "id": "detect.assemblyWeeks.medium",
+      "label": "中型集結週數",
+      "value": 6,
+      "range": [
+        4,
+        8
+      ],
+      "unit": "週",
+      "source": "Easton 90／60／30 天徵候階段（Taiwan News 2020-10）；CSIS 2023 p.46：D-30 中國信號、D-14 美台明確預警",
+      "assumption": false
+    },
+    {
+      "id": "detect.assemblyWeeks.full",
+      "label": "全面集結週數",
+      "value": 10,
+      "range": [
+        8,
+        14
+      ],
+      "unit": "週",
+      "source": "Easton 90／60／30 天徵候階段；《阿共打來怎麼辦》：準備不能超過三個月",
+      "assumption": false
+    },
+    {
+      "id": "detect.leadDays.raid",
+      "label": "偷襲型被商用衛星辨識提前天數",
+      "value": 7,
+      "range": [
+        3,
+        14
+      ],
+      "unit": "天",
+      "source": "Planet Labs：PlanetScope 3 m 近每日全球覆蓋、SkySat 50 cm 每日最多 10 次；2022 USNI、2024 Planet 大埕灣影像即時辨識；Goldstein：對飛彈打擊預警只有數小時；模型假設小規模船團辨識較晚",
+      "assumption": true
+    },
+    {
+      "id": "detect.leadDays.medium",
+      "label": "中型被辨識提前天數",
+      "value": 25,
+      "range": [
+        14,
+        40
+      ],
+      "unit": "天",
+      "source": "Easton（Taiwan News 2020-10；VOA 2017-12）：入侵前 90 天出現徵候、60 天內模糊、最後 30 天逐小時明朗；2022–2024 開源情報帳號以商用衛星即時辨識解放軍演習",
+      "assumption": false
+    },
+    {
+      "id": "detect.leadDays.full",
+      "label": "全面被辨識提前天數",
+      "value": 45,
+      "range": [
+        30,
+        60
+      ],
+      "unit": "天",
+      "source": "同上；《阿共打來怎麼辦》：準備時間最多不能超過三個月，否則台灣必然備戰",
+      "assumption": false
+    },
+    {
+      "id": "detect.twReserveActivationLagDays",
+      "label": "台灣後備召集啟動延遲",
+      "value": 3,
+      "range": [
+        2,
+        7
+      ],
+      "unit": "天",
+      "source": "國防部：24 小時內可動員 21.5 萬後備軍人（報導者 2022）；縣市後備旅目標 24 小時內完成動員（聯合報）；取集結到位延遲 2–7 天",
+      "assumption": true
+    },
+    {
+      "id": "fire.firstWaveMissiles",
+      "label": "首波（3 日）對台飛彈數",
+      "value": 1200,
+      "range": [
+        800,
+        2000
+      ],
+      "unit": "枚",
+      "source": "DoD CMPR 2024 p.67：火箭軍短程彈道飛彈 300 發射車／900 枚、中程 300／1,300、陸攻巡弋 150／400；CSIS 2023 p.46：開局以「大部分」短程彈道飛彈庫存打擊台灣；《阿共打來怎麼辦》：一次齊射約 500 枚、每目標最多 7.46 枚",
+      "note": "三日用量；須保留對美日與後續用",
+      "assumption": false
+    },
+    {
+      "id": "fire.airfieldSurvival",
+      "label": "打擊後台灣機場可用比例",
+      "value": 0.35,
+      "range": [
+        0.2,
+        0.55
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.46：巡弋飛彈壓制跑道約 2 週、約 250 座加固機堡、3 個中隊（75 架）在佳山／石子山存活；DoD CMPR 2024 附錄：台灣戰機 350 架；佳山洞庫可容 200–250 架",
+      "assumption": false
+    },
+    {
+      "id": "fire.radarSurvival",
+      "label": "打擊後固定雷達存活比例",
+      "value": 0.4,
+      "range": [
+        0.25,
+        0.6
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.46 開局打擊固定目標；《阿共打來怎麼辦》第 1 章",
+      "assumption": true
+    },
+    {
+      "id": "fire.mobileLauncherDailyAttrition",
+      "label": "機動岸置飛彈發射車每日損失率",
+      "value": 0.06,
+      "range": [
+        0.03,
+        0.12
+      ],
+      "unit": "比例/天",
+      "source": "1991 波灣戰爭飛毛腿獵殺：約 1,500 架次無確認擊毀；2022 烏克蘭機動防空與海王星發射車多數存活；《阿共打來怎麼辦》第 1 章「飛彈洗地」",
+      "assumption": true,
+      "note": "對機動發射車（雄二／雄三機動型、魚叉岸防系統）每日可確認擊毀比例"
+    },
+    {
+      "id": "fire.coastalFixedShare",
+      "label": "岸置反艦飛彈中固定陣地比例",
+      "value": 0.4,
+      "range": [
+        0.3,
+        0.5
+      ],
+      "unit": "比例",
+      "source": "國防部公開：雄二／雄三部分部署於固定陣地（蘇澳、基隆等），魚叉岸防系統 100 套全為機動",
+      "assumption": true
+    },
+    {
+      "id": "fire.fixedSiteSurvival",
+      "label": "打擊後固定岸置陣地存活比例",
+      "value": 0.35,
+      "range": [
+        0.2,
+        0.5
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.46：火箭軍開局打擊固定目標；《阿共打來怎麼辦》：固定目標先被打",
+      "assumption": true
+    },
+    {
+      "id": "fire.redAirControl",
+      "label": "打擊後紅方海峽制空（美軍未介入）",
+      "value": 0.6,
+      "range": [
+        0.45,
+        0.75
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 基準情境：解放軍初期掌握台海上空但無法完全壓制",
+      "assumption": true
+    },
+    {
+      "id": "gate.strike.coastalMissilesMax",
+      "label": "可渡海的守方岸置飛彈剩餘上限",
+      "value": 0.7,
+      "range": [
+        0.6,
+        0.8
+      ],
+      "unit": "比例",
+      "source": "模型假設（HANDOFF §6.1）",
+      "assumption": true
+    },
+    {
+      "id": "cross.coastalLossPerTransit",
+      "label": "岸置飛彈滿額時每趟船團損失",
+      "value": 0.04,
+      "range": [
+        0.02,
+        0.07
+      ],
+      "unit": "比例/趟",
+      "source": "CSIS 2023 p.97（Taiwan stands alone）：台灣岸置反艦飛彈前 10 天擊沉 17 艘兩棲艦與 17 艘護航艦（各約 16%）；以每 2.5 天一趟、靠岸與返航另計半額折算，打擊後殘存 0.6 時每趟約 2–3%，滿額取 4%",
+      "assumption": false,
+      "note": "台灣岸置反艦飛彈：魚叉岸防系統 100 套／400 枚（2028 年底交付完畢）；雄二／雄三目標 2026 年底達 1,000 枚（年產 131 + 70）"
+    },
+    {
+      "id": "cross.subLossPerTransit",
+      "label": "潛艦每趟船團損失",
+      "value": 0.005,
+      "range": [
+        0.002,
+        0.01
+      ],
+      "unit": "比例/趟",
+      "source": "台灣現役潛艦 2 艘劍龍級 + 海鯤號；CSIS 2023 p.97 台灣單獨作戰的擊沉數已含潛艦貢獻",
+      "assumption": true
+    },
+    {
+      "id": "cross.airLossPerTransit",
+      "label": "空襲（守方殘存空軍）每趟船團損失",
+      "value": 0.01,
+      "range": [
+        0.005,
+        0.03
+      ],
+      "unit": "比例/趟",
+      "source": "CSIS 2023 p.46：台灣空軍多數在地面損失，殘存約 3 個中隊在佳山／志航；以 (1 − 紅方制空) 加權",
+      "assumption": true
+    },
+    {
+      "id": "cross.usMultiplier",
+      "label": "美軍介入後對台灣岸置／潛艦／空襲損耗的加成倍數",
+      "value": 1.2,
+      "range": [
+        1.0,
+        1.5
+      ],
+      "unit": "倍",
+      "source": "模型假設：美軍介入後台灣殘存兵力因偵察與制空改善而更有效；HANDOFF §6.2 原寫 ×1.6，CSIS 數據顯示美軍自身火力才是主因，故改為加法項（見 cross.usSubLossPerTransit）",
+      "assumption": true
+    },
+    {
+      "id": "cross.usSubLossPerTransit",
+      "label": "美軍介入後每趟船團額外損失（潛艦 + 遠程反艦飛彈）",
+      "value": 0.25,
+      "range": [
+        0.15,
+        0.4
+      ],
+      "unit": "比例/趟",
+      "source": "CSIS 2023 p.85–88：基準情境三局解放軍兩棲船團 ≥90% 在約 10–14 天（約 4 趟往返）內被擊沉；p.135：每艘美軍潛艦每回合擊沉 2 艘兩棲艦；LRASM 約 450 枚一週內用罄",
+      "assumption": false
+    },
+    {
+      "id": "cross.scatterLoss",
+      "label": "海況關閉時在航船團損失",
+      "value": 0.25,
+      "range": [
+        0.15,
+        0.4
+      ],
+      "unit": "比例",
+      "source": "模型假設：小型登陸艇與駁船在 6 級風以上無法作業",
+      "assumption": true
+    },
+    {
+      "id": "cross.maxDays",
+      "label": "渡海階段最長天數",
+      "value": 8,
+      "range": [
+        6,
+        10
+      ],
+      "unit": "天",
+      "source": "模型假設：超過即視為無法集中兵力",
+      "assumption": true
+    },
+    {
+      "id": "beach.requiredTroops",
+      "label": "建立灘頭堡所需上岸兵力",
+      "value": 14000,
+      "range": [
+        10000,
+        20000
+      ],
+      "unit": "人",
+      "source": "模型假設（HANDOFF §5.1）；對照 CSIS 2023 p.108：D 日約 8,000 人、3.5 天約 16,000 人上岸",
+      "assumption": true
+    },
+    {
+      "id": "beach.brigadeStrength",
+      "label": "守方聯兵旅有效人員",
+      "value": 3500,
+      "range": [
+        2500,
+        4500
+      ],
+      "unit": "人",
+      "source": "國防部聯兵旅編制（機步／裝甲旅約 3,000–4,000 人）；第八軍團約 18,000 人轄 2 聯兵旅 + 3 步兵旅",
+      "assumption": true
+    },
+    {
+      "id": "beach.reserveBrigadeStrength",
+      "label": "守方後備旅滿編人員",
+      "value": 3000,
+      "range": [
+        2000,
+        4000
+      ],
+      "unit": "人",
+      "source": "2024 教召分析：灘岸守備旅 5 步兵連 + 1 砲連；2024 動員 445 連約編制 44%，故滿編 3,000 取保守值",
+      "assumption": true
+    },
+    {
+      "id": "beach.defenderAdvantage",
+      "label": "守方工事與地形倍數",
+      "value": 1.5,
+      "range": [
+        1.2,
+        2.0
+      ],
+      "unit": "倍",
+      "source": "兵棋慣用 1.5–3 倍攻守比；取保守值",
+      "assumption": true
+    },
+    {
+      "id": "beach.heavyEquipFraction",
+      "label": "第一波重裝備上岸比例",
+      "value": 0.5,
+      "range": [
+        0.3,
+        0.7
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.47–48：首波以兩棲登陸為主、重裝須港口；《阿共打來怎麼辦》：民船加裝甲會吃掉載重",
+      "assumption": true
+    },
+    {
+      "id": "beach.hourlyExchangeRate",
+      "label": "灘頭戰每小時損耗係數",
+      "value": 0.004,
+      "range": [
+        0.002,
+        0.006
+      ],
+      "unit": "比例/小時",
+      "source": "模型假設（Lanchester 線性律係數）",
+      "assumption": true
+    },
+    {
+      "id": "beach.surfZoneLoss",
+      "label": "登陸艇穿越灘岸火網的兵力損失比例",
+      "value": 0.1,
+      "range": [
+        0.05,
+        0.2
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.66：台灣 2,093 門火砲約 60 個砲兵營；《阿共打來怎麼辦》：可登陸灘頭僅數百公尺寬；歷史：塔拉瓦首日約 30%、奧馬哈部分灘區逾 30%、整體作戰平均約 10%",
+      "note": "每批卸載兵力在換乘與衝灘時的損失；守方尚未展開（渡海階段）時減半",
+      "assumption": true
+    },
+    {
+      "id": "beach.reserveDepthCoef",
+      "label": "可同時投入主攻區灘頭的後備旅數上限",
+      "value": 3,
+      "range": [
+        2,
+        4
+      ],
+      "unit": "旅/區",
+      "source": "2024「全國案」：38 後備旅 = 12 灘岸守備 + 6 縱深 + 18 縣市 + 1 裝甲 + 1 機步（PTT Military 2024 教召分析、CNA 2020-10-07）；主攻區灘岸守備旅 3–4 個",
+      "note": "每區可投入的後備旅數 × 動員率",
+      "assumption": true
+    },
+    {
+      "id": "beach.reinforcementHours",
+      "label": "主攻區其餘常備旅全部到位所需小時",
+      "value": 48,
+      "range": [
+        24,
+        72
+      ],
+      "unit": "小時",
+      "source": "CSIS 2023 p.107–108：台灣約 46% 營與半數機械化部隊在北部三分之一；國防部聯兵旅部署（第六、十、八軍團）",
+      "note": "灘頭守備旅即時在位，軍團其餘旅依此時間線性到位",
+      "assumption": true
+    },
+    {
+      "id": "beach.holdHours",
+      "label": "灘頭堡須存活小時數",
+      "value": 48,
+      "range": [
+        48,
+        48
+      ],
+      "unit": "小時",
+      "source": "HANDOFF §6.1",
+      "assumption": true
+    },
+    {
+      "id": "regional.usEntryDay.delayed",
+      "label": "延遲介入的美軍打擊起始日",
+      "value": 7,
+      "range": [
+        5,
+        10
+      ],
+      "unit": "D+天",
+      "source": "PRD ③：延遲 D+7",
+      "assumption": true
+    },
+    {
+      "id": "regional.usEntryDay.immediate",
+      "label": "立即介入的美軍打擊起始日",
+      "value": 1,
+      "range": [
+        0,
+        2
+      ],
+      "unit": "D+天",
+      "source": "CSIS 2023 p.46：基準情境美軍即時參戰，D-30 中國信號、D-14 美台明確預警，仍可達成戰術奇襲",
+      "assumption": false
+    },
+    {
+      "id": "regional.japanSortieCoef.neutral",
+      "label": "日本中立時美軍出擊架次係數",
+      "value": 0.4,
+      "range": [
+        0.3,
+        0.5
+      ],
+      "unit": "倍",
+      "source": "CSIS 2023 p.98–99（Ragnarok）：日本嚴格中立時美軍僅能自關島與航母出擊，解放軍兩棲船團仍被台灣岸置飛彈與美軍潛艦削至三分之一",
+      "assumption": true
+    },
+    {
+      "id": "regional.japanSortieCoef.bases",
+      "label": "日本開放基地時係數",
+      "value": 1.0,
+      "range": [
+        1.0,
+        1.0
+      ],
+      "unit": "倍",
+      "source": "HANDOFF §5.1",
+      "assumption": true
+    },
+    {
+      "id": "regional.japanSortieCoef.belligerent",
+      "label": "日本參戰時係數",
+      "value": 1.2,
+      "range": [
+        1.1,
+        1.3
+      ],
+      "unit": "倍",
+      "source": "HANDOFF §5.1；CSIS 2023 樂觀情境",
+      "assumption": true
+    },
+    {
+      "id": "regional.usAirShare",
+      "label": "美軍介入後紅方制空下降幅度",
+      "value": 0.3,
+      "range": [
+        0.2,
+        0.45
+      ],
+      "unit": "比例",
+      "source": "CSIS 2023 p.87–88：美日空軍介入後解放軍損失 155–161 架；台海上空爭奪",
+      "assumption": true
+    },
+    {
+      "id": "regional.guamDistanceKm",
+      "label": "關島至台海距離",
+      "value": 2700,
+      "range": [
+        2700,
+        2700
+      ],
+      "unit": "公里",
+      "source": "地理事實",
+      "assumption": false
+    },
+    {
+      "id": "world.chipOutputAfterStrike",
+      "label": "打擊後台灣晶片產能",
+      "value": 0.1,
+      "range": [
+        0.02,
+        0.25
+      ],
+      "unit": "比例",
+      "source": "TrendForce 2023-12：台灣佔全球晶圓代工產能 46%、≤16/14 nm 68%、EUV 約 80%；SIA/BCG 2021：<10 nm 產能 92%；TrendForce：台積電 2024 年代工營收市佔 64.4%；戰時停工為模型假設",
+      "assumption": true
+    },
+    {
+      "id": "world.shippingRerouteMax",
+      "label": "海運改道比例上限",
+      "value": 0.8,
+      "range": [
+        0.6,
+        0.95
+      ],
+      "unit": "比例",
+      "source": "Bloomberg 2023-01：2022 年全球約 48% 貨櫃船隊、88% 最大型貨櫃船曾通過台灣海峽；改道上限為模型假設",
+      "assumption": true
+    },
+    {
+      "id": "world.energyPriceShock",
+      "label": "能源價格衝擊倍數",
+      "value": 1.4,
+      "range": [
+        1.2,
+        2.0
+      ],
+      "unit": "倍",
+      "source": "Bloomberg Economics 2024-01：台海戰爭使全球 GDP 損失約 10 兆美元（10%），封鎖約 5%；倍數為模型假設",
+      "assumption": true
+    },
+    {
+      "id": "world.marketShockMax",
+      "label": "市場最大跌幅",
+      "value": -0.25,
+      "range": [
+        -0.4,
+        -0.15
+      ],
+      "unit": "比例",
+      "source": "Rhodium Group 2022：封鎖造成全球逾 2 兆美元活動損失；Bloomberg Economics 2024；跌幅參考 2008（-50%）與 2020（-34%）取保守值",
+      "assumption": true
+    },
+    {
+      "id": "world.twEnergyDays",
+      "label": "台灣能源庫存天數（天然氣）",
+      "value": 11,
+      "range": [
+        8,
+        14
+      ],
+      "unit": "天",
+      "source": "《天然氣事業法》§31 與經濟部公告：天然氣安全存量 2025 年起 11 天、2027 年起 14 天；石油 90 天（《石油管理法》§24，業者 60 天）；煤約 30 天法定、實際 39–40 天",
+      "assumption": false
+    },
+    {
+      "id": "home.twFirmWorkers",
+      "label": "在陸台商雇用勞工數",
+      "value": 3000000,
+      "range": [
+        2000000,
+        10000000
+      ],
+      "unit": "人",
+      "source": "中華徵信所（海基會轉引）：2012 年高峰台商在陸雇用約 260 萬人；葉萬安估計台商創造逾 1,000 萬個工作；國台辦：2024 年新設台資企業 7,941 家；投審會：累計核准赴陸投資 42,009 件／1,646 億美元（2016 年底）",
+      "assumption": true
+    },
+    {
+      "id": "home.payrollDependence",
+      "label": "台商薪資對台灣匯入資金依存度",
+      "value": 0.4,
+      "range": [
+        0.2,
+        0.6
+      ],
+      "unit": "比例",
+      "source": "模型假設；主計總處 2024：海外工作者 66.6 萬人，其中 34.7% 在中港澳；台商薪資多以台灣母公司匯入與當地營收支付",
+      "assumption": true
+    },
+    {
+      "id": "home.shutdownRatePerDay",
+      "label": "沿海停工比例每日增量（開戰後）",
+      "value": 0.012,
+      "range": [
+        0.006,
+        0.02
+      ],
+      "unit": "比例/天",
+      "source": "模型假設；參考 2022 上海封城停工速度",
+      "assumption": true
+    },
+    {
+      "id": "home.shutdownHighTolMult",
+      "label": "高容忍時停工曲線倍數",
+      "value": 1.3,
+      "range": [
+        1.1,
+        1.6
+      ],
+      "unit": "倍",
+      "source": "HANDOFF §6.2",
+      "assumption": true
+    },
+    {
+      "id": "home.moraleStart",
+      "label": "開局士氣",
+      "value": 80,
+      "range": [
+        70,
+        90
+      ],
+      "unit": "點",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "home.moraleDecayPerDay",
+      "label": "開戰後士氣每日基礎衰減",
+      "value": 1.0,
+      "range": [
+        0.5,
+        2.0
+      ],
+      "unit": "點/天",
+      "source": "模型假設；校準：無軍事崩潰時高容忍約 D+35 前後跌破停止線，與 CSIS 2023 p.97 台灣單獨作戰打 70 天、基準局 14–35 天一致",
+      "assumption": true,
+      "note": "低容忍乘 home.lowTolMoraleMult，約 D+20 跌破停止線（「30 天內收尾」）"
+    },
+    {
+      "id": "home.moraleLossPerFleetLoss",
+      "label": "每 10% 船團損失的士氣扣減",
+      "value": 2,
+      "range": [
+        1,
+        4
+      ],
+      "unit": "點",
+      "source": "模型假設；1982 福克蘭與 2022 黑海艦隊重大損失皆未在數週內導致停戰，故取低值",
+      "assumption": true
+    },
+    {
+      "id": "home.lowTolMoraleMult",
+      "label": "低容忍時士氣衰減倍數",
+      "value": 1.6,
+      "range": [
+        1.3,
+        2.0
+      ],
+      "unit": "倍",
+      "source": "HANDOFF §6.2：低容忍 30 天內收尾",
+      "assumption": true
+    },
+    {
+      "id": "home.priceRisePerDay",
+      "label": "物價指數每日上升",
+      "value": 0.004,
+      "range": [
+        0.002,
+        0.008
+      ],
+      "unit": "比例/天",
+      "source": "模型假設",
+      "assumption": true
+    },
+    {
+      "id": "inland.supplyHitProbPerDay",
+      "label": "補給線每日被切斷機率（基準）",
+      "value": 0.15,
+      "range": [
+        0.08,
+        0.3
+      ],
+      "unit": "機率/天",
+      "source": "CSIS 2023：補給船團持續受攻擊",
+      "assumption": true
+    },
+    {
+      "id": "inland.supplyDaysRequired",
+      "label": "達成目標所需補給線存活天數",
+      "value": 7,
+      "range": [
+        7,
+        7
+      ],
+      "unit": "天",
+      "source": "HANDOFF §6.1",
+      "assumption": true
+    },
+    {
+      "id": "inland.moraleFloor",
+      "label": "直接結算的士氣下限",
+      "value": 25,
+      "range": [
+        25,
+        25
+      ],
+      "unit": "點",
+      "source": "HANDOFF §6.2",
+      "assumption": true
+    },
+    {
+      "id": "inland.moraleSlow",
+      "label": "補給累積減速的士氣門檻",
+      "value": 40,
+      "range": [
+        40,
+        40
+      ],
+      "unit": "點",
+      "source": "HANDOFF §6.2",
+      "assumption": true
+    },
+    {
+      "id": "inland.counterattackPerDay",
+      "label": "守方縱深反擊每日對登陸軍損耗",
+      "value": 0.03,
+      "range": [
+        0.015,
+        0.05
+      ],
+      "unit": "比例/天",
+      "source": "模型假設；以後備動員率加權",
+      "assumption": true
+    },
+    {
+      "id": "aux.penghu.liftCost",
+      "label": "先取澎湖扣除運量比例",
+      "value": 0.18,
+      "range": [
+        0.12,
+        0.25
+      ],
+      "unit": "比例",
+      "source": "HANDOFF §5.3；PRD ⑧",
+      "assumption": true
+    },
+    {
+      "id": "aux.penghu.warningDays",
+      "label": "先取澎湖多給守方預警天數",
+      "value": 2,
+      "range": [
+        1,
+        4
+      ],
+      "unit": "天",
+      "source": "HANDOFF §5.3",
+      "assumption": true
+    },
+    {
+      "id": "aux.eastFeint.liftCost",
+      "label": "東岸佯攻扣除運量比例",
+      "value": 0.12,
+      "range": [
+        0.08,
+        0.18
+      ],
+      "unit": "比例",
+      "source": "HANDOFF §5.3",
+      "assumption": true
+    },
+    {
+      "id": "aux.eastFeint.pinProb",
+      "label": "東岸佯攻拖住守方 1 旅的機率",
+      "value": 0.5,
+      "range": [
+        0.3,
+        0.7
+      ],
+      "unit": "機率",
+      "source": "模型假設",
+      "assumption": true
+    }
+  ]
+}

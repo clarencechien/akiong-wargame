@@ -1,0 +1,35 @@
+{
+  "note": "座標為 WGS84 經緯度。灘頭依 Easton 2017《The Chinese Invasion Threat》所列 14 處（自由時報 2020-07-16 轉引：金山北、金山南、林口、海湖、翡翠灣、福隆、頭城、壯圍、羅東、宜蘭、布袋、台南、林園、加祿堂）；Easton 未列花蓮／台東，另依 HANDOFF §5.3 補東岸 3 處（花蓮、台東，與蘭陽平原合併為東岸區）。守備旅數為對國防部公開部署的概估（assumption）。第一版引擎每區只用前兩處代表灘頭。",
+  "beaches": [
+    { "id": "linkou", "name": "林口", "coast": "west", "region": "north", "lonlat": [121.35, 25.2], "defBrigades": 2, "supplyable": true, "note": "距台北最近，背後是觀音山與林口台地；守備最厚" },
+    { "id": "haihu", "name": "海湖（蘆竹）", "coast": "west", "region": "north", "lonlat": [121.23, 25.1], "defBrigades": 1, "supplyable": true, "note": "鄰桃園機場與台北港" },
+    { "id": "jinshan-n", "name": "金山（北）", "coast": "west", "region": "north", "lonlat": [121.63, 25.23], "defBrigades": 1, "supplyable": true },
+    { "id": "jinshan-s", "name": "金山（南）", "coast": "west", "region": "north", "lonlat": [121.6, 25.21], "defBrigades": 1, "supplyable": true },
+    { "id": "feicuiwan", "name": "翡翠灣", "coast": "west", "region": "north", "lonlat": [121.68, 25.2], "defBrigades": 1, "supplyable": true },
+    { "id": "fulong", "name": "福隆", "coast": "west", "region": "north", "lonlat": [121.94, 25.02], "defBrigades": 1, "supplyable": true },
+    { "id": "budai", "name": "布袋", "coast": "west", "region": "central", "lonlat": [120.15, 23.38], "defBrigades": 1, "supplyable": true },
+    { "id": "taichung", "name": "台中港（大安）", "coast": "west", "region": "central", "lonlat": [120.5, 24.3], "defBrigades": 1, "supplyable": true, "note": "Easton 2021 奪港方案中唯一評為 High 的港口；漢光演習紅色海灘" },
+    { "id": "tainan", "name": "台南", "coast": "west", "region": "south", "lonlat": [120.13, 23.0], "defBrigades": 1, "supplyable": true, "note": "CSIS 2023 有一局在此登陸並奪港" },
+    { "id": "linyuan", "name": "林園", "coast": "west", "region": "south", "lonlat": [120.38, 22.5], "defBrigades": 1, "supplyable": true },
+    { "id": "jialutang", "name": "加祿堂（枋山）", "coast": "west", "region": "south", "lonlat": [120.64, 22.32], "defBrigades": 1, "supplyable": true },
+    { "id": "toucheng", "name": "頭城", "coast": "east", "region": "east", "lonlat": [121.83, 24.86], "defBrigades": 1, "supplyable": false, "note": "蘭陽平原；往台北須穿越雪山隧道與北宜公路" },
+    { "id": "yilan", "name": "宜蘭（壯圍、羅東）", "coast": "east", "region": "east", "lonlat": [121.8, 24.72], "defBrigades": 1, "supplyable": false, "note": "蘭陽平原三處灘頭合併" },
+    { "id": "hualien", "name": "花蓮", "coast": "east", "region": "east", "lonlat": [121.62, 24.0], "defBrigades": 1, "supplyable": false, "note": "背靠中央山脈，不可連通西部；Easton 2021 將花蓮港評為 Low" },
+    { "id": "taitung", "name": "台東", "coast": "east", "region": "east", "lonlat": [121.15, 22.75], "defBrigades": 1, "supplyable": false, "note": "背靠中央山脈，不可連通西部" }
+  ],
+  "regions": {
+    "north": { "name": "北部", "command": "第六軍團", "regularBrigades": 5, "reserveBrigades": 4, "distanceToCapitalKm": 25, "beaches": ["linkou", "haihu", "jinshan-n", "jinshan-s", "feicuiwan", "fulong"], "note": "聯兵 269／542／584 旅 + 關渡、蘭陽地區指揮部；灘岸守備後備旅 109／153／206／249；CSIS：台灣約 46% 營在北部三分之一" },
+    "central": { "name": "中部", "command": "第十軍團", "regularBrigades": 2, "reserveBrigades": 4, "distanceToCapitalKm": 150, "beaches": ["budai", "taichung"], "note": "聯兵 234／586 旅；灘岸守備後備旅 302／104／101／257" },
+    "south": { "name": "南部", "command": "第八軍團", "regularBrigades": 2, "reserveBrigades": 3, "distanceToCapitalKm": 300, "beaches": ["tainan", "linyuan", "jialutang"], "note": "聯兵 333／564 旅；灘岸守備後備旅 203／117／137；CSIS 24 局中 21 局選在南部登陸" },
+    "east": { "name": "東岸", "command": "花東防衛指揮部／蘭陽地區指揮部", "regularBrigades": 1, "reserveBrigades": 2, "distanceToCapitalKm": 120, "beaches": ["toucheng", "yilan", "hualien", "taitung"], "note": "花東防衛部約 6,000 人、僅營級單位；縣市後備旅（宜蘭、花蓮、台東）" }
+  },
+  "ports": [
+    { "id": "xiamen", "name": "廈門", "lonlat": [118.1, 24.4] },
+    { "id": "pingtan", "name": "平潭", "lonlat": [119.8, 25.5] },
+    { "id": "quanzhou", "name": "泉州", "lonlat": [118.6, 24.9] },
+    { "id": "shantou", "name": "汕頭", "lonlat": [116.7, 23.35] }
+  ],
+  "penghu": { "lonlat": [119.55, 23.55], "defBrigades": 1, "liftCost": 0.18, "defenderWarningDays": 2, "note": "澎湖防衛指揮部：步兵、裝甲、裝步、裝騎、混合砲兵各 1 營；CSIS 2023 p.109：3 局先取澎湖，皆為「作戰死胡同」" },
+  "eastFeint": { "liftCost": 0.12, "pinsBrigades": 1 },
+  "map": { "lon": [117, 126], "lat": [20.5, 27] }
+}

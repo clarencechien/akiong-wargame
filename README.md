@@ -6,8 +6,20 @@
 
 - 規格：[`docs/HANDOFF.md`](docs/HANDOFF.md)
 - 產品需求：[`docs/PRD.md`](docs/PRD.md)
+- 模型說明與校準紀錄：[`docs/model.md`](docs/model.md)
+- 理論基礎與資料來源：[`docs/sources.md`](docs/sources.md)（原始研究筆記在 [`docs/research/`](docs/research/)）
 - 畫面參考：[`docs/mockup/`](docs/mockup/)
+
+## 跑起來
+
+```bash
+npm install
+npm run sim -- --n 1000            # 基準假設 1,000 場，印分佈與 §5.2 驗收
+npm run sim -- --n 1000 --month 12 # 改假設：--month --scale --us --japan --reserve --econ --axis --aux
+npm run sim -- --events --seed 7   # 印一局的事件流
+npm test                           # 決定性、分佈、效能、參數庫格式
+```
 
 致敬《阿共打來怎麼辦》《再談阿共打來怎麼辦》兩位作者與軍事科普的目標。
 
-狀態：規格完成，尚未開工（M1 引擎骨架）。
+狀態：M1 引擎骨架完成（純 TypeScript 引擎 + CLI + 參數庫 102 筆全帶來源）。§5.2 驗收有一條與 CSIS 結果不一致，待規格方裁定，見 `docs/model.md` §3。下一步 M2／M3。

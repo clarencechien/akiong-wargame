@@ -1,0 +1,19 @@
+{
+  "name": "akiong-wargame",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "如果你是阿共，你要怎麼打過來？台海兵推教育版（單人、全本機）",
+  "scripts": {
+    "sim": "tsx src/cli/run.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
