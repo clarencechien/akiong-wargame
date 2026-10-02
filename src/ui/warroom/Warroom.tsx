@@ -218,6 +218,39 @@ export function Warroom({ onOrder }: { onOrder: () => void }) {
       </div>
 
       <div class="col" style="gap:14px">
+        <div class="order-block">
+        <div class="col" style="gap:6px">
+          <span class="lbl">模擬場數</span>
+          <div class="pills" role="radiogroup" aria-label="模擬場數">
+            {([1, 10, 100] as const)
+              .filter((n) => !(mobile && n === 100))
+              .map((n) => (
+                <button key={n} type="button" role="radio" aria-checked={runCount.value === n} class={`pill${runCount.value === n ? ' on' : ''}`} disabled={running.value} onClick={() => (runCount.value = n)}>
+                  {n}
+                </button>
+              ))}
+          </div>
+          <div class="muted" style="font-size:11px">100 場通常不到一分鐘，結果只存在這台裝置。</div>
+        </div>
+        <button type="button" class="order" disabled={running.value} onClick={onOrder} data-testid="order">
+          {running.value && progress.value ? (
+            <span class="mono">
+              {progress.value.done} / {progress.value.total}
+            </span>
+          ) : (
+            '下令'
+          )}
+        </button>
+        {running.value && progress.value && (
+          <div class="progress" aria-hidden="true">
+            <div style={{ width: `${(100 * progress.value.done) / progress.value.total}%` }} />
+          </div>
+        )}
+        {error.value && <div class="red" style="font-size:12px">{error.value}</div>}
+        <div class="muted" style="font-size:12px;text-align:center">按下後不能回頭。歷史也是。</div>
+        <div class="mono muted" style="font-size:11px;text-align:center">引擎 {ENGINE_VERSION} · 決定性 seed</div>
+      </div>
+        </div>
         <div class="card soft" style="gap:12px">
           <div class="lbl">開局前評估（依目前假設）</div>
           <div class="kv">
@@ -267,37 +300,6 @@ export function Warroom({ onOrder }: { onOrder: () => void }) {
           <div class="hr" />
           <div class="muted" style="font-size:12px;line-height:18px">按下令後會先在你的電腦上跑完所選場數，再播放其中一局。</div>
         </div>
-        <div class="col" style="gap:6px">
-          <span class="lbl">模擬場數</span>
-          <div class="pills" role="radiogroup" aria-label="模擬場數">
-            {([1, 10, 100] as const)
-              .filter((n) => !(mobile && n === 100))
-              .map((n) => (
-                <button key={n} type="button" role="radio" aria-checked={runCount.value === n} class={`pill${runCount.value === n ? ' on' : ''}`} disabled={running.value} onClick={() => (runCount.value = n)}>
-                  {n}
-                </button>
-              ))}
-          </div>
-          <div class="muted" style="font-size:11px">100 場通常不到一分鐘，結果只存在這台裝置。</div>
-        </div>
-        <button type="button" class="order" disabled={running.value} onClick={onOrder} data-testid="order">
-          {running.value && progress.value ? (
-            <span class="mono">
-              {progress.value.done} / {progress.value.total}
-            </span>
-          ) : (
-            '下令'
-          )}
-        </button>
-        {running.value && progress.value && (
-          <div class="progress" aria-hidden="true">
-            <div style={{ width: `${(100 * progress.value.done) / progress.value.total}%` }} />
-          </div>
-        )}
-        {error.value && <div class="red" style="font-size:12px">{error.value}</div>}
-        <div class="muted" style="font-size:12px;text-align:center">按下後不能回頭。歷史也是。</div>
-        <div class="mono muted" style="font-size:11px;text-align:center">引擎 {ENGINE_VERSION} · 決定性 seed</div>
-      </div>
     </div>
   );
 }

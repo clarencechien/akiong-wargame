@@ -59,7 +59,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .kv { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
 .kv > div { display: flex; justify-content: space-between; gap: 12px; }
 .hr { height: 1px; background: var(--rule); }
-.order { display: flex; align-items: center; justify-content: center; height: 56px; background: var(--red); color: var(--paper); font-size: 18px; font-weight: 700; letter-spacing: .3em; margin-top: auto; width: 100%; }
+.order { display: flex; align-items: center; justify-content: center; height: 56px; background: var(--red); color: var(--paper); font-size: 18px; font-weight: 700; letter-spacing: .3em; width: 100%; }
+.order-block { display: flex; flex-direction: column; gap: 10px; }
 .order:disabled { opacity: .6; cursor: progress; }
 .order .mono { letter-spacing: 0; font-size: 14px; font-weight: 500; }
 
@@ -295,4 +296,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .page.fit .sit-meta { display: flex; }
   .page.fit .tlabels span:nth-child(2), .page.fit .tlabels span:nth-child(5) { display: none; }
   .endcard { position: fixed; top: auto; bottom: 12px; left: 12px; right: 12px; width: auto; transform: none; }
+}
+
+@media (max-width: 720px) {
+  /* 手機：下令區塊固定在畫面底部，不用下捲 */
+  .order-block { position: sticky; bottom: 0; z-index: 5; background: var(--paper); padding: 10px 0 8px; border-top: 1px solid var(--rule); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+  .order-block .lbl, .order-block .muted:not(.mono) { display: none; }
+  .order-block .order { height: 48px; font-size: 16px; }
 }
