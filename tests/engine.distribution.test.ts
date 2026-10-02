@@ -7,17 +7,12 @@ import { sampleParams } from '../src/engine/params.js';
 import { mulberry32 } from '../src/engine/rng.js';
 
 /**
- * HANDOFF §5.2 分佈校準。基準假設跑 1,000 場：
- *   - 建立灘頭堡比例 10–30%
+ * HANDOFF §5.2 分佈校準（2026-10-02 版，ADR-0001）。基準假設跑 1,000 場：
+ *   - 穩固灘頭堡比例 5–30%（補給 ≥ 3 天且兵力 ≥ 所需；對應 CSIS「solid beachhead」）
+ *   - 登陸成功比例 ≥ 40% 且高於穩固灘頭堡比例
  *   - 30 天內達成戰略目標 < 10%
- *   - 中位終止日 D+5 到 D+12
- *
- * 目前模型（參數全部對照 CSIS 2023、Easton、DoD CMPR、中央氣象署校準，未調平衡係數）的結果：
- *   登陸成功（landing 門檻：存活 48 小時且第二波卸載）約 60%、穩固灘頭堡（補給 ≥ 3 天且兵力 ≥ 所需）約 9%、
- *   目標 < 1%、中位終止日 D+13。
- * 「灘頭堡 10–30%」與 CSIS 的結果不一致：CSIS 24 局解放軍每局都上得了岸，輸在船團被擊沉；
- * 本測試把 HANDOFF 原字面區間標為 skip（附量測值），另以目前的量級做回歸護欄，等規格方決定怎麼改 §5.2。
- * 細節見 docs/model.md §驗收解讀。
+ *   - 中位終止日 D+8 到 D+14
+ * 不在範圍 → 回 docs/model.md §4 校準紀錄補機制或修參數，不調係數。
  */
 const N = 1000;
 
@@ -35,47 +30,33 @@ describe('分佈校準（HANDOFF §5.2，基準假設 1,000 場）', () => {
   const landed = rate((o) => o.beachhead);
   const solid = rate((o) => o.solidBeachhead);
 
-  it('30 天內達成戰略目標比例 < 10%（HANDOFF 原字面）', () => {
-    expect(rate((o) => o.reason === 'objectiveReached')).toBeLessThan(0.1);
-  });
-
-  it.skip(`HANDOFF 原字面：建立灘頭堡比例 10–30%（量測：登陸成功 ${(landed * 100).toFixed(1)}%、穩固灘頭堡 ${(solid * 100).toFixed(1)}%；與 CSIS 不一致，待規格方裁定）`, () => {
-    expect(landed).toBeGreaterThanOrEqual(0.1);
-    expect(landed).toBeLessThanOrEqual(0.3);
-  });
-
-  it.skip(`HANDOFF 原字面：中位終止日 D+5 到 D+12（量測：D+${median}；CSIS 基準局 14 天結束）`, () => {
-    expect(median).toBeGreaterThanOrEqual(5);
-    expect(median).toBeLessThanOrEqual(12);
-  });
-
-  // 以下是目前模型量級的回歸護欄：參數或公式改動若讓分佈漂出去，要回頭看 docs/model.md 的校準紀錄。
-  it('回歸護欄：登陸成功 40–80%，穩固灘頭堡 3–30%', () => {
-    expect(landed).toBeGreaterThanOrEqual(0.4);
-    expect(landed).toBeLessThanOrEqual(0.8);
-    expect(solid).toBeGreaterThanOrEqual(0.03);
+  it('穩固灘頭堡比例落在 5–30%', () => {
+    expect(solid).toBeGreaterThanOrEqual(0.05);
     expect(solid).toBeLessThanOrEqual(0.3);
   });
 
-  it('回歸護欄：中位終止日 D+9 到 D+15', () => {
-    expect(median).toBeGreaterThanOrEqual(9);
-    expect(median).toBeLessThanOrEqual(15);
+  it('登陸成功比例 ≥ 40% 且高於穩固灘頭堡比例：失敗主因是維持不了，不是上不了岸', () => {
+    expect(landed).toBeGreaterThanOrEqual(0.4);
+    expect(landed).toBeGreaterThan(solid);
   });
 
-  it('登陸成功率高於穩固灘頭堡率：失敗主因是維持不了，不是上不了岸', () => {
-    expect(landed).toBeGreaterThan(solid);
+  it('30 天內達成戰略目標比例 < 10%', () => {
+    expect(rate((o) => o.reason === 'objectiveReached')).toBeLessThan(0.1);
+  });
+
+  it('中位終止日落在 D+8 到 D+14', () => {
+    expect(median).toBeGreaterThanOrEqual(8);
+    expect(median).toBeLessThanOrEqual(14);
   });
 
   it('基準局最大宗以船團被擊沉收場（CSIS 2023 p.84–87 的機制）', () => {
     const fleetBroken = rate((o) => o.failedBy === 'fleetBroken');
-    const others = Object.entries(
-      outcomes.reduce<Record<string, number>>((acc, o) => {
-        const k = o.failedBy ?? o.reason;
-        acc[k] = (acc[k] ?? 0) + 1;
-        return acc;
-      }, {}),
-    ).filter(([k]) => k !== 'fleetBroken');
-    for (const [, c] of others) expect(fleetBroken).toBeGreaterThan(c / outcomes.length);
+    const counts = outcomes.reduce<Record<string, number>>((acc, o) => {
+      const k = o.failedBy ?? o.reason;
+      acc[k] = (acc[k] ?? 0) + 1;
+      return acc;
+    }, {});
+    for (const [k, c] of Object.entries(counts)) if (k !== 'fleetBroken') expect(fleetBroken).toBeGreaterThan(c / outcomes.length);
     expect(fleetBroken).toBeGreaterThan(0.35);
   });
 });

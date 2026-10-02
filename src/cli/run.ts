@@ -109,10 +109,10 @@ if (values.json) {
   console.log(`假設：${JSON.stringify(a)}`);
   console.log(`場數：${n}　seed 起點：${seed0}　每場 ${sum.msPerRun.toFixed(2)} ms`);
   console.log('');
-  console.log(`登陸成功（灘頭堡存活 48 小時且第二波卸載）：${pct(sum.beachheadRate)}`);
-  console.log(`穩固灘頭堡（補給 ≥ 3 天且兵力 ≥ 所需）：${pct(sum.solidBeachheadRate)}　（驗收 10–30%，見 docs/model.md §驗收解讀）`);
+  console.log(`登陸成功（灘頭堡存活 48 小時且第二波卸載）：${pct(sum.beachheadRate)}　（驗收 ≥ 40% 且高於穩固灘頭堡）`);
+  console.log(`穩固灘頭堡（補給 ≥ 3 天且兵力 ≥ 所需）：${pct(sum.solidBeachheadRate)}　（驗收 5–30%，ADR-0001）`);
   console.log(`30 天內達成戰略目標：${pct(sum.objectiveRate)}　（驗收 < 10%）`);
-  console.log(`終止日中位數：D+${sum.medianEndDay}　P10 D+${sum.p10EndDay}　P90 D+${sum.p90EndDay}　（驗收中位 D+5 到 D+12）`);
+  console.log(`終止日中位數：D+${sum.medianEndDay}　P10 D+${sum.p10EndDay}　P90 D+${sum.p90EndDay}　（驗收中位 D+8 到 D+14）`);
   console.log(`平均船團損失：${pct(sum.meanFleetLoss)}`);
   console.log('');
   console.log('止於階段：');
@@ -130,10 +130,11 @@ if (values.json) {
     const bar = '█'.repeat(Math.round((c / maxC) * 40));
     console.log(`  ${(Number(d) < 0 ? `D${d}` : `D+${d}`).padStart(5)} ${String(c).padStart(5)} ${bar}`);
   }
-  const ok1 = sum.solidBeachheadRate >= 0.1 && sum.solidBeachheadRate <= 0.3;
+  const ok1 = sum.solidBeachheadRate >= 0.05 && sum.solidBeachheadRate <= 0.3;
+  const ok1b = sum.beachheadRate >= 0.4 && sum.beachheadRate > sum.solidBeachheadRate;
   const ok2 = sum.objectiveRate < 0.1;
-  const ok3 = sum.medianEndDay >= 5 && sum.medianEndDay <= 12;
+  const ok3 = sum.medianEndDay >= 8 && sum.medianEndDay <= 14;
   console.log('');
-  console.log(`§5.2 驗收：穩固灘頭堡 ${ok1 ? '✓' : '✗'}　目標 ${ok2 ? '✓' : '✗'}　中位日 ${ok3 ? '✓' : '✗'}`);
-  if (!values.quiet) process.exitCode = ok1 && ok2 && ok3 ? 0 : 1;
+  console.log(`§5.2 驗收：穩固灘頭堡 ${ok1 ? '✓' : '✗'}　登陸成功 ${ok1b ? '✓' : '✗'}　目標 ${ok2 ? '✓' : '✗'}　中位日 ${ok3 ? '✓' : '✗'}`);
+  if (!values.quiet) process.exitCode = ok1 && ok1b && ok2 && ok3 ? 0 : 1;
 }
