@@ -362,7 +362,7 @@ run(assumptions, seed):
 | M1 引擎骨架 | types、rng、五階段、門檻、四層最小耦合、CLI 跑 1,000 場印分佈 | §5.2 區間過（2026-10-02 完成，見 `docs/model.md`） |
 | M2 參數庫 | `params.json` 全部帶 source/range；`geography.json` | 無 `assumption:true` 以外的空 source（2026-10-02 完成，`npm run check:params`） |
 | M3 作戰室 + worker pool | 八假設、情報評估、下令、進度 | 100 場 < 60 s（2026-10-02 完成，`npm run smoke` 量測約 0.3 s） |
-| M4 戰情室 | 地圖、儀表、時間軸、事件流（先無聲音） | 可播完一局 |
+| M4 戰情室 | 地圖、儀表、時間軸、事件流（先無聲音） | 可播完一局（2026-10-02 完成，`npm run smoke` 播放、跳到結局、拖時間軸） |
 | M5 聲音 | 30 人、模板、觸發、交錯 | voices.test 過 |
 | M6 史書 | 章節、分享卡、事件簿、直方圖、如果重來 | narrative.test 過 |
 | M7 來源頁 + 上線 | 參數表、現實面的考量初稿、致謝；Cloudflare Pages | 1.0 |

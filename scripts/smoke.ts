@@ -38,12 +38,28 @@ try {
   await page.screenshot({ path: 'docs/screenshots/01-warroom.png' });
   const t0 = Date.now();
   await page.getByTestId('order').click();
-  await page.locator('.situation-stub').waitFor({ timeout: 60_000 });
+  await page.locator('.situation').waitFor({ timeout: 60_000 });
   const ms = Date.now() - t0;
-  const eventsCount = await page.locator('.events .e').count();
-  await page.screenshot({ path: 'docs/screenshots/02-situation-stub.png' });
+  // 戰情室：播放 → 事件增加；跳到結局 → 門檻框變結局；時間軸可拖
+  const before = await page.locator('.feed .vc').count();
+  await page.getByTestId('speed').click(); // ×16
+  await page.getByTestId('play').click();
+  // 集結期事件稀疏，等到事件數增加（最多 20 s）
+  await page.waitForFunction((n) => document.querySelectorAll('.feed .vc').length > n, before, { timeout: 20_000 });
+  const during = await page.locator('.feed .vc').count();
+  const pos = Number(await page.locator('#tl').inputValue());
+  if (pos <= 0) throw new Error('播放後時間軸沒有前進');
+  await page.screenshot({ path: 'docs/screenshots/02-situation.png' });
+  await page.getByTestId('jump-end').click();
+  await page.locator('.gatebox', { hasText: '結局' }).waitFor({ timeout: 5000 });
+  const eventsCount = await page.locator('.feed .vc').count();
+  await page.locator('#tl').fill('0');
+  const back = await page.locator('.feed .vc').count();
+  if (back >= eventsCount) throw new Error('拖回時間軸起點後事件沒有減少');
+  await page.locator('#tl').fill(String(await page.locator('#tl').getAttribute('max')));
+  await page.screenshot({ path: 'docs/screenshots/02-situation-end.png' });
   await browser.close();
-  console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則；頁面錯誤 ${errors.length} 個`);
+  console.log(`100 場 ${(ms / 1000).toFixed(1)} s（驗收 < 60 s）；第 1 局事件 ${eventsCount} 則（播放中 ${before} → ${during}）；頁面錯誤 ${errors.length} 個`);
   for (const e of errors) console.log('  ' + e);
   if (ms >= 60_000 || eventsCount < 5 || errors.length > 0) process.exitCode = 1;
 } finally {

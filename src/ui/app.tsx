@@ -1,5 +1,5 @@
 import { Warroom } from './warroom/Warroom.tsx';
-import { SituationStub } from './situation/SituationStub.tsx';
+import { Situation } from './situation/Situation.tsx';
 import { assumptions, batch, error, progress, runCount, runIndex, running, screen, type Screen } from './state.ts';
 import { runBatch } from '../worker/pool.js';
 import { ENGINE_VERSION } from '../engine/simulate.js';
@@ -37,7 +37,7 @@ function NavLink({ to, label }: { to: Screen; label: string }) {
 export function App() {
   return (
     <div class="page">
-      <header class="hdr">
+      <header class={`hdr${screen.value === 'situation' ? ' compact' : ''}`}>
         <div style="display:flex;flex-direction:column;gap:6px">
           <div class="lbl">台海兵推 · 教育版 · 第一版（單人 · 全本機運算 · 不上傳任何資料）</div>
           <h1>如果你是阿共，你要怎麼打過來？</h1>
@@ -50,7 +50,7 @@ export function App() {
         </nav>
       </header>
       {screen.value === 'warroom' && <Warroom onOrder={() => void order()} />}
-      {screen.value === 'situation' && <SituationStub />}
+      {screen.value === 'situation' && <Situation />}
       {screen.value === 'chronicle' && <div style="padding:22px 40px">史書在 M6。</div>}
       {screen.value === 'sources' && <div style="padding:22px 40px">資料來源頁在 M7；目前見 repo 的 docs/sources.md 與 docs/realism.md。</div>}
       <footer class="ftr">
